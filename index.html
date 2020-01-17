@@ -11,30 +11,39 @@
 </head>
 <body>
     <div class="container mx-auto bg-blue-600 py-4">
-        <h1 class="text-3xl mx-4">Stons</h1>
+        <h1 class="text-3xl mx-4 text-white">Stons</h1>
     </div>
 
-        <h2 class="text-base my-5">Next Game:<span id="startDate" class="mx-2"></span></h2>
-        <div id="nextGameContainer" class="border border-gray-300 rounded mx-4 my-4 text-lg flex justify-between max-w-sm md:max-w-lg lg:max-w-xl mx-auto">
+        <h2 class="text-sm my-5 max-w-sm md:max-w-lg lg:max-w-xl mx-auto">Next Game:<span id="startDate" class="mx-2 text-base"></span></h2>
+
+        <div id="nextGameContainer" class="shadow-md rounded mx-4 my-4 text-lg flex justify-between max-w-sm md:max-w-lg lg:max-w-xl mx-auto">
+
             <div id="homeContainer" class="flex flex-col items-center py-4 pl-4">
                 <img id="homeTeamLogo" class="w-12 h-12"></img>
                 <div id="homeTeamDiv" class=""></div>
             </div>
+
+            <div id="homeTeamScore" class="text-4xl py-3">108</div>
+
             <div id="timeLeft" class="flex flex-col items-center">
                 <p class="text-xs">Quarter: <span id="quarter"></span></p>
                 <div id="remainingTime"></div>
             </div>
+
+            <div id="visitorTeamScore" class="text-4xl py-3">120</div>
+
                 <!-- <span id="startTime" class="text-base"></span> -->
             <div id="visitorContainer" class="flex flex-col py-4 pr-4">
                 <img id="visitorTeamLogo" class="w-12 h-12"></img>
                 <div id="visitorTeamDiv" class=""></div>
             </div>
-    </div>
+
+        </div>
 
 
 
     
-<!-- <script src="./dayjs.js"></script> -->
+<script src="./dayjs.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>
