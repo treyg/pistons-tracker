@@ -64,10 +64,10 @@
   .then((pistonsJSON) => {
     //Set the JSON data for games to a variable
     const pistonsData = pistonsJSON.team
-    console.log(pistonsData)
+    
     
     const nextGame = pistonsData.nextEvent
-    console.log(nextGame)
+    
 
     //create function to show upcoming or current game
     const showNextGameData = () => {
@@ -95,10 +95,7 @@
         } else {
 
         }
-        console.log(quarter.textContent)
-        
-
-                    
+                   
       //Set visitor team div to display visitor team name
       let visitorTeamDiv = document.getElementById('visitorTeamDiv')
           visitorTeamDiv.textContent = `${nextGame[0].competitions[0].competitors[1].team.shortDisplayName}`
