@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NBA</title>
+
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container mx-auto bg-blue-600 py-4">
+        <h1 class="text-3xl mx-4">Stons</h1>
+    </div>
+
+        <h2 class="text-base mx-4 my-4">Next Game:<span id="startDate" class="mx-2"></span></h2>
+        <div id="nextGameContainer" class="mx-4 my-4 text-lg flex justify-between">
+            <div id="homeContainer" class="flex flex-col">
+                <img id="homeTeamLogo" class="w-12 h-12"></img>
+                <div id="homeTeamDiv" class=""></div>
+            </div>
+                <!-- <span id="startTime" class="text-base"></span> -->
+            <div id="visitorContainer" class="flex flex-col ">
+                <img id="visitorTeamLogo" class="w-12 h-12"></img>
+                <div id="visitorTeamDiv" class=""></div>
+            </div>
+    </div>
+
+
+
+    
+<script src="./dayjs.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
