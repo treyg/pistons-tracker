@@ -14,14 +14,18 @@
         <h1 class="text-3xl mx-4">Stons</h1>
     </div>
 
-        <h2 class="text-base mx-4 my-4">Next Game:<span id="startDate" class="mx-2"></span></h2>
-        <div id="nextGameContainer" class="mx-4 my-4 text-lg flex justify-between">
-            <div id="homeContainer" class="flex flex-col">
+        <h2 class="text-base max-w-md mx-auto my-5">Next Game:<span id="startDate" class="mx-2"></span></h2>
+        <div id="nextGameContainer" class="border border-gray-300 rounded mx-4 my-4 text-lg flex justify-between max-w-md mx-auto">
+            <div id="homeContainer" class="flex flex-col items-center py-4 pl-4">
                 <img id="homeTeamLogo" class="w-12 h-12"></img>
                 <div id="homeTeamDiv" class=""></div>
             </div>
+            <div id="timeLeft" class="flex flex-col items-center">
+                <p class="text-xs">Quarter: <span id="quarter"></span></p>
+                <div id="remainingTime"></div>
+            </div>
                 <!-- <span id="startTime" class="text-base"></span> -->
-            <div id="visitorContainer" class="flex flex-col ">
+            <div id="visitorContainer" class="flex flex-col py-4 pr-4">
                 <img id="visitorTeamLogo" class="w-12 h-12"></img>
                 <div id="visitorTeamDiv" class=""></div>
             </div>

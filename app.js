@@ -71,21 +71,35 @@
 
     //create function to show upcoming or current game
     const showNextGameData = () => {
+      //let startTime = document.getElementById('startTime')
+      let startDate = document.getElementById('startDate')
+          startDate.textContent = nextGame[0].competitions[0].status.type.shortDetail
+      
+      //Set home team div to display home team name
       let homeTeamDiv = document.getElementById('homeTeamDiv')
           homeTeamDiv.textContent = nextGame[0].competitions[0].competitors[0].team.shortDisplayName
       //create img element using home teams logo and append to home team div
       let homeTeamLogo = document.getElementById('homeTeamLogo')
           homeTeamLogo.src = nextGame[0].competitions[0].competitors[0].team.logos[0].href
+      
+      //Set quarter and clock
+      let quarter = document.getElementById('quarter')
+          quarter.textContent = nextGame[0].competitions[0].status.period
+      let remainingTime = document.getElementById('remainingTime')
+          remainingTime.textContent = nextGame[0].competitions[0].status.displayClock
+
+      //Hide time remaining if game hasn't started yet
+      let timeLeft = document.getElementById('timeLeft')
+        if (quarter.textContent = '0') {
+          timeLeft.style.display = 'none'
+        } else {
+
+        }
+        console.log(quarter.textContent)
         
 
-        //let startTime = document.getElementById('startTime')
-          let startDate = document.getElementById('startDate')
-              //Format the day and date for next game using dayjs
-              // startDate.textContent = dayjs(nextGame[0].).add(1, 'day').format('dddd M/DD')
-              startDate.textContent = nextGame[0].competitions[0].status.type.shortDetail
-              //startTime.textContent = `${}`
                     
-
+      //Set visitor team div to display visitor team name
       let visitorTeamDiv = document.getElementById('visitorTeamDiv')
           visitorTeamDiv.textContent = `${nextGame[0].competitions[0].competitors[1].team.shortDisplayName}`
       let visitorTeamLogo = document.getElementById('visitorTeamLogo')
