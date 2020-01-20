@@ -10,17 +10,17 @@
     //Set the JSON data for games to a variable
     const pistonsData = pistonsJSON.team
     
+    //console.log(pistonsData)
     
     const nextGame = pistonsData.nextEvent
-    
     const competitors = nextGame[0].competitions[0].competitors
-    console.log(nextGame)
+    //console.log(nextGame)
 
     //create function to show upcoming or current game
     const showNextGameData = () => {
       //let startTime = document.getElementById('startTime')
       let startDate = document.getElementById('startDate')
-          startDate.textContent = dayjs(nextGame[0].competitions[0].date).format('dddd h:m')
+          startDate.textContent = dayjs(nextGame[0].competitions[0].date).format('dddd h:mm')
       
       //Set home team div to display home team name
       let homeTeamDiv = document.getElementById('homeTeamDiv')
@@ -43,7 +43,6 @@
           remainingTime.textContent = nextGame[0].competitions[0].status.displayClock
 
       //Hide time remaining if game hasn't started yet
-      let timeLeft = document.getElementById('timeLeft')
         if (quarter.textContent = '0') {
           quarter.textContent = ""
         }
@@ -72,41 +71,74 @@
 
 
 
+  const PISTONS_GAMES_URL = 'https://www.balldontlie.io/api/v1/games?seasons[]=2019&team_ids[]=9&per_page=82'
 
-
-  
-// const SCORES_URL = 'http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard'
-
-//   fetch(SCORES_URL)
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((scoresJSON) => {
+  fetch(PISTONS_GAMES_URL)
+  .then((response) => {
+    return response.json();
+  })
+  .then((stonsGamesJSON) => {
     //Set the JSON data for games to a variable
-    // const scoreData = scoresJSON
-    // console.log(scoreData)
+    const stonsGamesData = stonsGamesJSON.data
 
-    //filter score data for current day to return games that include DET
-    // const todaysStonGame = scoreData.events.filter(game => {
-    //   return game.shortName.includes('DET')
-    // })
+    //Sort pistons games to be in  order starting at beginning of the season
+    const sortedStonsGames = stonsGamesData.sort((a,b) => a.id > b.id ? 1 : -1)
+    console.log(sortedStonsGames)
 
-    // console.table(todaysStonGame)
+    //Show pistons game that have already been played and reverse the order to show the most recent game first
+    const completedTenStonsGames = sortedStonsGames.reverse().filter(games => games.status == 'Final')
+    console.log(completedTenStonsGames)
+
+    const latestGame = () => {
+      let homeTeamSection = document.getElementById('homeTeamSection')
+          homeTeamSection.textContent = `${completedTenStonsGames[0].home_team.name} ${completedTenStonsGames[0].home_team_score}`
+    }
+
+    latestGame()
+
+  });
 
 
-    // const todaysGame = () => {
-    // let hometeamDiv2 = document.getElementById('homeTeamDiv2')
-    //     hometeamDiv2.textContent = `${todaysStonGame}`
 
-    //   let startTime2 = document.getElementById('startTime2')
-    //   let startDate2 = document.getElementById('startDate2')
-    //       startDate2.textContent = dayjs(nextGame.date).format('MM/DD')
-    //       startTime2.textContent = `${nextGame.status}`
-          
-    //   let visitorteamDiv2 = document.getElementById('visitorTeamDiv')
-    //       visitorteamDiv2.textContent = `${nextGame.visitor_team.name}`
-    // }
+  // const SCOREBOARD_URL = 'http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard'
+
+  // fetch(SCOREBOARD_URL)
+  // .then((response) => {
+  //   return response.json();
+  // })
+  // .then((scoreboardJSON) => {
+  //   //Set the JSON data for games to a variable
+  //   const scoreboardData = scoreboardJSON
+  //   console.log(scoreboardData)
 
 
   // });
+  
+
+
+
+
+
+
+
+
+  
+const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news'
+
+  fetch(NEWS_URL)
+  .then((response) => {
+    return response.json();
+  })
+  .then((newsJSON) => {
+    //Set the JSON data for games to a variable
+    const newsData = newsJSON.articles
+    
+
+
+    const stonsNews = newsData.filter( el => {
+      return el.categories.find(c => c.teamId == 1);
+  })
+    //console.log(stonsNews)
+
+  });
   
