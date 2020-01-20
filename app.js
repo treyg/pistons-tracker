@@ -18,7 +18,7 @@
     const checkForLiveGame = () => {
       if (nextGame[0].competitions[0].status.type.description === 'Final') {
         let preview = document.getElementById('preview')
-        preview.style.display = 'none'
+            preview.style.display = 'none'
       }
     }
     checkForLiveGame()
