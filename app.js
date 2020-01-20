@@ -10,11 +10,18 @@
     //Set the JSON data for games to a variable
     const pistonsData = pistonsJSON.team
     
-    //console.log(pistonsData)
     
     const nextGame = pistonsData.nextEvent
-    const competitors = nextGame[0].competitions[0].competitors
-    //console.log(nextGame)
+    const competitors = nextGame[0].competitions[0].competitors 
+   
+    // Run function to check for a live game and hide the game preview if the game is live or completed
+    const checkForLiveGame = () => {
+      if (nextGame[0].competitions[0].status.type.description === 'Final') {
+        let preview = document.getElementById('preview')
+        preview.style.display = 'none'
+      }
+    }
+    checkForLiveGame()
 
     //create function to show upcoming or current game
     const showNextGameData = () => {
@@ -34,8 +41,7 @@
           if (homeTeamScore.textContent = 'false') {
               homeTeamScore.textContent = '00'
           }
-          
-          
+           
       //Set quarter and clock
       let quarter = document.getElementById('quarter')
           quarter.textContent = nextGame[0].competitions[0].status.period
@@ -51,7 +57,7 @@
       let visitorTeamDiv = document.getElementById('visitorTeamDiv')
           visitorTeamDiv.textContent = competitors[1].team.shortDisplayName
       let visitorTeamLogo = document.getElementById('visitorTeamLogo')
-          visitorTeamLogo.src = competitors[1].team.logos[0].href
+          visitorTeamLogo.src = `${competitors[1].team.logos[0].href}`
 
       //Set visitor score
       let visitorTeamScore = document.getElementById('visitorTeamScore')
@@ -59,6 +65,11 @@
           if (visitorTeamScore.textContent = 'false') {
             visitorTeamScore.textContent = '00'
           } 
+
+          if (nextGame[0].competitions[0].status.type.description) {
+              let preview = document.getElementById('preview')
+              preview.style.display = 'none'
+          }
         
     }
 
@@ -83,11 +94,11 @@
 
     //Sort pistons games to be in  order starting at beginning of the season
     const sortedStonsGames = stonsGamesData.sort((a,b) => a.id > b.id ? 1 : -1)
-    console.log(sortedStonsGames)
+    //console.log(sortedStonsGames)
 
     //Show pistons game that have already been played and reverse the order to show the most recent game first
     const completedTenStonsGames = sortedStonsGames.reverse().filter(games => games.status == 'Final')
-    console.log(completedTenStonsGames)
+    //console.log(completedTenStonsGames)
 
     const latestGame = () => {
       let homeTeamSection = document.getElementById('homeTeamSection')
@@ -100,19 +111,62 @@
 
 
 
-  // const SCOREBOARD_URL = 'http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard'
 
-  // fetch(SCOREBOARD_URL)
-  // .then((response) => {
-  //   return response.json();
-  // })
-  // .then((scoreboardJSON) => {
-  //   //Set the JSON data for games to a variable
-  //   const scoreboardData = scoreboardJSON
-  //   console.log(scoreboardData)
+  const SCOREBOARD_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard'
+
+  fetch(SCOREBOARD_URL)
+  .then((response) => {
+    return response.json();
+  })
+  .then((scoreboardJSON) => {
+    //Set the JSON data for games to a variable
+    const scoreboardData = scoreboardJSON
+    const livePistonsGame = scoreboardData.events.filter(games => games.shortName.includes('DET'))
+    console.log(livePistonsGame)
+
+    //get live score and time for current game
+    const showCurrentGame = () => {
+
+      let todaysGameStatus = document.getElementById('todaysGameStatus')
+
+      //Check if game is live or finished 
+        if(livePistonsGame[0].status.type.name === 'STATUS_IN_PROGRESS') {
+            todaysGameStatus.textContent = 'LIVE NOW'
+            todaysGameStatus.classList.add = 'text-red-600'
+        } else if (livePistonsGame[0].status.type.completed === true) {
+            todaysGameStatus.textContent = 'FINAL'
+         } 
+
+      let liveHomeTeamLogo = document.getElementById('liveHomeTeamLogo')
+          liveHomeTeamLogo.src = livePistonsGame[0].competitions[0].competitors[0].team.logo
+      let liveHomeTeamDiv = document.getElementById('liveHomeTeamDiv')
+          liveHomeTeamDiv.textContent = livePistonsGame[0].competitions[0].competitors[0].team.name
+      let liveHomeTeamScore = document.getElementById('liveHomeTeamScore')
+          liveHomeTeamScore.textContent = `${livePistonsGame[0].competitions[0].competitors[0].score}`
+
+        //Set quarter and clock
+      let liveQuarter = document.getElementById('liveQuarter')
+          liveQuarter.textContent = livePistonsGame[0].status.period
+      let liveRemainingTime = document.getElementById('liveRemainingTime')
+          liveRemainingTime.textContent = livePistonsGame[0].status.displayClock
+
+      let liveVisitorTeamLogo = document.getElementById('liveVisitorTeamLogo')
+          liveVisitorTeamLogo.src = livePistonsGame[0].competitions[0].competitors[1].team.logo
+      let liveVisitorTeamDiv = document.getElementById('liveVisitorTeamDiv')
+          liveVisitorTeamDiv.textContent = livePistonsGame[0].competitions[0].competitors[1].team.name
+      let liveVisitorTeamScore = document.getElementById('liveVisitorTeamScore')
+          liveVisitorTeamScore.textContent = `${livePistonsGame[0].competitions[0].competitors[1].score}`
 
 
-  // });
+
+
+   
+    }
+
+    showCurrentGame()
+
+    
+  });
   
 
 
