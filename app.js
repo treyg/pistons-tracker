@@ -79,7 +79,7 @@
   });
   
 
-
+const time = 'yoooo'
 
 
   const PISTONS_GAMES_URL = 'https://www.balldontlie.io/api/v1/games?seasons[]=2019&team_ids[]=9&per_page=82'
@@ -97,13 +97,35 @@
     //console.log(sortedStonsGames)
 
     //Show pistons game that have already been played and reverse the order to show the most recent game first
-    const completedTenStonsGames = sortedStonsGames.reverse().filter(games => games.status == 'Final')
-    //console.log(completedTenStonsGames)
+    const completedStonsGames = sortedStonsGames.reverse().filter(games => games.status == 'Final')
+  
+
+console.log(completedStonsGames)
 
     const latestGame = () => {
-      let homeTeamSection = document.getElementById('homeTeamSection')
-          homeTeamSection.textContent = `${completedTenStonsGames[0].home_team.name} ${completedTenStonsGames[0].home_team_score}`
-    }
+
+      const firstGameSection = document.getElementById('firstGameSection')
+      
+      let secondGameSection = document.createElement('div')
+          firstGameSection.appendChild(secondGameSection)
+          secondGameSection.innerHTML = `
+          <div  id="secondGame" class="bg-white flex flex-col mx-4 my-4 text-lg sm:max-w-md md:max-w-lg lg:max-w-xl">
+            <div id="homeTeamSection2" class="flex flex-row justify-between">${completedStonsGames[0].home_team.name} <span>${completedStonsGames[0].home_team_score}</span></div>
+            <div id="awayTeamSection2" class="flex flex-row justify-between">${completedStonsGames[0].visitor_team.name} <span>${completedStonsGames[0].visitor_team_score}</span></div>
+          </div>
+                `
+
+      let thirdGameSection = document.createElement('div')
+          secondGameSection.appendChild(thirdGameSection)
+          thirdGameSection.innerHTML = `
+          <div  id="secondGame" class="bg-white border-t-2 pt-4 borderflex flex-col mx-4 my-4 text-lg sm:max-w-md md:max-w-lg lg:max-w-xl">
+            <div id="homeTeamSection2" class="flex flex-row justify-between">${completedStonsGames[1].home_team.name} <span>${completedStonsGames[1].home_team_score}</span></div>
+            <div id="awayTeamSection2" class="flex flex-row justify-between">${completedStonsGames[1].visitor_team.name} <span>${completedStonsGames[1].visitor_team_score}</span></div>
+          </div>
+            ` 
+
+   
+        }
 
     latestGame()
 
@@ -196,3 +218,9 @@ const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/n
 
   });
   
+
+
+  //Javascript to toggle the menu
+  document.getElementById('nav-toggle').onclick = function(){
+    document.getElementById("nav-content").classList.toggle("hidden");
+  }
