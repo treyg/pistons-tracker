@@ -1,5 +1,10 @@
 
 
+  //Javascript to toggle the menu
+  document.getElementById('nav-toggle').onclick = function(){
+    document.getElementById("nav-content").classList.toggle("hidden");
+  }
+  
   const PISTONS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/8'
 
   fetch(PISTONS_URL)
@@ -219,8 +224,3 @@ const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/n
   });
   
 
-
-  //Javascript to toggle the menu
-  document.getElementById('nav-toggle').onclick = function(){
-    document.getElementById("nav-content").classList.toggle("hidden");
-  }
