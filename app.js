@@ -5,6 +5,7 @@
     document.getElementById("nav-content").classList.toggle("hidden");
   }
   
+  //Get data for info about detroit pistons
   const PISTONS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/8'
 
   fetch(PISTONS_URL)
@@ -14,11 +15,10 @@
   .then((pistonsJSON) => {
     //Set the JSON data for games to a variable
     const pistonsData = pistonsJSON.team
-    
-    
+    //Set variable for next game data
     const nextGame = pistonsData.nextEvent
     const competitors = nextGame[0].competitions[0].competitors 
-   
+     console.log(nextGame)
     // Run function to check for a live game and hide the game preview if the game is live or completed
     const checkForLiveGame = () => {
       if (nextGame[0].competitions[0].status.type.description === 'Final') {
@@ -70,11 +70,6 @@
           if (visitorTeamScore.textContent = 'false') {
             visitorTeamScore.textContent = '00'
           } 
-
-          if (nextGame[0].competitions[0].status.type.description) {
-              let preview = document.getElementById('preview')
-              preview.style.display = 'none'
-          }
         
     }
 
@@ -84,9 +79,9 @@
   });
   
 
-const time = 'yoooo'
 
 
+// Set data for showing last 10 pistons games
   const PISTONS_GAMES_URL = 'https://www.balldontlie.io/api/v1/games?seasons[]=2019&team_ids[]=9&per_page=82'
 
   fetch(PISTONS_GAMES_URL)
@@ -99,46 +94,51 @@ const time = 'yoooo'
 
     //Sort pistons games to be in  order starting at beginning of the season
     const sortedStonsGames = stonsGamesData.sort((a,b) => a.id > b.id ? 1 : -1)
-    //console.log(sortedStonsGames)
 
     //Show pistons game that have already been played and reverse the order to show the most recent game first
     const completedStonsGames = sortedStonsGames.reverse().filter(games => games.status == 'Final')
   
 
-console.log(completedStonsGames)
+    const latestGames = () => {
+      let gameSections = document.getElementById('gameSections')
+  
+      for (let i = 0; i < 10; i++) {
+        
+        let homeTeamSection = document.createElement('div')
+            gameSections.appendChild(homeTeamSection)
+        let homeName = document.createElement('div')
+            homeName.textContent = `${completedStonsGames[i].home_team.name}`
+            homeTeamSection.appendChild(homeName)
+        let homeScore = document.createElement('span')
+            homeScore.textContent = ` ${completedStonsGames[i].home_team_score}`
+            homeScore.classList.add('float-right')
+            homeName.appendChild(homeScore);
+            
+            
 
-    const latestGame = () => {
+          let visitorTeamSection = document.createElement('div')
+              homeTeamSection.appendChild(visitorTeamSection)
+          let visitorName = document.createElement('div')
+              visitorName.textContent = `${completedStonsGames[i].visitor_team.name}`
+              visitorTeamSection.appendChild(visitorName)
+          let visitorScore = document.createElement('span')
+              visitorScore.textContent = ` ${completedStonsGames[i].visitor_team_score}`
+              //visitorScore.classList.add('inline-flex', 'justify-between', 'border', 'border-2', 'border-black')
+              visitorName.appendChild(visitorScore);
+              visitorScore.classList.add('float-right')
+              visitorTeamSection.classList.add('border-b','border-gray-400', 'pb-2','mb-2')
+              //visitorScore.classList.add('inline-flex', )
 
-      const firstGameSection = document.getElementById('firstGameSection')
-      
-      let secondGameSection = document.createElement('div')
-          firstGameSection.appendChild(secondGameSection)
-          secondGameSection.innerHTML = `
-          <div  id="secondGame" class="bg-white flex flex-col mx-4 my-4 text-lg sm:max-w-md md:max-w-lg lg:max-w-xl">
-            <div id="homeTeamSection2" class="flex flex-row justify-between">${completedStonsGames[0].home_team.name} <span>${completedStonsGames[0].home_team_score}</span></div>
-            <div id="awayTeamSection2" class="flex flex-row justify-between">${completedStonsGames[0].visitor_team.name} <span>${completedStonsGames[0].visitor_team_score}</span></div>
-          </div>
-                `
+      }
+  }
 
-      let thirdGameSection = document.createElement('div')
-          secondGameSection.appendChild(thirdGameSection)
-          thirdGameSection.innerHTML = `
-          <div  id="secondGame" class="bg-white border-t-2 pt-4 borderflex flex-col mx-4 my-4 text-lg sm:max-w-md md:max-w-lg lg:max-w-xl">
-            <div id="homeTeamSection2" class="flex flex-row justify-between">${completedStonsGames[1].home_team.name} <span>${completedStonsGames[1].home_team_score}</span></div>
-            <div id="awayTeamSection2" class="flex flex-row justify-between">${completedStonsGames[1].visitor_team.name} <span>${completedStonsGames[1].visitor_team_score}</span></div>
-          </div>
-            ` 
-
-   
-        }
-
-    latestGame()
+    latestGames()
 
   });
 
 
 
-
+// Get data for all NBA scores for the day, then filter to only include pistons games
   const SCOREBOARD_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard'
 
   fetch(SCOREBOARD_URL)
@@ -151,7 +151,10 @@ console.log(completedStonsGames)
     const livePistonsGame = scoreboardData.events.filter(games => games.shortName.includes('DET'))
     console.log(livePistonsGame)
 
-    //get live score and time for current game
+ 
+    //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
+    if(livePistonsGame.length > 0) {
+      //get live score and time for current game
     const showCurrentGame = () => {
 
       let todaysGameStatus = document.getElementById('todaysGameStatus')
@@ -184,20 +187,18 @@ console.log(completedStonsGames)
       let liveVisitorTeamScore = document.getElementById('liveVisitorTeamScore')
           liveVisitorTeamScore.textContent = `${livePistonsGame[0].competitions[0].competitors[1].score}`
 
-
-
-
-   
-    }
-
+    } 
     showCurrentGame()
 
+    } else {
+        let currentEventContainer = document.getElementById('currentEventContainer')
+          currentEventContainer.style.display = 'none'
+    }
+
+    
     
   });
   
-
-
-
 
 
 
@@ -213,13 +214,23 @@ const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/n
   .then((newsJSON) => {
     //Set the JSON data for games to a variable
     const newsData = newsJSON.articles
-    
-
 
     const stonsNews = newsData.filter( el => {
-      return el.categories.find(c => c.teamId == 1);
-  })
-    //console.log(stonsNews)
+      return el.categories.find(c => c.teamId == 6);
+    })
+    console.log(stonsNews)
+
+    const showStonsNews = () => {
+      let stonsNewsImage = document.getElementById('stonsNewsImage')
+          stonsNewsImage.src = stonsNews[0].images[0].url
+      let stonsNewsTitle = document.getElementById('stonsNewsTitle')
+          stonsNewsTitle.textContent = stonsNews[0].headline
+      let stonsNewsDescription = document.getElementById('stonsNewsDescription')
+          stonsNewsDescription.textContent = stonsNews[0].description
+      
+        }
+     showStonsNews()
+
 
   });
   

@@ -15,7 +15,7 @@
 	<nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0" style="background-color: #1D42BA;">
 		<div class="flex items-center flex-shrink-0 text-white mr-6">
 			<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
-				<span class="text-2xl pl-2"><i class="em em-grinning"></i> Stons Center</span>
+				<span class="text-2xl pl-2"><i class="em em-grinning"></i>StonsCenter</span>
 			</a>
 		</div>
 
@@ -51,7 +51,7 @@
 <!-- End Nav section -->
 
     <div id="preview" class="bg-white shadow-md border border-gray-200 rounded mx-4 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl ">
-      <div id="startDate" class="mx-2 text-base py-4 pl-4"></div>
+      <h2 id="startDate" class="text-lg font-semibold tracking-wide py-4 pl-4"></h2>
 
         <div id="nextGameContainer" class=" text-lg flex justify-between">
 
@@ -60,14 +60,14 @@
                 <div id="homeTeamDiv" class=""></div>
             </div>
 
-            <div id="homeTeamScore" class="text-4xl py-3">108</div>
+            <div id="homeTeamScore" class="text-4xl py-3"></div>
 
             <div id="timeLeft" class="flex flex-col items-center">
                 <p class="text-xs">Quarter: <span id="quarter"></span></p>
                 <div id="remainingTime"></div>
             </div>
 
-            <div id="visitorTeamScore" class="text-4xl py-3">120</div>
+            <div id="visitorTeamScore" class="text-4xl py-3"></div>
 
                 <!-- <span id="startTime" class="text-base"></span> -->
             <div id="visitorContainer" class="flex flex-col py-4 pr-4">
@@ -84,7 +84,7 @@
 
     
     <div id="currentEventContainer" class="bg-white shadow-md border border-gray-200 rounded mx-4 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl ">
-        <div id="todaysGameStatus" class="mx-2 text-base py-4 pl-4 font-semibold"></div>
+        <div id="todaysGameStatus" class="mx-2 text-base py-4 pl-4 font-medium"></div>
   
           <div id="liveGameContainer" class=" text-lg flex justify-between">
   
@@ -115,10 +115,33 @@
 
     <!-- Last ten games section -->
 
-    <div id="firstGameSection" class="bg-white shadow-md border border-gray-200 rounded mx-4 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl "></div>
-        
+    <div id="gameSections" class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-4 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl ">
+        <div id="lastTen" class="pb-4 text-lg font-medium tracking-wide ">Last 10 Games</div>
+
+    </div>
+
+<!-- section for pistons news -->
+
+<div class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-4 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl ">
+    <div id="stonsHeader" class="pb-4 text-lg font-medium tracking-wide ">Pistons News</div>
 
     
+    <div id = "stonsNewsSection" class="bg-white shadow-md border border-gray-200 rounded my-2 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl ">
+        <img id='stonsNewsImage' class="w-full" alt="Pistons News Img">
+        <div class="px-4 py-4">
+            <div id = "stonsNewsTitle" class="font-bold text-xl mb-2"></div>
+            <p id="stonsNewsDescription" class="text-gray-700 text-base">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+            </p>
+        </div>
+        <!-- <div class="px-6 py-4">
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
+        </div> -->
+    </div>
+    
+</div>
 
     
 <script src="./dayjs.js"></script>
