@@ -19,6 +19,7 @@
     const nextGame = pistonsData.nextEvent
     const competitors = nextGame[0].competitions[0].competitors 
      console.log(nextGame)
+     
     // Run function to check for a live game and hide the game preview if the game is live or completed
     const checkForLiveGame = () => {
       if (nextGame[0].competitions[0].status.type.description === 'Final') {
@@ -102,7 +103,7 @@
     const latestGames = () => {
       let gameSections = document.getElementById('gameSections')
   
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 5; i++) {
         
         let homeTeamSection = document.createElement('div')
             gameSections.appendChild(homeTeamSection)
@@ -114,20 +115,18 @@
             homeScore.classList.add('float-right')
             homeName.appendChild(homeScore);
             
-            
 
-          let visitorTeamSection = document.createElement('div')
-              homeTeamSection.appendChild(visitorTeamSection)
-          let visitorName = document.createElement('div')
-              visitorName.textContent = `${completedStonsGames[i].visitor_team.name}`
-              visitorTeamSection.appendChild(visitorName)
-          let visitorScore = document.createElement('span')
-              visitorScore.textContent = ` ${completedStonsGames[i].visitor_team_score}`
-              //visitorScore.classList.add('inline-flex', 'justify-between', 'border', 'border-2', 'border-black')
-              visitorName.appendChild(visitorScore);
-              visitorScore.classList.add('float-right')
-              visitorTeamSection.classList.add('border-b','border-gray-400', 'pb-2','mb-2')
-              //visitorScore.classList.add('inline-flex', )
+        let visitorTeamSection = document.createElement('div')
+            homeTeamSection.appendChild(visitorTeamSection)
+        let visitorName = document.createElement('div')
+            visitorName.textContent = `${completedStonsGames[i].visitor_team.name}`
+            visitorTeamSection.appendChild(visitorName)
+        let visitorScore = document.createElement('span')
+            visitorScore.textContent = ` ${completedStonsGames[i].visitor_team_score}`
+            visitorName.appendChild(visitorScore);
+            visitorScore.classList.add('float-right')
+            visitorTeamSection.classList.add('border-b','border-gray-400', 'pb-2','mb-2')
+            
 
       }
   }
@@ -149,11 +148,11 @@
     //Set the JSON data for games to a variable
     const scoreboardData = scoreboardJSON
     const livePistonsGame = scoreboardData.events.filter(games => games.shortName.includes('DET'))
-    console.log(livePistonsGame)
+    console.log(livePistonsGame[0].status)
 
  
     //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
-    if(livePistonsGame.length > 0) {
+    if(livePistonsGame[0].status.period >= 1 ) {
       //get live score and time for current game
     const showCurrentGame = () => {
 
@@ -205,7 +204,50 @@
 
 
   
-const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news'
+// const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news'
+
+//   fetch(NEWS_URL)
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((newsJSON) => {
+//     //Set the JSON data for games to a variable
+//     const newsData = newsJSON.articles
+//     console.log(newsData)
+
+
+//     const stonsNews = newsData.filter(el => {
+//        return el.categories.find(c => c.teamId == 8);
+//     })
+
+//     console.log(stonsNews)
+    
+
+//     const showStonsNews = () => {
+    
+
+//           let stonsNewsImage = document.getElementById('stonsNewsImage')
+//               stonsNewsImage.src = stonsNews[0].images[0].url
+//           let stonsNewsTitle = document.getElementById('stonsNewsTitle')
+//               stonsNewsTitle.textContent = stonsNews[0].headline
+//           let stonsNewsDescription = document.getElementById('stonsNewsDescription')
+//               stonsNewsDescription.textContent = stonsNews[0].description
+        
+      
+//         }
+
+//      showStonsNews()
+
+
+//   });
+  
+
+
+
+
+
+//const api = `e62be0b1d96ef0fbe18f8039ad5d0a82`
+const NEWS_URL = 'https://gnews.io/api/v3/search?q=detroit pistons&token=e62be0b1d96ef0fbe18f8039ad5d0a82'
 
   fetch(NEWS_URL)
   .then((response) => {
@@ -213,26 +255,58 @@ const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/n
   })
   .then((newsJSON) => {
     //Set the JSON data for games to a variable
-    const newsData = newsJSON.articles
-
-    const stonsNews = newsData.filter( el => {
-      return el.categories.find(c => c.teamId == 6);
-    })
-    
+    const stonsNews = newsJSON.articles
     console.log(stonsNews)
 
     const showStonsNews = () => {
-      let stonsNewsImage = document.getElementById('stonsNewsImage')
-          stonsNewsImage.src = stonsNews[0].images[0].url
-      let stonsNewsTitle = document.getElementById('stonsNewsTitle')
-          stonsNewsTitle.textContent = stonsNews[0].headline
-      let stonsNewsDescription = document.getElementById('stonsNewsDescription')
-          stonsNewsDescription.textContent = stonsNews[0].description
+      let pistonsNewsSection = document.getElementById('pistonsNewsSection')
       
-        }
-     showStonsNews()
+      for (let i = 0; i < 5; i++) {
+     
+        let imgContainer = document.createElement('div')
+        pistonsNewsSection.appendChild(imgContainer)
+
+          let stonsNewsImage = document.createElement('img')
+          stonsNewsImage.src = `${stonsNews[i].image}`
+          stonsNewsImage.classList.add('mt-4', 'w-full')
+          imgContainer.appendChild(stonsNewsImage)
+
+          let stonsNewsTitle = document.createElement('div')
+          stonsNewsTitle.textContent = `${stonsNews[i].title}`
+          stonsNewsTitle.classList.add('my-2', 'font-semibold', 'text-md')
+          pistonsNewsSection.appendChild(stonsNewsTitle)
+
+          let stonsNewsDescription = document.createElement('p')
+          stonsNewsDescription.textContent = `${stonsNews[i].description}`
+          stonsNewsDescription.classList.add('my-1', 'text-base') 
+          pistonsNewsSection.appendChild(stonsNewsDescription)  
+        
+          }
+  
+    }
+
+  showStonsNews()
+
+
 
 
   });
   
 
+
+
+  
+  // const showLeagueNews = () => {
+    
+  //   for (let i = 0; i < 9; i++) {
+  //        let stonsNewsImage = document.getElementById('stonsNewsImage')
+  //            stonsNewsImage.src = stonsNews[i].images[i].url
+  //        let stonsNewsTitle = document.getElementById('stonsNewsTitle')
+  //            stonsNewsTitle.textContent = stonsNews[i].headline
+  //        let stonsNewsDescription = document.getElementById('stonsNewsDescription')
+  //            stonsNewsDescription.textContent = stonsNews[i].description
+  //        }
+     
+  //      }
+
+  //   showLeagueNews()
