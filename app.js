@@ -218,6 +218,7 @@ const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/n
     const stonsNews = newsData.filter( el => {
       return el.categories.find(c => c.teamId == 6);
     })
+    
     console.log(stonsNews)
 
     const showStonsNews = () => {
