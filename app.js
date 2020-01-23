@@ -22,7 +22,7 @@
      
     // Run function to check for a live game and hide the game preview if the game is live or completed
     const checkForLiveGame = () => {
-      if (nextGame[0].competitions[0].status.type.description === 'Final') {
+      if (nextGame[0].competitions[0].status.type.description === 'Final' || nextGame[0].competitions[0].status.type.state == 'in') {
         let preview = document.getElementById('preview')
             preview.style.display = 'none'
       }
@@ -261,7 +261,7 @@ const NEWS_URL = 'https://gnews.io/api/v3/search?q=detroit pistons&token=e62be0b
     const showStonsNews = () => {
       let pistonsNewsSection = document.getElementById('pistonsNewsSection')
       
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
      
         let imgContainer = document.createElement('div')
         pistonsNewsSection.appendChild(imgContainer)
