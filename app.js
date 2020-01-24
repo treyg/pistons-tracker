@@ -148,11 +148,11 @@
     //Set the JSON data for games to a variable
     const scoreboardData = scoreboardJSON
     const livePistonsGame = scoreboardData.events.filter(games => games.shortName.includes('DET'))
-    console.log(livePistonsGame[0].status)
+    console.log(livePistonsGame)
 
  
     //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
-    if(livePistonsGame[0].status.period >= 1 ) {
+    if(livePistonsGame.legth > 1 ) {
       //get live score and time for current game
     const showCurrentGame = () => {
 
@@ -164,7 +164,9 @@
             todaysGameStatus.classList.add = 'text-red-600'
         } else if (livePistonsGame[0].status.type.completed === true) {
             todaysGameStatus.textContent = 'FINAL'
-         } 
+         } else if (livePistonsGame.length == 0) {
+           todaysGameStatus.style.display = 'none'
+         }
 
       let liveHomeTeamLogo = document.getElementById('liveHomeTeamLogo')
           liveHomeTeamLogo.src = livePistonsGame[0].competitions[0].competitors[0].team.logo
@@ -202,7 +204,7 @@
 
 
 
-
+//news for pistons  - only shows one story and is usually unpopulated
   
 // const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news'
 
@@ -246,8 +248,12 @@
 
 
 
-//const api = `e62be0b1d96ef0fbe18f8039ad5d0a82`
-const NEWS_URL = 'https://gnews.io/api/v3/search?q=detroit pistons&token=e62be0b1d96ef0fbe18f8039ad5d0a82'
+
+//const NEWS_URL = 'https://gnews.io/api/v3/search?q=detroit pistons&token=e62be0b1d96ef0fbe18f8039ad5d0a82'
+
+
+
+const NEWS_URL = 'https://api.pistons-news.cognitiveservices.azure.com/bing/v7.0?${api}'
 
   fetch(NEWS_URL)
   .then((response) => {
@@ -261,7 +267,7 @@ const NEWS_URL = 'https://gnews.io/api/v3/search?q=detroit pistons&token=e62be0b
     const showStonsNews = () => {
       let pistonsNewsSection = document.getElementById('pistonsNewsSection')
       
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 5; i++) {
      
         let imgContainer = document.createElement('div')
         pistonsNewsSection.appendChild(imgContainer)
