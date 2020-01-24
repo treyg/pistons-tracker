@@ -82,58 +82,6 @@
 
 
 
-// Set data for showing last 10 pistons games
-  const PISTONS_GAMES_URL = 'https://www.balldontlie.io/api/v1/games?seasons[]=2019&team_ids[]=9&per_page=82'
-
-  fetch(PISTONS_GAMES_URL)
-  .then((response) => {
-    return response.json();
-  })
-  .then((stonsGamesJSON) => {
-    //Set the JSON data for games to a variable
-    const stonsGamesData = stonsGamesJSON.data
-
-    //Sort pistons games to be in  order starting at beginning of the season
-    const sortedStonsGames = stonsGamesData.sort((a,b) => a.id > b.id ? 1 : -1)
-
-    //Show pistons game that have already been played and reverse the order to show the most recent game first
-    const completedStonsGames = sortedStonsGames.reverse().filter(games => games.status == 'Final')
-  
-
-    const latestGames = () => {
-      let gameSections = document.getElementById('gameSections')
-  
-      for (let i = 0; i < 5; i++) {
-        
-        let homeTeamSection = document.createElement('div')
-            gameSections.appendChild(homeTeamSection)
-        let homeName = document.createElement('div')
-            homeName.textContent = `${completedStonsGames[i].home_team.name}`
-            homeTeamSection.appendChild(homeName)
-        let homeScore = document.createElement('span')
-            homeScore.textContent = ` ${completedStonsGames[i].home_team_score}`
-            homeScore.classList.add('float-right')
-            homeName.appendChild(homeScore);
-            
-
-        let visitorTeamSection = document.createElement('div')
-            homeTeamSection.appendChild(visitorTeamSection)
-        let visitorName = document.createElement('div')
-            visitorName.textContent = `${completedStonsGames[i].visitor_team.name}`
-            visitorTeamSection.appendChild(visitorName)
-        let visitorScore = document.createElement('span')
-            visitorScore.textContent = ` ${completedStonsGames[i].visitor_team_score}`
-            visitorName.appendChild(visitorScore);
-            visitorScore.classList.add('float-right')
-            visitorTeamSection.classList.add('border-b','border-gray-400', 'pb-2','mb-2')
-            
-
-      }
-  }
-
-    latestGames()
-
-  });
 
 
 
@@ -199,6 +147,83 @@
     
     
   });
+
+
+
+  //news for pistons  - only shows one story and is usually unpopulated
+  
+// const PISTONS_STATS = 'https://www.balldontlie.io/api/v1/stats?seasons=[]2019&per_page=100'
+
+//   fetch(PISTONS_STATS)
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((statsJSON) => {
+//     //Set the JSON data for games to a variable
+//     const stats = statsJSON.data
+//     console.table(stats)
+
+  
+
+//   });
+  
+
+
+
+
+  // Set data for showing last 5 pistons games
+  const PISTONS_GAMES_URL = 'https://www.balldontlie.io/api/v1/games?seasons[]=2019&team_ids[]=9&per_page=82'
+
+  fetch(PISTONS_GAMES_URL)
+  .then((response) => {
+    return response.json();
+  })
+  .then((stonsGamesJSON) => {
+    //Set the JSON data for games to a variable
+    const stonsGamesData = stonsGamesJSON.data
+
+    //Sort pistons games to be in  order starting at beginning of the season
+    const sortedStonsGames = stonsGamesData.sort((a,b) => a.id > b.id ? 1 : -1)
+
+    //Show pistons game that have already been played and reverse the order to show the most recent game first
+    const completedStonsGames = sortedStonsGames.reverse().filter(games => games.status == 'Final')
+  
+
+    const latestGames = () => {
+      let gameSections = document.getElementById('gameSections')
+  
+      for (let i = 0; i < 5; i++) {
+        
+        let homeTeamSection = document.createElement('div')
+            gameSections.appendChild(homeTeamSection)
+        let homeName = document.createElement('div')
+            homeName.textContent = `${completedStonsGames[i].home_team.name}`
+            homeTeamSection.appendChild(homeName)
+        let homeScore = document.createElement('span')
+            homeScore.textContent = ` ${completedStonsGames[i].home_team_score}`
+            homeScore.classList.add('float-right')
+            homeName.appendChild(homeScore);
+            
+
+        let visitorTeamSection = document.createElement('div')
+            homeTeamSection.appendChild(visitorTeamSection)
+        let visitorName = document.createElement('div')
+            visitorName.textContent = `${completedStonsGames[i].visitor_team.name}`
+            visitorTeamSection.appendChild(visitorName)
+        let visitorScore = document.createElement('span')
+            visitorScore.textContent = ` ${completedStonsGames[i].visitor_team_score}`
+            visitorName.appendChild(visitorScore);
+            visitorScore.classList.add('float-right')
+            visitorTeamSection.classList.add('border-b','border-gray-400', 'pb-2','mb-2')
+            
+
+      }
+  }
+
+    latestGames()
+
+  });
+
   
 
 
@@ -251,11 +276,18 @@
 
 //const NEWS_URL = 'https://gnews.io/api/v3/search?q=detroit pistons&token=e62be0b1d96ef0fbe18f8039ad5d0a82'
 
+//const api = `21b177ecd55041b2b5174de15bafc241`
 
+const api = '21b177ecd55041b2b5174de15bafc241';
+const requestHeaders = {
+    headers: {
+      'Ocp-Apim-Subscription-Key': api,
+    },
+};
 
-const NEWS_URL = 'https://api.pistons-news.cognitiveservices.azure.com/bing/v7.0?${api}'
+const NEWS_URL = 'https://api.pistons-news.cognitiveservices.azure.com/bing/v7.0/news'
 
-  fetch(NEWS_URL)
+  fetch(NEWS_URL, requestHeaders )
   .then((response) => {
     return response.json();
   })
