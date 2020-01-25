@@ -308,7 +308,7 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=pi
 
           let stonsNewsImage = document.createElement('img')
           stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`
-          stonsNewsImage.classList.add('mt-4', 'w-1/4')
+          stonsNewsImage.classList.add('mt-4', 'w-16', 'h-16')
           imgContainer.appendChild(stonsNewsImage)
 
           let stonsNewsTitle = document.createElement('div')
