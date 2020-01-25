@@ -271,10 +271,6 @@
   
 
 
-
-
-
-
 //const NEWS_URL = 'https://gnews.io/api/v3/search?q=detroit pistons&token=e62be0b1d96ef0fbe18f8039ad5d0a82'
 
 //const api = `21b177ecd55041b2b5174de15bafc241`
@@ -311,9 +307,9 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=pi
           stonsNewsImage.classList.add('ml-3', 'w-16', 'h-16')
           imgContainer.appendChild(stonsNewsImage)
 
-          let stonsNewsTitle = document.createElement('div')
+          let stonsNewsTitle = document.createElement('span')
           stonsNewsTitle.textContent = `${stonsNews[i].name}`
-          stonsNewsTitle.classList.add('mx-3', 'font-md', 'text-xl')
+          stonsNewsTitle.classList.add('inline','mx-3', 'font-md', 'text-xl')
           imgContainer.appendChild(stonsNewsTitle)
 
           let stonsNewsProvider = document.createElement('p')
@@ -321,10 +317,10 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=pi
           stonsNewsProvider.classList.add('text-xs', 'mx-3', 'text-gray-800', 'pt-1')
           imgContainer.appendChild(stonsNewsProvider)
 
-          let stonsNewsDescription = document.createElement('p')
-          stonsNewsDescription.textContent = `${stonsNews[i].description}`
-          stonsNewsDescription.classList.add('my-1', 'mx-3', 'text-base') 
-        imgContainer.appendChild(stonsNewsDescription)  
+        //   let stonsNewsDescription = document.createElement('p')
+        //   stonsNewsDescription.textContent = `${stonsNews[i].description}`
+        //   stonsNewsDescription.classList.add('my-1', 'mx-3', 'text-base') 
+        // imgContainer.appendChild(stonsNewsDescription)  
         
           }
   
