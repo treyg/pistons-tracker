@@ -104,7 +104,7 @@
       //get live score and time for current game
     const showCurrentGame = () => {
 
-      let todaysGameStatus = document.getElementById('todaysGameStatus')
+      let currentEventContainer = document.getElementById('currentEventContainer')
 
       //Check if game is live or finished 
         if(livePistonsGame[0].status.type.name === 'STATUS_IN_PROGRESS') {
@@ -112,8 +112,8 @@
             todaysGameStatus.classList.add = 'text-red-600'
         } else if (livePistonsGame[0].status.type.completed === true) {
             todaysGameStatus.textContent = 'FINAL'
-         } else if (livePistonsGame.length == 0) {
-           todaysGameStatus.style.display = 'none'
+         } else if (livePistonsGame[0].status.type.name === "STATUS_SCHEDULED") {
+           currentEventContainer.style.display = 'none'
          }
 
       let liveHomeTeamLogo = document.getElementById('liveHomeTeamLogo')
