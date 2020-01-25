@@ -301,30 +301,30 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=pi
       let pistonsNewsSection = document.getElementById('pistonsNewsSection')
       
       for (let i = 0; i < 10; i++) {
-     
+        
         let imgContainer = document.createElement('div')
         pistonsNewsSection.appendChild(imgContainer)
-          imgContainer.classList.add('flex', 'flex-row', 'align-text-middle', 'py-4')
+          imgContainer.classList.add('flex', 'flex-col', 'align-text-middle', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded')
 
           let stonsNewsImage = document.createElement('img')
           stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`
-          stonsNewsImage.classList.add('mt-4', 'w-16', 'h-16')
+          stonsNewsImage.classList.add('ml-3', 'w-16', 'h-16')
           imgContainer.appendChild(stonsNewsImage)
 
           let stonsNewsTitle = document.createElement('div')
           stonsNewsTitle.textContent = `${stonsNews[i].name}`
-          stonsNewsTitle.classList.add('my-2', 'font-semibold', 'text-md', 'pl-3')
+          stonsNewsTitle.classList.add('mx-3', 'font-md', 'text-xl')
           imgContainer.appendChild(stonsNewsTitle)
 
           let stonsNewsProvider = document.createElement('p')
           stonsNewsProvider.textContent = `${stonsNews[i].provider[0].name} | ${dayjs(stonsNews[i].datePublished).format('dddd MMM DD')}`
-          stonsNewsProvider.classList.add('text-xs', 'text-gray-800', 'pt-1')
-          stonsNewsTitle.appendChild(stonsNewsProvider)
+          stonsNewsProvider.classList.add('text-xs', 'mx-3', 'text-gray-800', 'pt-1')
+          imgContainer.appendChild(stonsNewsProvider)
 
           let stonsNewsDescription = document.createElement('p')
           stonsNewsDescription.textContent = `${stonsNews[i].description}`
-          stonsNewsDescription.classList.add('my-1', 'text-base', 'pb-6','border-b','border-gray-400') 
-          pistonsNewsSection.appendChild(stonsNewsDescription)  
+          stonsNewsDescription.classList.add('my-1', 'mx-3', 'text-base') 
+        imgContainer.appendChild(stonsNewsDescription)  
         
           }
   
