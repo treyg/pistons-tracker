@@ -100,7 +100,7 @@
 
  
     //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
-    if(livePistonsGame.legth > 1 ) {
+    if(livePistonsGame.legth !=0 ) {
       //get live score and time for current game
     const showCurrentGame = () => {
 
@@ -142,6 +142,7 @@
     } else {
         let currentEventContainer = document.getElementById('currentEventContainer')
           currentEventContainer.style.display = 'none'
+
     }
 
     
@@ -279,44 +280,50 @@
 //const api = `21b177ecd55041b2b5174de15bafc241`
 
 const api = '21b177ecd55041b2b5174de15bafc241';
-const requestHeaders = {
+const requestOptions = {
     headers: {
       'Ocp-Apim-Subscription-Key': api,
     },
 };
 
-const NEWS_URL = 'https://api.pistons-news.cognitiveservices.azure.com/bing/v7.0/news'
+const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=pistons'
 
-  fetch(NEWS_URL, requestHeaders )
+  fetch(NEWS_URL, requestOptions)
   .then((response) => {
     return response.json();
   })
   .then((newsJSON) => {
     //Set the JSON data for games to a variable
-    const stonsNews = newsJSON.articles
+    const stonsNews = newsJSON.value
     console.log(stonsNews)
 
     const showStonsNews = () => {
       let pistonsNewsSection = document.getElementById('pistonsNewsSection')
       
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
      
         let imgContainer = document.createElement('div')
         pistonsNewsSection.appendChild(imgContainer)
+          imgContainer.classList.add('flex', 'flex-row', 'align-text-middle', 'py-4')
 
           let stonsNewsImage = document.createElement('img')
-          stonsNewsImage.src = `${stonsNews[i].image}`
-          stonsNewsImage.classList.add('mt-4', 'w-full')
+          stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`
+          stonsNewsImage.classList.add('mt-4', 'w-1/4')
           imgContainer.appendChild(stonsNewsImage)
 
           let stonsNewsTitle = document.createElement('div')
-          stonsNewsTitle.textContent = `${stonsNews[i].title}`
-          stonsNewsTitle.classList.add('my-2', 'font-semibold', 'text-md')
-          pistonsNewsSection.appendChild(stonsNewsTitle)
+          stonsNewsTitle.textContent = `${stonsNews[i].name}`
+          stonsNewsTitle.classList.add('my-2', 'font-semibold', 'text-md', 'pl-3')
+          imgContainer.appendChild(stonsNewsTitle)
+
+          let stonsNewsProvider = document.createElement('p')
+          stonsNewsProvider.textContent = `${stonsNews[i].provider[0].name} | ${dayjs(stonsNews[i].datePublished).format('dddd MMM DD')}`
+          stonsNewsProvider.classList.add('text-xs', 'text-gray-800', 'pt-1')
+          stonsNewsTitle.appendChild(stonsNewsProvider)
 
           let stonsNewsDescription = document.createElement('p')
           stonsNewsDescription.textContent = `${stonsNews[i].description}`
-          stonsNewsDescription.classList.add('my-1', 'text-base') 
+          stonsNewsDescription.classList.add('my-1', 'text-base', 'pb-6','border-b','border-gray-400') 
           pistonsNewsSection.appendChild(stonsNewsDescription)  
         
           }
