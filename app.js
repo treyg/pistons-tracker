@@ -81,10 +81,6 @@
   
 
 
-
-
-
-
 // Get data for all NBA scores for the day, then filter to only include pistons games
   const SCOREBOARD_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard'
 
@@ -100,11 +96,9 @@
 
  
     //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
-    if(livePistonsGame.legth !=0 ) {
+    
       //get live score and time for current game
     const showCurrentGame = () => {
-
-      let currentEventContainer = document.getElementById('currentEventContainer')
 
       //Check if game is live or finished 
         if(livePistonsGame[0].status.type.name === 'STATUS_IN_PROGRESS') {
@@ -112,9 +106,7 @@
             todaysGameStatus.classList.add = 'text-red-600'
         } else if (livePistonsGame[0].status.type.completed === true) {
             todaysGameStatus.textContent = 'FINAL'
-         } else if (livePistonsGame[0].status.type.name === "STATUS_SCHEDULED") {
-           currentEventContainer.style.display = 'none'
-         }
+         } 
 
       let liveHomeTeamLogo = document.getElementById('liveHomeTeamLogo')
           liveHomeTeamLogo.src = livePistonsGame[0].competitions[0].competitors[0].team.logo
@@ -137,12 +129,16 @@
           liveVisitorTeamScore.textContent = `${livePistonsGame[0].competitions[0].competitors[1].score}`
 
     } 
-    showCurrentGame()
+    
 
+    if(livePistonsGame.length != 0 ) {
+      showCurrentGame()
+      console.log('here')
     } else {
-        let currentEventContainer = document.getElementById('currentEventContainer')
-          currentEventContainer.style.display = 'none'
-
+      //let currentEventContainer = document.getElementById('currentEventContainer')
+      currentEventContainer.className = 'hidden'
+      console.log('as;ldfijas;ldkfj')
+     
     }
 
     
