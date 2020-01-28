@@ -22,7 +22,7 @@
      
     // Run function to check for a live game and hide the game preview if the game is live or completed
     const checkForLiveGame = () => {
-      if (nextGame[0].competitions[0].status.type.description === 'Final' || nextGame[0].competitions[0].status.type.state == 'in') {
+      if (nextGame[0].competitions[0].status.type.description === 'Final' || nextGame[0].competitions[0].status.type.state == 'in' || nextGame[0].competitions[0].status.type.state == 'pre') {
         let preview = document.getElementById('preview')
             preview.style.display = 'none'
       }
@@ -92,7 +92,7 @@
     //Set the JSON data for games to a variable
     const scoreboardData = scoreboardJSON
     const livePistonsGame = scoreboardData.events.filter(games => games.shortName.includes('DET'))
-    console.log(livePistonsGame)
+    console.log(livePistonsGame.length)
 
  
     //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
@@ -278,7 +278,7 @@ const requestOptions = {
     },
 };
 
-const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=pistons'
+const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons'
 
   fetch(NEWS_URL, requestOptions)
   .then((response) => {
@@ -313,10 +313,9 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=pi
           stonsNewsProvider.classList.add('text-xs', 'mx-3', 'text-gray-800', 'pt-1')
           imgContainer.appendChild(stonsNewsProvider)
 
-        //   let stonsNewsDescription = document.createElement('p')
-        //   stonsNewsDescription.textContent = `${stonsNews[i].description}`
-        //   stonsNewsDescription.classList.add('my-1', 'mx-3', 'text-base') 
-        // imgContainer.appendChild(stonsNewsDescription)  
+          imgContainer.addEventListener('click', () => {
+              window.open(stonsNews[i].ampUrl)
+          })
         
           }
   
