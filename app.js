@@ -100,13 +100,13 @@
       //get live score and time for current game
     const showCurrentGame = () => {
 
-      //Check if game is live or finished 
-        if(livePistonsGame[0].status.type.name === 'STATUS_IN_PROGRESS') {
-            todaysGameStatus.textContent = 'LIVE NOW'
-            todaysGameStatus.classList.add = 'text-red-600'
-        } else if (livePistonsGame[0].status.type.completed === true) {
-            todaysGameStatus.textContent = 'FINAL'
-         } 
+    //Check if game is live or finished 
+      if(livePistonsGame[0].status.type.name === 'STATUS_IN_PROGRESS') {
+          todaysGameStatus.textContent = 'LIVE NOW'
+          todaysGameStatus.classList.add('text-red-600')
+      } else if (livePistonsGame[0].status.type.completed === true) {
+          todaysGameStatus.textContent = 'FINAL'
+        } 
 
       let liveHomeTeamLogo = document.getElementById('liveHomeTeamLogo')
           liveHomeTeamLogo.src = livePistonsGame[0].competitions[0].competitors[0].team.logo
@@ -300,10 +300,10 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=de
 
           let stonsNewsImage = document.createElement('img')
           stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`
-          stonsNewsImage.classList.add('ml-3', 'w-16', 'h-16')
+          stonsNewsImage.classList.add('ml-3')
           imgContainer.appendChild(stonsNewsImage)
 
-          let stonsNewsTitle = document.createElement('span')
+          let stonsNewsTitle = document.createElement('div')
           stonsNewsTitle.textContent = `${stonsNews[i].name}`
           stonsNewsTitle.classList.add('mx-3', 'text-base')
           imgContainer.appendChild(stonsNewsTitle)
