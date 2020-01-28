@@ -296,7 +296,7 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=de
         
         let imgContainer = document.createElement('div')
         pistonsNewsSection.appendChild(imgContainer)
-          imgContainer.classList.add('flex', 'flex-col', 'align-text-middle', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded')
+          imgContainer.classList.add('flex', 'flex-row', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded')
 
           let stonsNewsImage = document.createElement('img')
           stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`
@@ -305,13 +305,13 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=de
 
           let stonsNewsTitle = document.createElement('span')
           stonsNewsTitle.textContent = `${stonsNews[i].name}`
-          stonsNewsTitle.classList.add('inline','mx-3', 'font-md', 'text-xl')
+          stonsNewsTitle.classList.add('mx-3', 'text-base')
           imgContainer.appendChild(stonsNewsTitle)
 
           let stonsNewsProvider = document.createElement('p')
           stonsNewsProvider.textContent = `${stonsNews[i].provider[0].name} | ${dayjs(stonsNews[i].datePublished).format('dddd MMM DD')}`
-          stonsNewsProvider.classList.add('text-xs', 'mx-3', 'text-gray-800', 'pt-1')
-          imgContainer.appendChild(stonsNewsProvider)
+          stonsNewsProvider.classList.add('text-xs', 'text-gray-800', 'pt-1')
+          stonsNewsTitle.appendChild(stonsNewsProvider)
 
           imgContainer.addEventListener('click', () => {
               window.open(stonsNews[i].ampUrl)
