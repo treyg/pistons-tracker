@@ -226,50 +226,7 @@
 
 
 
-//news for pistons  - only shows one story and is usually unpopulated
-  
-// const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news'
-
-//   fetch(NEWS_URL)
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((newsJSON) => {
-//     //Set the JSON data for games to a variable
-//     const newsData = newsJSON.articles
-//     console.log(newsData)
-
-
-//     const stonsNews = newsData.filter(el => {
-//        return el.categories.find(c => c.teamId == 8);
-//     })
-
-//     console.log(stonsNews)
-    
-
-//     const showStonsNews = () => {
-    
-
-//           let stonsNewsImage = document.getElementById('stonsNewsImage')
-//               stonsNewsImage.src = stonsNews[0].images[0].url
-//           let stonsNewsTitle = document.getElementById('stonsNewsTitle')
-//               stonsNewsTitle.textContent = stonsNews[0].headline
-//           let stonsNewsDescription = document.getElementById('stonsNewsDescription')
-//               stonsNewsDescription.textContent = stonsNews[0].description
-        
-      
-//         }
-
-//      showStonsNews()
-
-
-//   });
-  
-
-
-//const NEWS_URL = 'https://gnews.io/api/v3/search?q=detroit pistons&token=e62be0b1d96ef0fbe18f8039ad5d0a82'
-
-//const api = `21b177ecd55041b2b5174de15bafc241`
+//news for pistons 
 
 const api = '21b177ecd55041b2b5174de15bafc241';
 const requestOptions = {
@@ -331,18 +288,60 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=de
 
 
 
-  
-  // const showLeagueNews = () => {
-    
-  //   for (let i = 0; i < 9; i++) {
-  //        let stonsNewsImage = document.getElementById('stonsNewsImage')
-  //            stonsNewsImage.src = stonsNews[i].images[i].url
-  //        let stonsNewsTitle = document.getElementById('stonsNewsTitle')
-  //            stonsNewsTitle.textContent = stonsNews[i].headline
-  //        let stonsNewsDescription = document.getElementById('stonsNewsDescription')
-  //            stonsNewsDescription.textContent = stonsNews[i].description
-  //        }
-     
-  //      }
 
-  //   showLeagueNews()
+//League News
+
+  
+const LEAGUE_NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news'
+
+  fetch(LEAGUE_NEWS_URL)
+  .then((response) => {
+    return response.json();
+  })
+  .then((newsJSON) => {
+    //Set the JSON data for games to a variable
+    const newsData = newsJSON.articles
+    console.log(newsData)
+
+
+    // const stonsNews = newsData.filter(el => {
+    //    return el.categories.find(c => c.teamId == 8);
+    // })
+    
+
+    const showLeagueNews = () => {
+      let leagueNewsSection = document.getElementById('leagueNewsSection')
+      
+      for (let i = 0; i < 10; i++) {
+        
+        let imgContainer = document.createElement('div')
+        leaguesNewsSection.appendChild(imgContainer)
+          imgContainer.classList.add('flex', 'flex-row', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded')
+
+          let leagueNewsImage = document.createElement('img')
+          leagueNewsImage.src = `${leagueNews[i].image.thumbnail.contentUrl}`
+          leagueNewsImage.classList.add('ml-3', 'w-16', 'h-16', 'rounded-sm' )
+          imgContainer.appendChild(leagueNewsImage)
+
+          let leagueNewsTitle = document.createElement('div')
+          leagueNewsTitle.textContent = `${leagueNews[i].name}`
+          leagueNewsTitle.classList.add('mx-3', 'text-base')
+          imgContainer.appendChild(leagueNewsTitle)
+
+          let leagueNewsProvider = document.createElement('p')
+          leagueNewsProvider.textContent = `${leagueNews[i].provider[0].name} | ${dayjs(leagueNews[i].datePublished).format('dddd MMM DD')}`
+          leagueNewsProvider.classList.add('text-xs', 'text-gray-800', 'pt-1')
+          leagueNewsTitle.appendChild(leagueNewsProvider)
+
+          imgContainer.addEventListener('click', () => {
+              window.open(leagueNews[i].ampUrl)
+          })
+        
+          }
+  
+    }
+
+    showLeagueNews()
+
+
+  });
