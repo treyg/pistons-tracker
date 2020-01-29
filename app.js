@@ -22,9 +22,9 @@
      
     // Run function to check for a live game and hide the game preview if the game is live or completed
     const checkForLiveGame = () => {
-      if (nextGame[0].competitions[0].status.type.description === 'Final' || nextGame[0].competitions[0].status.type.state == 'in' || nextGame[0].competitions[0].status.type.state == 'pre') {
+      if (nextGame[0].competitions[0].status.type.description === 'Final' || nextGame[0].competitions[0].status.type.state == 'in') {
         let preview = document.getElementById('preview')
-            preview.style.display = 'none'
+            preview.classList.add('hidden')
       }
     }
     checkForLiveGame()
@@ -300,7 +300,7 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=de
 
           let stonsNewsImage = document.createElement('img')
           stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`
-          stonsNewsImage.classList.add('ml-3')
+          stonsNewsImage.classList.add('ml-3', 'w-16', 'h-16', 'rounded-sm' )
           imgContainer.appendChild(stonsNewsImage)
 
           let stonsNewsTitle = document.createElement('div')
