@@ -1,9 +1,11 @@
 
-
   //Javascript to toggle the menu
   document.getElementById('nav-toggle').onclick = function(){
     document.getElementById("nav-content").classList.toggle("hidden");
   }
+
+
+  
   
   //Get data for info about detroit pistons
   const PISTONS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/8'
@@ -253,7 +255,7 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=de
         
         let imgContainer = document.createElement('div')
         pistonsNewsSection.appendChild(imgContainer)
-          imgContainer.classList.add('flex', 'flex-row', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded')
+          imgContainer.classList.add('flex', 'flex-row', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded','cursor-pointer')
 
           let stonsNewsImage = document.createElement('img')
           stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`
@@ -266,12 +268,12 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=de
           imgContainer.appendChild(stonsNewsTitle)
 
           let stonsNewsProvider = document.createElement('p')
-          stonsNewsProvider.textContent = `${stonsNews[i].provider[0].name} | ${dayjs(stonsNews[i].datePublished).format('dddd MMM DD')}`
+          stonsNewsProvider.textContent = `${stonsNews[i].provider[0].name} | ${dayjs(stonsNews[i].datePublished).format('ddd MMM DD')}`
           stonsNewsProvider.classList.add('text-xs', 'text-gray-800', 'pt-1')
           stonsNewsTitle.appendChild(stonsNewsProvider)
 
           imgContainer.addEventListener('click', () => {
-              window.open(stonsNews[i].ampUrl)
+              window.open(stonsNews[i].url)
           })
         
           }
@@ -282,66 +284,9 @@ const NEWS_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=de
 
 
 
-
   });
   
 
 
 
 
-//League News
-
-  
-const LEAGUE_NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news'
-
-  fetch(LEAGUE_NEWS_URL)
-  .then((response) => {
-    return response.json();
-  })
-  .then((newsJSON) => {
-    //Set the JSON data for games to a variable
-    const newsData = newsJSON.articles
-    console.log(newsData)
-
-
-    // const stonsNews = newsData.filter(el => {
-    //    return el.categories.find(c => c.teamId == 8);
-    // })
-    
-
-    const showLeagueNews = () => {
-      let leagueNewsSection = document.getElementById('leagueNewsSection')
-      
-      for (let i = 0; i < 10; i++) {
-        
-        let imgContainer = document.createElement('div')
-        leaguesNewsSection.appendChild(imgContainer)
-          imgContainer.classList.add('flex', 'flex-row', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded')
-
-          let leagueNewsImage = document.createElement('img')
-          leagueNewsImage.src = `${leagueNews[i].image.thumbnail.contentUrl}`
-          leagueNewsImage.classList.add('ml-3', 'w-16', 'h-16', 'rounded-sm' )
-          imgContainer.appendChild(leagueNewsImage)
-
-          let leagueNewsTitle = document.createElement('div')
-          leagueNewsTitle.textContent = `${leagueNews[i].name}`
-          leagueNewsTitle.classList.add('mx-3', 'text-base')
-          imgContainer.appendChild(leagueNewsTitle)
-
-          let leagueNewsProvider = document.createElement('p')
-          leagueNewsProvider.textContent = `${leagueNews[i].provider[0].name} | ${dayjs(leagueNews[i].datePublished).format('dddd MMM DD')}`
-          leagueNewsProvider.classList.add('text-xs', 'text-gray-800', 'pt-1')
-          leagueNewsTitle.appendChild(leagueNewsProvider)
-
-          imgContainer.addEventListener('click', () => {
-              window.open(leagueNews[i].ampUrl)
-          })
-        
-          }
-  
-    }
-
-    showLeagueNews()
-
-
-  });
