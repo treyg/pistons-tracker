@@ -28,15 +28,15 @@ fetch(LEAGUE_NEWS_URL)
   const showLeagueNews = () => {
       let leagueNewsSection = document.getElementById('leagueNewsSection')
       
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 6; i++) {
       
       let imgContainer = document.createElement('div')
-        leaguesNewsSection.appendChild(imgContainer)
-        imgContainer.classList.add('flex', 'flex-row', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded')
+        leagueNewsSection.appendChild(imgContainer)
+        imgContainer.classList.add('flex', 'flex-col', 'py-2', 'overflow-hidden', 'mb-6', 'border-2', 'border-gray-200', 'rounded')
 
         let leagueNewsImage = document.createElement('img')
         leagueNewsImage.src = `${leagueNews[i].images[0].url}`
-        leagueNewsImage.classList.add('ml-3', 'w-16', 'h-16', 'rounded-sm' )
+        leagueNewsImage.classList.add('ml-3', 'rounded-sm' )
         imgContainer.appendChild(leagueNewsImage)
 
         let leagueNewsTitle = document.createElement('div')
@@ -44,10 +44,14 @@ fetch(LEAGUE_NEWS_URL)
         leagueNewsTitle.classList.add('mx-3', 'text-base')
         imgContainer.appendChild(leagueNewsTitle)
 
+        let leagueNewsDescription = document.createElement('div')
+        leagueNewsDescription.textContent = `${leagueNews[i].description}`
+        imgContainer.appendChild(leagueNewsDescription)
+
         let leagueNewsProvider = document.createElement('p')
         leagueNewsProvider.textContent = `${leagueNews[i].images[0].credit}`
         leagueNewsProvider.classList.add('text-xs', 'text-gray-800', 'pt-1')
-        leagueNewsTitle.appendChild(leagueNewsProvider)
+        leagueNewsDescription.appendChild(leagueNewsProvider)
 
         // imgContainer.addEventListener('click', () => {
         //     window.open(leagueNews[i].ampUrl)
