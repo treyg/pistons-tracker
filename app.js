@@ -26,7 +26,7 @@ fetch(PISTONS_URL)
         nextGame[0].competitions[0].status.type.state == "in"
       ) {
         let preview = document.getElementById("preview");
-        preview.className = 'hidden'
+        preview.className = "hidden";
       }
     };
     checkForLiveGame();
@@ -123,6 +123,10 @@ fetch(SCOREBOARD_URL)
       let liveRemainingTime = document.getElementById("liveRemainingTime");
       liveRemainingTime.textContent = livePistonsGame[0].status.displayClock;
 
+      if (livePistonsGame[0].status.period == 5) {
+        liveQuarter.textContent = "OT";
+      }
+
       let liveVisitorTeamLogo = document.getElementById("liveVisitorTeamLogo");
       liveVisitorTeamLogo.src =
         livePistonsGame[0].competitions[0].competitors[1].team.logo;
@@ -140,10 +144,7 @@ fetch(SCOREBOARD_URL)
     } else {
       currentEventContainer.className = "hidden";
     }
-
-   
   });
-
 
 // const PISTONS_STATS = 'https://www.balldontlie.io/api/v1/stats?seasons=[]2019&per_page=100'
 
@@ -188,6 +189,7 @@ fetch(PISTONS_GAMES_URL)
         gameSections.appendChild(homeTeamSection);
         let homeName = document.createElement("div");
         homeName.textContent = `${completedStonsGames[i].home_team.name}`;
+
         homeTeamSection.appendChild(homeName);
         let homeScore = document.createElement("span");
         homeScore.textContent = ` ${completedStonsGames[i].home_team_score}`;
@@ -200,7 +202,7 @@ fetch(PISTONS_GAMES_URL)
         visitorName.textContent = `${completedStonsGames[i].visitor_team.name}`;
         visitorTeamSection.appendChild(visitorName);
         let visitorScore = document.createElement("span");
-        visitorScore.textContent = ` ${completedStonsGames[i].visitor_team_score}`;
+        visitorScore.textContent = `${completedStonsGames[i].visitor_team_score}`;
         visitorName.appendChild(visitorScore);
         visitorScore.classList.add("float-right");
         visitorTeamSection.classList.add(
@@ -209,6 +211,17 @@ fetch(PISTONS_GAMES_URL)
           "pb-2",
           "mb-2"
         );
+
+        if (
+          completedStonsGames[i].home_team.name == "Pistons" &&
+          completedStonsGames[i].home_team_score >
+            completedStonsGames[i].visitor_team_score
+        ) {
+          homeScore.innerHTML = `
+          <span class="text-green-500 font-medium mr-2">W</span>${completedStonsGames[i].home_team_score}`;
+        } else {
+          homeScore.innerHTML = `<span class="text-red-500 font-medium mr-2">L</span> ${completedStonsGames[i].home_team_score}`;
+        }
       }
     };
 
