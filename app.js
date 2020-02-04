@@ -38,6 +38,12 @@ fetch(PISTONS_URL)
       startDate.textContent = dayjs(nextGame[0].competitions[0].date).format(
         "dddd h:mm"
       );
+      //If game is today, make display say today rather than day of the week
+      if ( dayjs(nextGame[0].competitions[0].date).format("dddd") == dayjs().format("dddd")) {
+        startDate.innerHTML = `Today at ${dayjs(nextGame[0].competitions[0].date).format(
+          "h:mm"
+        )}`
+      }
 
       //Set home team div to display home team name
       let homeTeamDiv = document.getElementById("homeTeamDiv");
@@ -97,7 +103,7 @@ fetch(SCOREBOARD_URL)
       games.shortName.includes("DET")
     );
 
-    console.log(livePistonsGame)
+    console.log(livePistonsGame);
     //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
 
     //get live score and time for current game

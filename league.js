@@ -19,7 +19,7 @@ fetch(LEAGUE_NEWS_URL)
 
     const showLeagueNews = () => {
       let leagueNewsSection = document.getElementById("leagueNewsSection");
-
+      //Loop through leagueNews JSON data and create sections for each story
       for (let i = 0; i < 6; i++) {
         let leagueImgContainer = document.createElement("div");
         leagueNewsSection.appendChild(leagueImgContainer);
@@ -37,8 +37,12 @@ fetch(LEAGUE_NEWS_URL)
 
         let leagueNewsImage = document.createElement("img");
         leagueNewsImage.src = `${leagueNews[i].images[0].url}`;
-        leagueNewsImage.classList.add("ml-3", "rounded-sm");
+        leagueNewsImage.classList.add("mx-3", "rounded-sm");
         leagueImgContainer.appendChild(leagueNewsImage);
+        //If no image is given for story, leave image blank and continue loop
+        if (leagueNews[i].images[0].url == undefined) {
+          leagueNewsImage.src = ``
+        }
 
         let leagueNewsTitle = document.createElement("div");
         leagueNewsTitle.textContent = `${leagueNews[i].headline}`;
@@ -59,9 +63,8 @@ fetch(LEAGUE_NEWS_URL)
         leagueNewsProvider.textContent = `${leagueNews[i].images[0].credit}`;
         leagueNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
         leagueNewsDescription.appendChild(leagueNewsProvider);
-        
-        console.log(leagueNewsProvider.texttContent)
-
+  
+        //Default league news source to espn if no credit is given
         if (leagueNews[i].images[0].credit == undefined) {
           leagueNewsProvider.innerHTML = `ESPN`
         }
