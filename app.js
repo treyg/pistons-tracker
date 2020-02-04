@@ -3,6 +3,26 @@ document.getElementById("nav-toggle").onclick = function() {
   document.getElementById("nav-content").classList.toggle("hidden");
 };
 
+//Get scroll button:
+mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 //Get data for info about detroit pistons
 const PISTONS_URL =
   "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/8";
@@ -39,10 +59,13 @@ fetch(PISTONS_URL)
         "dddd h:mm"
       );
       //If game is today, make display say today rather than day of the week
-      if ( dayjs(nextGame[0].competitions[0].date).format("dddd") == dayjs().format("dddd")) {
-        startDate.innerHTML = `Today at ${dayjs(nextGame[0].competitions[0].date).format(
-          "h:mm"
-        )}`
+      if (
+        dayjs(nextGame[0].competitions[0].date).format("dddd") ==
+        dayjs().format("dddd")
+      ) {
+        startDate.innerHTML = `Today at ${dayjs(
+          nextGame[0].competitions[0].date
+        ).format("h:mm")}`;
       }
 
       //Set home team div to display home team name
@@ -147,7 +170,7 @@ fetch(SCOREBOARD_URL)
       liveVisitorTeamScore.textContent = `${livePistonsGame[0].competitions[0].competitors[1].score}`;
     };
 
-    if (livePistonsGame[0].status.period > 0) {
+    if (livePistonsGame.length > 0 && livePistonsGame[0].status.period > 0) {
       showCurrentGame();
     } else {
       currentEventContainer.className = "hidden";
@@ -230,6 +253,8 @@ fetch(PISTONS_GAMES_URL)
         } else {
           homeScore.innerHTML = `<span class="text-red-500 font-medium mr-2">L</span> ${completedStonsGames[i].home_team_score}`;
         }
+
+
       }
     };
 
