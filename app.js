@@ -96,6 +96,8 @@ fetch(SCOREBOARD_URL)
     const livePistonsGame = scoreboardData.events.filter(games =>
       games.shortName.includes("DET")
     );
+
+    console.log(livePistonsGame)
     //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
 
     //get live score and time for current game
@@ -139,7 +141,7 @@ fetch(SCOREBOARD_URL)
       liveVisitorTeamScore.textContent = `${livePistonsGame[0].competitions[0].competitors[1].score}`;
     };
 
-    if (livePistonsGame.length != 0) {
+    if (livePistonsGame[0].status.period > 0) {
       showCurrentGame();
     } else {
       currentEventContainer.className = "hidden";

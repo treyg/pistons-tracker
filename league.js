@@ -36,7 +36,7 @@ fetch(LEAGUE_NEWS_URL)
         );
 
         let leagueNewsImage = document.createElement("img");
-        //leagueNewsImage.src = `${leagueNews[i].images[0].url}`;
+        leagueNewsImage.src = `${leagueNews[i].images[0].url}`;
         leagueNewsImage.classList.add("ml-3", "rounded-sm");
         leagueImgContainer.appendChild(leagueNewsImage);
 
@@ -56,10 +56,15 @@ fetch(LEAGUE_NEWS_URL)
         leagueImgContainer.appendChild(leagueNewsDescription);
 
         let leagueNewsProvider = document.createElement("p");
-        //leagueNewsProvider.textContent = `${leagueNews[i].images[0].credit}`;
+        leagueNewsProvider.textContent = `${leagueNews[i].images[0].credit}`;
         leagueNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
         leagueNewsDescription.appendChild(leagueNewsProvider);
+        
+        console.log(leagueNewsProvider.texttContent)
 
+        if (leagueNews[i].images[0].credit == undefined) {
+          leagueNewsProvider.innerHTML = `ESPN`
+        }
     
 
         leagueImgContainer.addEventListener("click", () => {
