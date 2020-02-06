@@ -24,13 +24,17 @@ document.getElementById("nav-toggle").onclick = function() {
 
         let gamesToday = document.getElementById('gamesToday')
         let singleGameArea = document.createElement('div')
-            singleGameArea.classList.add("border-2", "border-gray-200", 'px-2', 'py-2', 'my-2', 'flex', 'flex-row', 'justify-between')
+            singleGameArea.classList.add("border-2", "border-gray-200", 'px-2', 'py-2', 'my-4', 'flex', 'flex-row', 'justify-between')
 
         let teamsArea = document.createElement('div')
 
         let statusArea = document.createElement('div')
-            statusArea.textContent = `test area`
-            statusArea.classList.add('border')
+            statusArea.classList.add('border-l')
+        
+        let gameTime = document.createElement('div')
+            gameTime.innerHTML = `Today <br> ${dayjs(eventsToday[i].competitions[0].date).format('h:mm a')}`
+            gameTime.classList.add('text-sm', 'text-center', 'mx-8')
+            statusArea.appendChild(gameTime)
 
         let homeTeamDiv = document.createElement('div')
             homeTeamDiv.classList.add('flex', 'flex-row')
