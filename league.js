@@ -33,11 +33,11 @@ document.getElementById("nav-toggle").onclick = function() {
         
         let gameTime = document.createElement('div')
             gameTime.innerHTML = `Today <br> ${dayjs(eventsToday[i].competitions[0].date).format('h:mm a')}`
-            gameTime.classList.add('text-sm', 'text-center', 'mx-8')
+            gameTime.classList.add('text-sm', 'text-center', 'mx-4')
             statusArea.appendChild(gameTime)
 
         let homeTeamDiv = document.createElement('div')
-            homeTeamDiv.classList.add('flex', 'flex-row')
+            homeTeamDiv.classList.add('flex', 'flex-row', 'text-base')
         let homeTeamName = document.createElement('span')
             homeTeamName.textContent = eventsToday[i].competitions[0].competitors[0].team.shortDisplayName
         let homeTeamLogo = document.createElement('img')
@@ -46,7 +46,7 @@ document.getElementById("nav-toggle").onclick = function() {
 
       
         let awayTeamDiv = document.createElement('div')
-            awayTeamDiv.classList.add('flex', 'flex-row')
+            awayTeamDiv.classList.add('flex', 'flex-row', 'text-base', )
         let awayTeamName = document.createElement('span')
             awayTeamName.textContent = eventsToday[i].competitions[0].competitors[1].team.shortDisplayName
         let awayTeamLogo = document.createElement('img')
