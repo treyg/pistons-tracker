@@ -3,78 +3,98 @@ document.getElementById("nav-toggle").onclick = function() {
   document.getElementById("nav-content").classList.toggle("hidden");
 };
 
-
-// Games Today 
-  const LEAGUE_GAMES_TODAY =
+// Games Today
+const LEAGUE_GAMES_TODAY =
   "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard";
 
-  fetch(LEAGUE_GAMES_TODAY)
-    .then(response => {
-      return response.json();
-    })
-    .then(gamesTodayJSON => {
-      //Set the JSON data for games to a variable
-      const gamesToday = gamesTodayJSON
-      //Set variable for just games today
-      const eventsToday = gamesToday.events
-      console.log(eventsToday);
-      console.log(eventsToday[1].competitions[0].competitors[0].team.logo)
+fetch(LEAGUE_GAMES_TODAY)
+  .then(response => {
+    return response.json();
+  })
+  .then(gamesTodayJSON => {
+    //Set the JSON data for games to a variable
+    const gamesToday = gamesTodayJSON;
+    //Set variable for just games today
+    const eventsToday = gamesToday.events;
+    console.log(eventsToday);
+    console.log(eventsToday[1].competitions[0].competitors[0].team.logo);
 
-      for (let i = 0; i < eventsToday.length; i++) {
+    for (let i = 0; i < eventsToday.length; i++) {
+      let gamesToday = document.getElementById("gamesToday");
+      let singleGameArea = document.createElement("div");
+      singleGameArea.classList.add(
+        "border-2",
+        "border-gray-200",
+        "rounded",
+        "px-2",
+        "py-2",
+        "my-4",
+        "flex",
+        "flex-row",
+        "align-center",
+        "justify-between"
+      );
 
-        let gamesToday = document.getElementById('gamesToday')
-        let singleGameArea = document.createElement('div')
-            singleGameArea.classList.add("border-2", "border-gray-200", 'rounded', 'px-2', 'py-2', 'my-4', 'flex', 'flex-row', 'justify-between', 'align-center')
+      let teamsArea = document.createElement("div");
+      teamsArea.classList.add("border-r", "w-9/12");
 
-        let teamsArea = document.createElement('div')
-            teamsArea.classList.add('border-r', 'w-9/12')
+      let statusArea = document.createElement("div");
+      statusArea.classList.add("flex", "flex-col", "justify-center");
 
-        let statusArea = document.createElement('div')
-        
-        let gameTime = document.createElement('div')
-            gameTime.innerHTML = `Today <br> ${dayjs(eventsToday[i].competitions[0].date).format('h:mm a')}`
-            gameTime.classList.add('text-xs', 'text-center', 'mx-2', 'pt-2')
-            statusArea.appendChild(gameTime)
+      let gameTime = document.createElement("div");
+      gameTime.innerHTML = `Today <br> ${dayjs(
+        eventsToday[i].competitions[0].date
+      ).format("h:mm a")}`;
+      gameTime.classList.add("text-xs", "text-center", "mx-2");
+      statusArea.appendChild(gameTime);
 
-        let homeTeamDiv = document.createElement('div')
-            homeTeamDiv.classList.add('flex', 'flex-row', 'text-base','py-1')
-        let homeTeamName = document.createElement('span')
-            homeTeamName.textContent = eventsToday[i].competitions[0].competitors[0].team.shortDisplayName
-        let homeTeamLogo = document.createElement('img')
-            homeTeamLogo.src = eventsToday[i].competitions[0].competitors[0].team.logo
-            homeTeamLogo.classList.add('w-6', 'h-6', 'mr-2')
+      let homeTeamDiv = document.createElement("div");
+      homeTeamDiv.classList.add("flex", "flex-row", "text-base", "py-1");
+      let homeTeamName = document.createElement("span");
+      homeTeamName.textContent =
+        eventsToday[i].competitions[0].competitors[0].team.shortDisplayName;
+      let homeTeamLogo = document.createElement("img");
+      homeTeamLogo.src =
+        eventsToday[i].competitions[0].competitors[0].team.logo;
+      homeTeamLogo.classList.add("w-6", "h-6", "mr-2");
 
-      
-        let awayTeamDiv = document.createElement('div')
-            awayTeamDiv.classList.add('flex', 'flex-row', 'text-base', 'py-1' )
-        let awayTeamName = document.createElement('span')
-            awayTeamName.textContent = eventsToday[i].competitions[0].competitors[1].team.shortDisplayName
-        let awayTeamLogo = document.createElement('img')
-            awayTeamLogo.src = eventsToday[i].competitions[0].competitors[1].team.logo
-            awayTeamLogo.classList.add('w-6', 'h-6', 'mr-2')
+      let awayTeamDiv = document.createElement("div");
+      awayTeamDiv.classList.add("flex", "flex-row", "text-base", "py-1");
+      let awayTeamName = document.createElement("span");
+      awayTeamName.textContent =
+        eventsToday[i].competitions[0].competitors[1].team.shortDisplayName;
+      let awayTeamLogo = document.createElement("img");
+      awayTeamLogo.src =
+        eventsToday[i].competitions[0].competitors[1].team.logo;
+      awayTeamLogo.classList.add("w-6", "h-6", "mr-2");
 
-      
+      gamesToday.appendChild(singleGameArea);
+      singleGameArea.appendChild(teamsArea);
+      teamsArea.appendChild(homeTeamDiv);
+      homeTeamDiv.appendChild(homeTeamLogo);
+      homeTeamDiv.appendChild(homeTeamName);
 
-          gamesToday.appendChild(singleGameArea)
-          singleGameArea.appendChild(teamsArea)
-          teamsArea.appendChild(homeTeamDiv)
-          homeTeamDiv.appendChild(homeTeamLogo)
-          homeTeamDiv.appendChild(homeTeamName)
-          
-          
-          teamsArea.appendChild(awayTeamDiv)
-          awayTeamDiv.appendChild(awayTeamLogo)
-          awayTeamDiv.appendChild(awayTeamName)
-          
-          singleGameArea.appendChild(statusArea)
-      
-      
-        }
+      teamsArea.appendChild(awayTeamDiv);
+      awayTeamDiv.appendChild(awayTeamLogo);
+      awayTeamDiv.appendChild(awayTeamName);
 
+      singleGameArea.appendChild(statusArea);
+
+      console.log(eventsToday[i].competitions)
+
+       if (eventsToday[i].competitions.status != undefined && eventsToday[i].competitions.status > 0) {
+          let homeScore = document.createElement('span')
+              homeScore.textContent = eventsToday[i].competitions.competitors[0].score
+              homeTeamDiv.appendChild(homeScore)
+
+          let awayScore = document.createElement('span')
+              awayScore.textContent = eventsToday[i].competitions.competitors[1].score
+              awayTeamDiv.appendChild(awayScore)
+       }
+    }
 
 
   });
-
 
 //League News
 
@@ -158,4 +178,3 @@ fetch(LEAGUE_NEWS_URL)
 
     showLeagueNews();
   });
-
