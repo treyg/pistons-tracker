@@ -24,7 +24,7 @@ document.getElementById("nav-toggle").onclick = function() {
 
         let gamesToday = document.getElementById('gamesToday')
         let singleGameArea = document.createElement('div')
-            singleGameArea.classList.add("border-2", "border-gray-200", 'px-2', 'py-2', 'my-4', 'flex', 'flex-row', 'justify-between')
+            singleGameArea.classList.add("border-2", "border-gray-200", 'rounded', 'px-2', 'py-2', 'my-4', 'flex', 'flex-row', 'justify-between')
 
         let teamsArea = document.createElement('div')
 
