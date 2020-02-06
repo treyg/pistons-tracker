@@ -244,14 +244,17 @@ fetch(PISTONS_GAMES_URL)
         );
 
         if (
-          completedStonsGames[i].home_team.name == "Pistons" &&
           completedStonsGames[i].home_team_score >
             completedStonsGames[i].visitor_team_score
         ) {
           homeScore.innerHTML = `
-          <span class="text-green-500 font-medium mr-2">W</span>${completedStonsGames[i].home_team_score}`;
-        } else {
-          homeScore.innerHTML = `<span class="text-red-500 font-medium mr-2">L</span> ${completedStonsGames[i].home_team_score}`;
+          ${completedStonsGames[i].home_team_score}<span class="text-black-500 font-medium mr-2"><</span>`;
+          visitorScore.classList.add('pr-5')
+
+        } else if ( completedStonsGames[i].home_team_score <
+          completedStonsGames[i].visitor_team_score) {
+          visitorScore.innerHTML = `${completedStonsGames[i].home_team_score}<span class="text-black-500 font-medium mr-2"><</span> `;
+          homeScore.classList.add('pr-5')
         }
 
 
