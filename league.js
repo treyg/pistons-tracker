@@ -17,7 +17,6 @@ fetch(LEAGUE_GAMES_TODAY)
     //Set variable for just games today
     const eventsToday = gamesToday.events;
     console.log(eventsToday);
-    console.log(eventsToday[1].competitions[0].competitors[0].team.logo);
 
     for (let i = 0; i < eventsToday.length; i++) {
       let gamesToday = document.getElementById("gamesToday");
@@ -36,7 +35,7 @@ fetch(LEAGUE_GAMES_TODAY)
       );
 
       let teamsArea = document.createElement("div");
-      teamsArea.classList.add("border-r", "w-9/12");
+      teamsArea.classList.add("w-4/5");
 
       let statusArea = document.createElement("div");
       statusArea.classList.add("flex", "flex-col", "justify-center");
@@ -45,7 +44,7 @@ fetch(LEAGUE_GAMES_TODAY)
       gameTime.innerHTML = `Today <br> ${dayjs(
         eventsToday[i].competitions[0].date
       ).format("h:mm a")}`;
-      gameTime.classList.add("text-xs", "text-center", "mx-2");
+      gameTime.classList.add('border-l',"text-xs", "text-center", 'px-2', 'w-16');
       statusArea.appendChild(gameTime);
 
       let homeTeamDiv = document.createElement("div");
@@ -80,22 +79,22 @@ fetch(LEAGUE_GAMES_TODAY)
 
       singleGameArea.appendChild(statusArea);
 
-      console.log(eventsToday[i].competitions[0].status)
+      console.log(eventsToday)
 
-       if (eventsToday[i].competitions[0].status != undefined && eventsToday[i].competitions[0].status.clock != undefined) {
+       if (eventsToday[i].competitions[0].status != undefined  && eventsToday[i].competitions[0].status.period > 0) {
           let homeScore = document.createElement('span')
               homeScore.textContent = eventsToday[i].competitions[0].competitors[0].score
               homeTeamDiv.appendChild(homeScore)
+              homeScore.classList.add('ml-auto', 'mr-3')
 
               let awayScore = document.createElement('span')
               awayScore.textContent = eventsToday[i].competitions[0].competitors[1].score
               awayTeamDiv.appendChild(awayScore)
+              awayScore.classList.add('ml-auto', 'mr-3')
 
-          // let awayScore = document.createElement('span')
-          //     awayScore.textContent = eventsToday[i].competitions[0].competitors[1].score
-          //     awayTeamDiv.appendChild(awayScore)
 
-          gameTime.innerHTML = `Q:${eventsToday[i].status.period}<br>${eventsToday[i].status.displayClock}`
+          gameTime.innerHTML = `<span class="text-sm text-black">Q: ${eventsToday[i].status.period}</span><br>${eventsToday[i].status.displayClock}`
+          gameTime.classList.add('text-base', 'text-green-500')
        }
     }
 
