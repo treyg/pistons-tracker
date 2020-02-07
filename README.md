@@ -1,1 +1,2 @@
-# pistons-tracker
+# StonsCenter
+Detroit Pistons web app for news and live scores
