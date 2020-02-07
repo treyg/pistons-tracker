@@ -91,7 +91,7 @@ fetch(LEAGUE_GAMES_TODAY)
               awayScore.textContent = eventsToday[i].competitions.competitors[1].score
               awayTeamDiv.appendChild(awayScore)
 
-          gameTime.innerHTML = `Q:${eventsToday[i].status.period} <br> ${eventsToday[i].status.displayClock}`
+          gameTime.innerHTML = `Q:${eventsToday[i].status.period} <br>${eventsToday[i].status.displayClock}`
        }
     }
 
