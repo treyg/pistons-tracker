@@ -80,18 +80,22 @@ fetch(LEAGUE_GAMES_TODAY)
 
       singleGameArea.appendChild(statusArea);
 
-      console.log(eventsToday[i].competitions)
+      console.log(eventsToday[i].competitions[0].status)
 
-       if (eventsToday[i].competitions.status != undefined && eventsToday[i].competitions.status > 0) {
+       if (eventsToday[i].competitions[0].status != undefined && eventsToday[i].competitions[0].status.clock != undefined) {
           let homeScore = document.createElement('span')
-              homeScore.textContent = eventsToday[i].competitions.competitors[0].score
+              homeScore.textContent = eventsToday[i].competitions[0].competitors[0].score
               homeTeamDiv.appendChild(homeScore)
 
-          let awayScore = document.createElement('span')
-              awayScore.textContent = eventsToday[i].competitions.competitors[1].score
+              let awayScore = document.createElement('span')
+              awayScore.textContent = eventsToday[i].competitions[0].competitors[1].score
               awayTeamDiv.appendChild(awayScore)
 
-          gameTime.innerHTML = `Q:${eventsToday[i].status.period} <br>${eventsToday[i].status.displayClock}`
+          // let awayScore = document.createElement('span')
+          //     awayScore.textContent = eventsToday[i].competitions[0].competitors[1].score
+          //     awayTeamDiv.appendChild(awayScore)
+
+          gameTime.innerHTML = `Q:${eventsToday[i].status.period}<br>${eventsToday[i].status.displayClock}`
        }
     }
 
