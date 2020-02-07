@@ -269,15 +269,15 @@ fetch(PISTONS_GAMES_URL)
 
 //news for pistons
 
-const api = "21b177ecd55041b2b5174de15bafc241";
-const requestOptions = {
-  headers: {
-    "Ocp-Apim-Subscription-Key": api
-  }
-};
+// const api = "21b177ecd55041b2b5174de15bafc241";
+// const requestOptions = {
+//   headers: {
+//     "Ocp-Apim-Subscription-Key": api
+//   }
+// };
 
-const NEWS_URL =
-  "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
+// const NEWS_URL =
+//   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
 
 fetch(NEWS_URL, requestOptions)
   .then(response => {
