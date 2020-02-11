@@ -112,7 +112,6 @@ fetch(PISTONS_URL)
       }
     };
 
-    console.log(nextGame[0].competitions[0].status.period)
 
     showNextGameData();
   });
@@ -207,7 +206,6 @@ fetch(PISTONS_GAMES_URL)
   .then(stonsGamesJSON => {
     //Set the JSON data for games to a variable
     const stonsGamesData = stonsGamesJSON.data;
-
     //Sort pistons games to be in  order starting at beginning of the season
     const sortedStonsGames = stonsGamesData.sort((a, b) =>
       a.id > b.id ? 1 : -1
@@ -290,7 +288,6 @@ fetch(NEWS_URL, requestOptions)
   .then(newsJSON => {
     //Set the JSON data for games to a variable
     const stonsNews = newsJSON.value;
-    console.log(stonsNews);
 
     const showStonsNews = () => {
       let pistonsNewsSection = document.getElementById("pistonsNewsSection");
