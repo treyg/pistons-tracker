@@ -78,19 +78,23 @@ fetch(PISTONS_URL)
       let homeTeamScore = document.getElementById("homeTeamScore");
       homeTeamScore.textContent = nextGame[0].competitions[0].boxscoreAvailable;
       if ((homeTeamScore.textContent = "false")) {
-        homeTeamScore.textContent = "00";
+        homeTeamScore.textContent = "";
       }
 
       //Set quarter and clock
       let quarter = document.getElementById("quarter");
-      quarter.textContent = nextGame[0].competitions[0].status.period;
+      quarter.innerHTML = `Quarter: ${nextGame[0].competitions[0].status.period}`
       let remainingTime = document.getElementById("remainingTime");
       remainingTime.textContent =
         nextGame[0].competitions[0].status.displayClock;
 
       //Hide time remaining if game hasn't started yet
-      if ((quarter.textContent = "0")) {
-        quarter.textContent = "";
+      if (nextGame[0].competitions[0].status.period === 0) {
+
+        quarter.textContent = nextGame[0].competitions[0].venue.fullName
+        quarter.classList.add('text-base')
+        remainingTime.innerHTML = `<span class="bg-green">Get Tickets</span>`
+        
       }
 
       //Set visitor team div to display visitor team name
@@ -104,9 +108,11 @@ fetch(PISTONS_URL)
       visitorTeamScore.textContent =
         nextGame[0].competitions[0].boxscoreAvailable;
       if ((visitorTeamScore.textContent = "false")) {
-        visitorTeamScore.textContent = "00";
+        visitorTeamScore.textContent = "";
       }
     };
+
+    console.log(nextGame[0].competitions[0].status.period)
 
     showNextGameData();
   });
@@ -242,7 +248,7 @@ fetch(PISTONS_GAMES_URL)
           "pb-2",
           "mb-2"
         );
-
+      //Gray out losing team name and score
         if (
           completedStonsGames[i].home_team_score >
             completedStonsGames[i].visitor_team_score
@@ -250,9 +256,7 @@ fetch(PISTONS_GAMES_URL)
           homeScore.innerHTML = `
           ${completedStonsGames[i].home_team_score}<span class="text-black-500 font-medium "></span>`;
           visitorScore.classList.add('text-gray-600')
-          
 
-          
 
         } else if ( completedStonsGames[i].home_team_score <
           completedStonsGames[i].visitor_team_score) {
