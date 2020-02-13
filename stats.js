@@ -1,6 +1,7 @@
-const PISTONS_STATS = 'https://www.balldontlie.io/api/v1/season_averages?season=2019&player_ids[]=10&player_ids[]=20'
+const PISTONS_STATS = 'https://www.balldontlie.io/api/v1/stats?seasons=[]2019&player_ids[]=19&per_page=100'
+//'https://www.balldontlie.io/api/v1/season_averages?season=2019&player_ids[]=10&player_ids[]=20'
 //'https://www.balldontlie.io/api/v1/players?year=[]2019?per_page=100'
-//'https://www.balldontlie.io/api/v1/stats?seasons=[]2019&player_ids[]=1&per_page=100'
+
 
   fetch(PISTONS_STATS)
   .then((response) => {
