@@ -124,7 +124,7 @@ fetch(LEAGUE_GAMES_TODAY)
 //League News
 
 const LEAGUE_NEWS_URL =
-  //"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news";
+  "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news";
 
   fetch(LEAGUE_NEWS_URL)
     .then(response => {

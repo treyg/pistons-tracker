@@ -93,7 +93,7 @@ fetch(PISTONS_URL)
 
         quarter.textContent = nextGame[0].competitions[0].venue.fullName
         quarter.classList.add('text-base')
-        remainingTime.innerHTML = `<span class="bg-green">Get Tickets</span>`
+        //remainingTime.innerHTML = `<span style= "background-color: #4bb543;" class=" border rounded p-2">Get Tickets</span>`
         
       }
 
