@@ -47,7 +47,7 @@ fetch(LEAGUE_GAMES_TODAY)
         "border-l",
         "text-xs",
         "text-center",
-        "px-2",
+        "px",
         "w-16"
       );
       statusArea.appendChild(gameTime);
