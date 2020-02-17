@@ -7,7 +7,9 @@ document.getElementById("nav-toggle").onclick = function() {
 mybutton = document.getElementById("myBtn");
 
 // When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function() {
+  scrollFunction();
+};
 
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -83,18 +85,19 @@ fetch(PISTONS_URL)
 
       //Set quarter and clock
       let quarter = document.getElementById("quarter");
-      quarter.innerHTML = `Quarter: ${nextGame[0].competitions[0].status.period}`
+      quarter.innerHTML = `Quarter: ${nextGame[0].competitions[0].status.period}`;
       let remainingTime = document.getElementById("remainingTime");
       remainingTime.textContent =
         nextGame[0].competitions[0].status.displayClock;
 
       //Hide time remaining if game hasn't started yet
       if (nextGame[0].competitions[0].status.period === 0) {
-
-        quarter.textContent = nextGame[0].competitions[0].venue.fullName
-        quarter.classList.add('text-base')
-        //remainingTime.innerHTML = `<span style= "background-color: #4bb543;" class=" border rounded p-2">Get Tickets</span>`
         
+        let timeLeft = document.getElementById("timeLeft");
+        timeLeft.classList.add("justify-around");
+        quarter.textContent = nextGame[0].competitions[0].venue.fullName;
+        quarter.classList.add("text-base");
+        remainingTime.innerHTML = `<span class="text-white text-base border rounded p-2 bg-green-500 hover:bg-green-600 cursor-pointer shadow-md">Get Tickets</span>`;
       }
 
       //Set visitor team div to display visitor team name
@@ -111,7 +114,6 @@ fetch(PISTONS_URL)
         visitorTeamScore.textContent = "";
       }
     };
-
 
     showNextGameData();
   });
@@ -246,23 +248,21 @@ fetch(PISTONS_GAMES_URL)
           "pb-2",
           "mb-2"
         );
-      //Gray out losing team name and score
+        //Gray out losing team name and score
         if (
           completedStonsGames[i].home_team_score >
-            completedStonsGames[i].visitor_team_score
+          completedStonsGames[i].visitor_team_score
         ) {
           homeScore.innerHTML = `
           ${completedStonsGames[i].home_team_score}<span class="text-black-500 font-medium "></span>`;
-          visitorScore.classList.add('text-gray-600')
-
-
-        } else if ( completedStonsGames[i].home_team_score <
-          completedStonsGames[i].visitor_team_score) {
+          visitorScore.classList.add("text-gray-600");
+        } else if (
+          completedStonsGames[i].home_team_score <
+          completedStonsGames[i].visitor_team_score
+        ) {
           visitorScore.innerHTML = `${completedStonsGames[i].visitor_team_score}<span class="text-black-500 font-medium"></span> `;
-          homeScore.classList.add('text-gray-600')
+          homeScore.classList.add("text-gray-600");
         }
-
-
       }
     };
 
