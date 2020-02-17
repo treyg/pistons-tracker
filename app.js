@@ -258,13 +258,13 @@ fetch(PISTONS_GAMES_URL)
         ) {
           homeScore.innerHTML = `
           ${completedStonsGames[i].home_team_score}<span class="text-black-500 font-medium "></span>`;
-          visitorScore.classList.add("text-gray-600");
+          visitorName.classList.add("text-gray-600");
         } else if (
           completedStonsGames[i].home_team_score <
           completedStonsGames[i].visitor_team_score
         ) {
           visitorScore.innerHTML = `${completedStonsGames[i].visitor_team_score}<span class="text-black-500 font-medium"></span> `;
-          homeScore.classList.add("text-gray-600");
+          homeName.classList.add("text-gray-600");
         }
       }
     };
