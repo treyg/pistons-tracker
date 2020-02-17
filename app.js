@@ -94,10 +94,13 @@ fetch(PISTONS_URL)
       if (nextGame[0].competitions[0].status.period === 0) {
         
         let timeLeft = document.getElementById("timeLeft");
-        timeLeft.classList.add("justify-around");
+        timeLeft.classList.add('mb-5', 'justify-around');
         quarter.textContent = nextGame[0].competitions[0].venue.fullName;
         quarter.classList.add("text-base");
         remainingTime.innerHTML = `<span class="text-white text-base border rounded p-2 bg-green-500 hover:bg-green-600 cursor-pointer shadow-md">Get Tickets</span>`;
+        remainingTime.addEventListener('click', () => {
+          window.open(nextGame[0].competitions[0].tickets[0].links[0].href)
+        } )
       }
 
       //Set visitor team div to display visitor team name
