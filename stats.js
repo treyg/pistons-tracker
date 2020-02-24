@@ -19,8 +19,10 @@ fetch(PISTONS_STATS)
 
     const derrickRose = stats.find(e => e.player_id == 401);
     derrickRose.name = "Derrick Rose";
-    derrickRose.imgOne = "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/201565.png"
-    derrickRose.imgTwo = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201565.png"
+    derrickRose.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/201565.png";
+    derrickRose.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201565.png";
 
     const blakeGriffin = stats.find(e => e.player_id == 189);
     blakeGriffin.name = "Blake Griffin";
@@ -64,39 +66,39 @@ fetch(PISTONS_STATS)
     const johnHenson = stats.find(e => e.player_id == 205);
     johnHenson.name = "John Henson";
 
-    
-
-   
-
     //const sortedByAssists = stats.sort((a, b) => (a.ast < b.ast ? 1 : -1));
 
     //const sortedByRebounds = stats.sort((a, b) => (a.reb < b.reb ? 1 : -1));
 
-
-
     const showPoints = () => {
-      const sortedByPoints = stats.sort((a, b) => a.pts < b.pts ? 1 : -1);
+      const sortedByPoints = stats.sort((a, b) => (a.pts < b.pts ? 1 : -1));
 
-      const leadersSection = document.getElementById('leadersSection');
+      const leadersSection = document.getElementById("leadersSection");
 
-      let pointsLeaderSection = document.createElement('div')
-      pointsLeaderInfo = document.createElement('div')
-      pointsLeaderImg = document.createElement('img')
-      pointsLeaderImg.classList.add('border')
-      
-      pointsLeaderImg.src = sortedByPoints[0].imgOne
+      let pointsLeaderSection = document.createElement("div");
+      pointsLeaderSection.classList.add('pb-4')
+      pointsLeaderInfo = document.createElement("div");
+      pointsLeaderInfo.classList.add('mt-6')
+      pointsLeaderImg = document.createElement("img");
+      pointsLeaderImg.classList.add("w-48");
 
-      pointsLeaderSection.classList.add('flex', 'flex-row', 'justify-between', 'px-4')
-         pointsLeaderInfo.innerHTML = `
-         <span>${sortedByPoints[0].pts} PPG</span>
+      pointsLeaderImg.src = sortedByPoints[0].imgOne;
+
+      pointsLeaderSection.classList.add(
+        "flex",
+        "flex-row",
+        "justify-between",
+        "px-4"
+      );
+      pointsLeaderInfo.innerHTML = `
+         <span class="text-2xl", "font-black">${sortedByPoints[0].pts}</span>
             <p>${sortedByPoints[0].name}</P>
-            `
-      leadersSection.appendChild(pointsLeaderSection)
-      pointsLeaderSection.appendChild(pointsLeaderInfo)
-      pointsLeaderSection.appendChild(pointsLeaderImg)
-      console.log(sortedByPoints)
+            `;
+      leadersSection.appendChild(pointsLeaderSection);
+      pointsLeaderSection.appendChild(pointsLeaderInfo);
+      pointsLeaderSection.appendChild(pointsLeaderImg);
+      console.log(sortedByPoints);
     };
 
-    showPoints()
-
+    showPoints();
   });
