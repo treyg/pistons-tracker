@@ -114,7 +114,8 @@ fetch(LEAGUE_GAMES_TODAY)
       }
       //If game is completed set inner hmtl to final
       if (eventsToday[i].status.type.completed === true) {
-        gameTime.innerHTML = `Final`;
+        gameTime.innerHTML = `<span class="text-black">Final</span>`;
+      
       }
     }
 
