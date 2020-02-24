@@ -215,6 +215,7 @@ fetch(PISTONS_GAMES_URL)
     const sortedStonsGames = stonsGamesData.sort((a, b) =>
       a.id > b.id ? 1 : -1
     );
+    console.log(stonsGamesData)
 
     //Show pistons game that have already been played and reverse the order to show the most recent game first
     const completedStonsGames = sortedStonsGames
