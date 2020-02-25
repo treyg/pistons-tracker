@@ -16,6 +16,10 @@ fetch(PISTONS_STATS)
 
     const lukeKennard = stats.find(e => e.player_id == 254);
     lukeKennard.name = "Luke Kennard";
+    lukeKennard.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1628379.png";
+    lukeKennard.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628379.png";
 
     const derrickRose = stats.find(e => e.player_id == 401);
     derrickRose.name = "Derrick Rose";
@@ -26,9 +30,17 @@ fetch(PISTONS_STATS)
 
     const blakeGriffin = stats.find(e => e.player_id == 189);
     blakeGriffin.name = "Blake Griffin";
+    blakeGriffin.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/201933.png";
+    blakeGriffin.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201933.png";
 
     const christianWood = stats.find(e => e.player_id == 486);
     christianWood.name = "Christian Wood";
+    christianWood.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1626174.png";
+    christianWood.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/1040x760/1626174.png";
 
     const sekouDoumbouya = stats.find(e => e.player_id == 666543);
     sekouDoumbouya.name = "Sekou Doumbouya";
@@ -75,14 +87,17 @@ fetch(PISTONS_STATS)
 
       const leadersSection = document.getElementById("leadersSection");
 
-      let pointsLeaderSection = document.createElement("div");
-      pointsLeaderSection.classList.add('pb-4')
-      pointsLeaderInfo = document.createElement("div");
-      pointsLeaderInfo.classList.add('mt-6')
-      pointsLeaderImg = document.createElement("img");
+      const pointsLeaderSection = document.createElement("div");
+      pointsLeaderSection.classList.add("pb-4");
+      const pointsLeaderInfo = document.createElement("div");
+      pointsLeaderInfo.classList.add("mt-6");
+      const pointsLeaderImg = document.createElement("img");
       pointsLeaderImg.classList.add("w-48");
-
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
+
+      leadersSection.appendChild(pointsLeaderSection);
+      pointsLeaderSection.appendChild(pointsLeaderInfo);
+      pointsLeaderSection.appendChild(pointsLeaderImg);
 
       pointsLeaderSection.classList.add(
         "flex",
@@ -90,13 +105,41 @@ fetch(PISTONS_STATS)
         "justify-between",
         "px-4"
       );
+
       pointsLeaderInfo.innerHTML = `
-         <span class="text-2xl", "font-black">${sortedByPoints[0].pts}</span>
-            <p>${sortedByPoints[0].name}</P>
-            `;
-      leadersSection.appendChild(pointsLeaderSection);
-      pointsLeaderSection.appendChild(pointsLeaderInfo);
-      pointsLeaderSection.appendChild(pointsLeaderImg);
+      <span class="text-4xl font-semibold">${sortedByPoints[0].pts.toFixed()}</span>
+        <p>${sortedByPoints[0].name}</P>
+        `;
+
+      const runnersUpSection = document.createElement("div");
+      runnersUpSection.classList.add(
+        "px-4",
+        "py-4",
+        "flex",
+        "justify-between"
+      );
+
+      leadersSection.appendChild(runnersUpSection);
+
+      for (let i = 1; i < 4; i++) {
+        const runnersUp = document.createElement("div");
+        runnersUp.classList.add("w-4/12");
+        const runnersUpImg = document.createElement("img");
+        runnersUpImg.src = sortedByPoints[i].imgTwo;
+
+        console.log(runnersUpImg);
+
+        runnersUp.innerHTML = `
+        <span class = "text-sm">${sortedByPoints[i].name}</span>
+          <br>
+            <span class="font-semibold">${sortedByPoints[i].pts.toFixed(1)}<img src=${sortedByPoints[i].imgTwo} class="w-16 h-16 ml-auto -mt-4"></img></span>
+        `;
+
+        runnersUpSection.appendChild(runnersUp);
+       
+      }
+
+   
       console.log(sortedByPoints);
     };
 
