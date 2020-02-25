@@ -132,7 +132,7 @@ fetch(PISTONS_STATS)
         runnersUp.innerHTML = `
         <span class = "text-sm">${sortedByPoints[i].name}</span>
           <br>
-            <span class="font-semibold">${sortedByPoints[i].pts.toFixed(1)}<img src=${sortedByPoints[i].imgTwo} class="w-16 h-16 ml-auto -mt-4"></img></span>
+            <span class="font-semibold">${sortedByPoints[i].pts.toFixed(1)}<img src=${sortedByPoints[i].imgTwo} class="w-16 ml-auto -mt-4"></img></span>
         `;
 
         runnersUpSection.appendChild(runnersUp);
