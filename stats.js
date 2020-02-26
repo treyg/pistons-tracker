@@ -92,7 +92,7 @@ fetch(PISTONS_STATS)
       const pointsLeaderInfo = document.createElement("div");
       pointsLeaderInfo.classList.add("mt-6");
       const pointsLeaderImg = document.createElement("img");
-      pointsLeaderImg.classList.add("w-48");
+      pointsLeaderImg.classList.add("w-8/12", 'overflow-hidden');
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
       leadersSection.appendChild(pointsLeaderSection);
