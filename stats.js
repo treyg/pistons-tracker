@@ -69,7 +69,7 @@ fetch(PISTONS_STATS)
       "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627748.png";
 
     const langstonGalloway = stats.find(e => e.player_id == 168);
-    langstonGalloway.name = "Langston Galloway";
+    langstonGalloway.name = "L. Galloway";
     langstonGalloway.imgOne =
       "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/204038.png";
     langstonGalloway.imgTwo =
