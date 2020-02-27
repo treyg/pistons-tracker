@@ -146,25 +146,26 @@ fetch(PISTONS_STATS)
 
     showPoints();
 
-    //Section for showing assist leaders
+/////////////////////////////////////////////////
 
-    const showAssists = () => {
-      const sortedByAssists = stats.sort((c, d) => (c.ast < d.ast ? 1 : -1));
+    const showassists = () => {
+      const sortedByassists = stats.sort((a, b) => (a.ast < b.ast ? 1 : -1));
 
-      const assistsLeadersSection = document.getElementById(
-        "assistsLeadersSection"
-      );
+      const leadersSection2 = document.getElementById("leadersSection2");
 
+      const assistsLeaderSection = document.createElement("div");
+      assistsLeaderSection.classList.add("pb-4");
       const assistsLeaderInfo = document.createElement("div");
       assistsLeaderInfo.classList.add("mt-6");
       const assistsLeaderImg = document.createElement("img");
       assistsLeaderImg.classList.add("w-8/12", "overflow-hidden");
-      assistsLeaderImg.src = sortedByAssists[0].imgOne;
+      assistsLeaderImg.src = sortedByassists[0].imgOne;
 
-      assistsLeadersSection.appendChild(assistsLeaderInfo);
-      assistsLeadersSection.appendChild(assistsLeaderImg);
+      leadersSection2.appendChild(assistsLeaderSection);
+      assistsLeaderSection.appendChild(assistsLeaderInfo);
+      assistsLeaderSection.appendChild(assistsLeaderImg);
 
-      assistsLeadersSection.classList.add(
+      assistsLeaderSection.classList.add(
         "flex",
         "flex-row",
         "justify-between",
@@ -172,40 +173,102 @@ fetch(PISTONS_STATS)
       );
 
       assistsLeaderInfo.innerHTML = `
-      <span class="text-4xl font-semibold">${sortedByAssists[0].ast.toFixed()}</span>
-        <p>${sortedByAssists[0].name}</P>
+      <span class="text-4xl font-semibold">${sortedByassists[0].ast.toFixed()}</span>
+        <p>${sortedByassists[0].name}</P>
         `;
 
-      const assistsRunnersUpSection = document.createElement("div");
-      assistsRunnersUpSection.classList.add(
-        "px-4",
-        "py-4",
-        "flex",
-        "justify-between"
-      );
+      const runnersUpSection = document.createElement("div");
+      runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-      assistsLeadersSection.appendChild(assistsRunnersUpSection);
+      leadersSection2.appendChild(runnersUpSection);
 
       for (let i = 1; i < 4; i++) {
-        const assistsRunnersUp = document.createElement("div");
-        assistsRunnersUp.classList.add("w-4/12");
-        const assistsRunnersUpImg = document.createElement("img");
-        assistsRunnersUpImg.src = sortedByAssists[i].imgTwo;
+        const runnersUp = document.createElement("div");
+        runnersUp.classList.add("w-4/12");
+        const runnersUpImg = document.createElement("img");
+        runnersUpImg.src = sortedByassists[i].imgTwo;
 
-        assistsRunnersUp.innerHTML = `
-        <span class = "text-sm">${sortedByAssists[i].name}</span>
+        //console.log(runnersUpImg);
+
+        runnersUp.innerHTML = `
+        <span class = "text-sm">${sortedByassists[i].name}</span>
           <br>
-            <span class="font-semibold">${sortedByAssists[i].ast.toFixed(
+            <span class="font-semibold">${sortedByassists[i].ast.toFixed(
               1
             )}<img src=${
-          sortedByAssists[i].imgTwo
+          sortedByassists[i].imgTwo
         } class="w-16 ml-auto -mt-4"></img></span>
         `;
 
-        assistsRunnersUpSection.appendChild(assistsRunnersUp);
+        runnersUpSection.appendChild(runnersUp);
       }
-      console.log(sortedByAssists);
+
+      // console.log(sortedByassists);
     };
 
-    showAssists();
+    showassists();
+
+
+    //Section for showing assist leaders
+
+    // const showAssists = () => {
+    //   const sortedByAssists = stats.sort((c, d) => (c.ast < d.ast ? 1 : -1));
+
+    //   const assistsLeadersSection = document.getElementById(
+    //     "assistsLeadersSection"
+    //   );
+
+    //   const assistsLeaderInfo = document.createElement("div");
+    //   assistsLeaderInfo.classList.add("mt-6");
+    //   const assistsLeaderImg = document.createElement("img");
+    //   assistsLeaderImg.classList.add("w-8/12", "overflow-hidden");
+    //   assistsLeaderImg.src = sortedByAssists[0].imgOne;
+
+    //   assistsLeadersSection.appendChild(assistsLeaderInfo);
+    //   assistsLeadersSection.appendChild(assistsLeaderImg);
+
+    //   assistsLeadersSection.classList.add(
+    //     "flex",
+    //     "flex-row",
+    //     "justify-between",
+    //     "px-4"
+    //   );
+
+    //   assistsLeaderInfo.innerHTML = `
+    //   <span class="text-4xl font-semibold">${sortedByAssists[0].ast.toFixed()}</span>
+    //     <p>${sortedByAssists[0].name}</P>
+    //     `;
+
+    //   const assistsRunnersUpSection = document.createElement("div");
+    //   assistsRunnersUpSection.classList.add(
+    //     "px-4",
+    //     "py-4",
+    //     "flex",
+    //     "justify-between"
+    //   );
+
+    //   assistsLeadersSection.appendChild(assistsRunnersUpSection);
+
+    //   for (let i = 1; i < 4; i++) {
+    //     const assistsRunnersUp = document.createElement("div");
+    //     assistsRunnersUp.classList.add("w-4/12");
+    //     const assistsRunnersUpImg = document.createElement("img");
+    //     assistsRunnersUpImg.src = sortedByAssists[i].imgTwo;
+
+    //     assistsRunnersUp.innerHTML = `
+    //     <span class = "text-sm">${sortedByAssists[i].name}</span>
+    //       <br>
+    //         <span class="font-semibold">${sortedByAssists[i].ast.toFixed(
+    //           1
+    //         )}<img src=${
+    //       sortedByAssists[i].imgTwo
+    //     } class="w-16 ml-auto -mt-4"></img></span>
+    //     `;
+
+    //     assistsRunnersUpSection.appendChild(assistsRunnersUp);
+    //   }
+    //   console.log(sortedByAssists);
+    // };
+
+    // showAssists();
   });
