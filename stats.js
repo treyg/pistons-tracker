@@ -1,5 +1,5 @@
 const PISTONS_STATS =
-  "https://www.balldontlie.io/api/v1/season_averages?season=2019&player_ids[]=254&player_ids[]=401&player_ids[]=189&player_ids[]=486&player_ids[]=666543&player_ids[]=189&player_ids[]=338&player_ids[]=69&player_ids[]=295&player_ids[]=329&player_ids[]=168&player_ids[]=258&player_ids[]=426&player_ids[]=666698&player_ids[]=666454&player_ids[]=441&player_ids[]=205";
+  "https://www.balldontlie.io/api/v1/season_averages?season=2019&player_ids[]=254&player_ids[]=401&player_ids[]=189&player_ids[]=486&player_ids[]=666543&player_ids[]=189&player_ids[]=338&player_ids[]=69&player_ids[]=295&player_ids[]=329&player_ids[]=168&player_ids[]=258&player_ids[]=426&player_ids[]=666698&player_ids[]=666454&player_ids[]=441&player_ids[]=205&player_ids[]=666611&player_ids[]=2208";
 
 //'https://www.balldontlie.io/api/v1/stats?seasons=[]2019&per_page=100'
 //'https://www.balldontlie.io/api/v1/players?year=[]2019?per_page=100'
@@ -109,15 +109,15 @@ fetch(PISTONS_STATS)
     johnHenson.imgTwo =
       "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203089.png ";
 
-    // const dontaHall = stats.find(e => e.player_id == 666611);
-    // dontaHall.name = "Donta Hall";
-    // dontaHall.imgTwo =
-    //   "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629743.png";
+    const dontaHall = stats.find(e => e.player_id == 666611);
+    dontaHall.name = "Donta Hall";
+    dontaHall.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629743.png";
 
-    // const derrickWaltonJr = stats.find(e => e.player_id == 2208);
-    // derrickWaltonJr.name = "Derrick Walton Jr.";
-    // derrickWaltonJr.imgTwo =
-    //   "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629743.png";
+    const derrickWaltonJr = stats.find(e => e.player_id == 2208);
+    derrickWaltonJr.name = "D. Walton Jr.";
+    derrickWaltonJr.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629743.png";
 
     //const sortedByAssists = stats.sort((a, b) => (a.ast < b.ast ? 1 : -1));
 
