@@ -81,6 +81,10 @@ fetch(PISTONS_STATS)
 
     const johnHenson = stats.find(e => e.player_id == 205);
     johnHenson.name = "John Henson";
+    johnHenson.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/203089.png";
+    johnHenson.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203089.png";
 
     //const sortedByAssists = stats.sort((a, b) => (a.ast < b.ast ? 1 : -1));
 
@@ -146,12 +150,12 @@ fetch(PISTONS_STATS)
 
     showPoints();
 
-/////////////////////////////////////////////////
+    /////////////////////////////////////////////////
 
     const showassists = () => {
       const sortedByassists = stats.sort((a, b) => (a.ast < b.ast ? 1 : -1));
 
-      const leadersSection2 = document.getElementById("leadersSection2");
+      const leadersSectionTwo = document.getElementById("leadersSectionTwo");
 
       const assistsLeaderSection = document.createElement("div");
       assistsLeaderSection.classList.add("pb-4");
@@ -161,7 +165,7 @@ fetch(PISTONS_STATS)
       assistsLeaderImg.classList.add("w-8/12", "overflow-hidden");
       assistsLeaderImg.src = sortedByassists[0].imgOne;
 
-      leadersSection2.appendChild(assistsLeaderSection);
+      leadersSectionTwo.appendChild(assistsLeaderSection);
       assistsLeaderSection.appendChild(assistsLeaderInfo);
       assistsLeaderSection.appendChild(assistsLeaderImg);
 
@@ -180,7 +184,7 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-      leadersSection2.appendChild(runnersUpSection);
+      leadersSectionTwo.appendChild(runnersUpSection);
 
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
@@ -208,67 +212,67 @@ fetch(PISTONS_STATS)
 
     showassists();
 
+    //Section for showing  rebound leaders
 
-    //Section for showing assist leaders
+    const showRebounds = () => {
+      const sortedByrebounds = stats.sort((a, b) => (a.reb < b.reb ? 1 : -1));
 
-    // const showAssists = () => {
-    //   const sortedByAssists = stats.sort((c, d) => (c.ast < d.ast ? 1 : -1));
+      const leadersSectionThree = document.getElementById(
+        "leadersSectionThree"
+      );
 
-    //   const assistsLeadersSection = document.getElementById(
-    //     "assistsLeadersSection"
-    //   );
+      const reboundsLeaderSection = document.createElement("div");
+      reboundsLeaderSection.classList.add("pb-4");
+      const reboundsLeaderInfo = document.createElement("div");
+      reboundsLeaderInfo.classList.add("mt-6");
+      const reboundsLeaderImg = document.createElement("img");
+      reboundsLeaderImg.classList.add("w-8/12", "overflow-hidden");
+      reboundsLeaderImg.src = sortedByrebounds[0].imgOne;
 
-    //   const assistsLeaderInfo = document.createElement("div");
-    //   assistsLeaderInfo.classList.add("mt-6");
-    //   const assistsLeaderImg = document.createElement("img");
-    //   assistsLeaderImg.classList.add("w-8/12", "overflow-hidden");
-    //   assistsLeaderImg.src = sortedByAssists[0].imgOne;
+      leadersSectionThree.appendChild(reboundsLeaderSection);
+      reboundsLeaderSection.appendChild(reboundsLeaderInfo);
+      reboundsLeaderSection.appendChild(reboundsLeaderImg);
 
-    //   assistsLeadersSection.appendChild(assistsLeaderInfo);
-    //   assistsLeadersSection.appendChild(assistsLeaderImg);
+      reboundsLeaderSection.classList.add(
+        "flex",
+        "flex-row",
+        "justify-between",
+        "px-4"
+      );
 
-    //   assistsLeadersSection.classList.add(
-    //     "flex",
-    //     "flex-row",
-    //     "justify-between",
-    //     "px-4"
-    //   );
+      reboundsLeaderInfo.innerHTML = `
+      <span class="text-4xl font-semibold">${sortedByrebounds[0].reb.toFixed()}</span>
+        <p>${sortedByrebounds[0].name}</P>
+        `;
 
-    //   assistsLeaderInfo.innerHTML = `
-    //   <span class="text-4xl font-semibold">${sortedByAssists[0].ast.toFixed()}</span>
-    //     <p>${sortedByAssists[0].name}</P>
-    //     `;
+      const runnersUpSection = document.createElement("div");
+      runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-    //   const assistsRunnersUpSection = document.createElement("div");
-    //   assistsRunnersUpSection.classList.add(
-    //     "px-4",
-    //     "py-4",
-    //     "flex",
-    //     "justify-between"
-    //   );
+      leadersSectionThree.appendChild(runnersUpSection);
 
-    //   assistsLeadersSection.appendChild(assistsRunnersUpSection);
+      for (let i = 1; i < 4; i++) {
+        const runnersUp = document.createElement("div");
+        runnersUp.classList.add("w-4/12");
+        const runnersUpImg = document.createElement("img");
+        runnersUpImg.src = sortedByrebounds[i].imgTwo;
 
-    //   for (let i = 1; i < 4; i++) {
-    //     const assistsRunnersUp = document.createElement("div");
-    //     assistsRunnersUp.classList.add("w-4/12");
-    //     const assistsRunnersUpImg = document.createElement("img");
-    //     assistsRunnersUpImg.src = sortedByAssists[i].imgTwo;
+        //console.log(runnersUpImg);
 
-    //     assistsRunnersUp.innerHTML = `
-    //     <span class = "text-sm">${sortedByAssists[i].name}</span>
-    //       <br>
-    //         <span class="font-semibold">${sortedByAssists[i].ast.toFixed(
-    //           1
-    //         )}<img src=${
-    //       sortedByAssists[i].imgTwo
-    //     } class="w-16 ml-auto -mt-4"></img></span>
-    //     `;
+        runnersUp.innerHTML = `
+        <span class = "text-sm">${sortedByrebounds[i].name}</span>
+          <br>
+            <span class="font-semibold">${sortedByrebounds[i].reb.toFixed(
+              1
+            )}<img src=${
+          sortedByrebounds[i].imgTwo
+        } class="w-16 ml-auto -mt-4"></img></span>
+        `;
 
-    //     assistsRunnersUpSection.appendChild(assistsRunnersUp);
-    //   }
-    //   console.log(sortedByAssists);
-    // };
+        runnersUpSection.appendChild(runnersUp);
+      }
 
-    // showAssists();
+      // console.log(sortedByrebounds);
+    };
+
+    showRebounds();
   });
