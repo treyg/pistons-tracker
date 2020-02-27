@@ -50,6 +50,10 @@ fetch(PISTONS_STATS)
 
     const bruceBrown = stats.find(e => e.player_id == 69);
     bruceBrown.name = "Bruce Brown";
+    bruceBrown.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1628971.png";
+    bruceBrown.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628971.png";
 
     const thonMaker = stats.find(e => e.player_id == 295);
     thonMaker.name = "Thon Maker";
@@ -92,7 +96,7 @@ fetch(PISTONS_STATS)
       const pointsLeaderInfo = document.createElement("div");
       pointsLeaderInfo.classList.add("mt-6");
       const pointsLeaderImg = document.createElement("img");
-      pointsLeaderImg.classList.add("w-8/12", 'overflow-hidden');
+      pointsLeaderImg.classList.add("w-8/12", "overflow-hidden");
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
       leadersSection.appendChild(pointsLeaderSection);
@@ -112,12 +116,7 @@ fetch(PISTONS_STATS)
         `;
 
       const runnersUpSection = document.createElement("div");
-      runnersUpSection.classList.add(
-        "px-4",
-        "py-4",
-        "flex",
-        "justify-between"
-      );
+      runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
       leadersSection.appendChild(runnersUpSection);
 
@@ -127,21 +126,86 @@ fetch(PISTONS_STATS)
         const runnersUpImg = document.createElement("img");
         runnersUpImg.src = sortedByPoints[i].imgTwo;
 
-        console.log(runnersUpImg);
+        //console.log(runnersUpImg);
 
         runnersUp.innerHTML = `
         <span class = "text-sm">${sortedByPoints[i].name}</span>
           <br>
-            <span class="font-semibold">${sortedByPoints[i].pts.toFixed(1)}<img src=${sortedByPoints[i].imgTwo} class="w-16 ml-auto -mt-4"></img></span>
+            <span class="font-semibold">${sortedByPoints[i].pts.toFixed(
+              1
+            )}<img src=${
+          sortedByPoints[i].imgTwo
+        } class="w-16 ml-auto -mt-4"></img></span>
         `;
 
         runnersUpSection.appendChild(runnersUp);
-       
       }
 
-   
-      console.log(sortedByPoints);
+      // console.log(sortedByPoints);
     };
 
     showPoints();
+
+    //Section for showing assist leaders
+
+    const showAssists = () => {
+      const sortedByAssists = stats.sort((c, d) => (c.ast < d.ast ? 1 : -1));
+
+      const assistsLeadersSection = document.getElementById(
+        "assistsLeadersSection"
+      );
+
+      const assistsLeaderInfo = document.createElement("div");
+      assistsLeaderInfo.classList.add("mt-6");
+      const assistsLeaderImg = document.createElement("img");
+      assistsLeaderImg.classList.add("w-8/12", "overflow-hidden");
+      assistsLeaderImg.src = sortedByAssists[0].imgOne;
+
+      assistsLeadersSection.appendChild(assistsLeaderInfo);
+      assistsLeadersSection.appendChild(assistsLeaderImg);
+
+      assistsLeadersSection.classList.add(
+        "flex",
+        "flex-row",
+        "justify-between",
+        "px-4"
+      );
+
+      assistsLeaderInfo.innerHTML = `
+      <span class="text-4xl font-semibold">${sortedByAssists[0].ast.toFixed()}</span>
+        <p>${sortedByAssists[0].name}</P>
+        `;
+
+      const assistsRunnersUpSection = document.createElement("div");
+      assistsRunnersUpSection.classList.add(
+        "px-4",
+        "py-4",
+        "flex",
+        "justify-between"
+      );
+
+      assistsLeadersSection.appendChild(assistsRunnersUpSection);
+
+      for (let i = 1; i < 4; i++) {
+        const assistsRunnersUp = document.createElement("div");
+        assistsRunnersUp.classList.add("w-4/12");
+        const assistsRunnersUpImg = document.createElement("img");
+        assistsRunnersUpImg.src = sortedByAssists[i].imgTwo;
+
+        assistsRunnersUp.innerHTML = `
+        <span class = "text-sm">${sortedByAssists[i].name}</span>
+          <br>
+            <span class="font-semibold">${sortedByAssists[i].ast.toFixed(
+              1
+            )}<img src=${
+          sortedByAssists[i].imgTwo
+        } class="w-16 ml-auto -mt-4"></img></span>
+        `;
+
+        assistsRunnersUpSection.appendChild(assistsRunnersUp);
+      }
+      console.log(sortedByAssists);
+    };
+
+    showAssists();
   });
