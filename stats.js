@@ -119,10 +119,7 @@ fetch(PISTONS_STATS)
     derrickWaltonJr.imgTwo =
       "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629743.png";
 
-    //const sortedByAssists = stats.sort((a, b) => (a.ast < b.ast ? 1 : -1));
-
-    //const sortedByRebounds = stats.sort((a, b) => (a.reb < b.reb ? 1 : -1));
-
+ 
     const showPoints = () => {
       const sortedByPoints = stats.sort((a, b) => (a.pts < b.pts ? 1 : -1));
 
