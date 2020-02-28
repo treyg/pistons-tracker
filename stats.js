@@ -130,7 +130,7 @@ fetch(PISTONS_STATS)
       const pointsLeaderInfo = document.createElement("div");
       pointsLeaderInfo.classList.add("mt-6");
       const pointsLeaderImg = document.createElement("img");
-      pointsLeaderImg.classList.add("w-8/12", "h-auto");
+      //pointsLeaderImg.classList.add("w-8/12", "h-auto");
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
       leadersSection.appendChild(pointsLeaderSection);
@@ -169,7 +169,7 @@ fetch(PISTONS_STATS)
               1
             )}<img src=${
           sortedByPoints[i].imgTwo
-        } class="w-16 ml-auto -mt-4"></img></span>
+        } class=" ml-auto -mt-4"></img></span>
         `;
 
         runnersUpSection.appendChild(runnersUp);
