@@ -169,7 +169,7 @@ fetch(PISTONS_STATS)
               1
             )}<img src=${
           sortedByPoints[i].imgTwo
-        } class=" ml-auto -mt-4"></img></span>
+        } class="w-16 ml-auto -mt-4"></img></span>
         `;
 
         runnersUpSection.appendChild(runnersUp);
