@@ -116,10 +116,11 @@ fetch(PISTONS_STATS)
 
     const derrickWaltonJr = stats.find(e => e.player_id == 2208);
     derrickWaltonJr.name = "D. Walton Jr.";
+    derrickWaltonJr.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1628476.png";
     derrickWaltonJr.imgTwo =
       "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629743.png";
 
- 
     const showPoints = () => {
       const sortedByPoints = stats.sort((a, b) => (a.pts < b.pts ? 1 : -1));
 
@@ -145,7 +146,9 @@ fetch(PISTONS_STATS)
       );
 
       pointsLeaderInfo.innerHTML = `
-      <span class="text-4xl font-semibold">${sortedByPoints[0].pts.toFixed(1)}</span>
+      <span class="text-4xl font-semibold">${sortedByPoints[0].pts.toFixed(
+        1
+      )}</span>
         <p>${sortedByPoints[0].name}</P>
         `;
 
@@ -207,7 +210,9 @@ fetch(PISTONS_STATS)
       );
 
       assistsLeaderInfo.innerHTML = `
-      <span class="text-4xl font-semibold">${sortedByassists[0].ast.toFixed(1)}</span>
+      <span class="text-4xl font-semibold">${sortedByassists[0].ast.toFixed(
+        1
+      )}</span>
         <p>${sortedByassists[0].name}</P>
         `;
 
@@ -271,7 +276,9 @@ fetch(PISTONS_STATS)
       );
 
       reboundsLeaderInfo.innerHTML = `
-      <span class="text-4xl font-semibold">${sortedByrebounds[0].reb.toFixed(1)}</span>
+      <span class="text-4xl font-semibold">${sortedByrebounds[0].reb.toFixed(
+        1
+      )}</span>
         <p>${sortedByrebounds[0].name}</P>
         `;
 
@@ -334,8 +341,8 @@ fetch(PISTONS_STATS)
 
       FGPLeaderInfo.innerHTML = `
       <span class="text-4xl font-semibold">${(
-        sortedByFGP[0].fg_pct * 100
-      ).toFixed(1)}</span>
+        sortedByFGP[0].fg_pct * 100 
+      ).toFixed(1)}%</span>
         <p>${sortedByFGP[0].name}</P>
         `;
 
@@ -357,7 +364,7 @@ fetch(PISTONS_STATS)
           <br>
             <span class="font-semibold">${(sortedByFGP[i].fg_pct * 100).toFixed(
               1
-            )}<img src=${
+            )}%<img src=${
           sortedByFGP[i].imgTwo
         } class="w-16 ml-auto -mt-4"></img></span>
         `;
@@ -373,7 +380,9 @@ fetch(PISTONS_STATS)
     //Three point percentage section
 
     const showTPP = () => {
-      const sortedByTPP = stats.sort((a, b) => (a.fg3_pct < b.fg3_pct ? 1 : -1));
+      const sortedByTPP = stats.sort((a, b) =>
+        a.fg3_pct < b.fg3_pct ? 1 : -1
+      );
 
       const leadersSectionFive = document.getElementById("leadersSectionFive");
 
@@ -399,7 +408,7 @@ fetch(PISTONS_STATS)
       TPPLeaderInfo.innerHTML = `
       <span class="text-4xl font-semibold">${(
         sortedByTPP[0].fg_pct * 100
-      ).toFixed(1)}</span>
+      ).toFixed(1)}%</span>
         <p>${sortedByTPP[0].name}</P>
         `;
 
@@ -421,7 +430,7 @@ fetch(PISTONS_STATS)
           <br>
             <span class="font-semibold">${(sortedByTPP[i].fg_pct * 100).toFixed(
               1
-            )}<img src=${
+            )}%<img src=${
           sortedByTPP[i].imgTwo
         } class="w-16 ml-auto -mt-4"></img></span>
         `;
