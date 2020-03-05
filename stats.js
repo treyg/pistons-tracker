@@ -375,8 +375,6 @@ fetch(PISTONS_STATS)
       FGPLeaderSection.appendChild(FGPLeaderImg);
       leadersSectionFour.appendChild(runnersUpSection);
 
-
-      // console.log(sortedByFGP);
     };
 
     showFGP();
@@ -442,9 +440,6 @@ fetch(PISTONS_STATS)
       TPPLeaderSection.appendChild(TPPLeaderImg);
       leadersSectionFive.appendChild(runnersUpSection);
 
-
-
-      // console.log(sortedByTPP);
     };
 
     showTPP();
