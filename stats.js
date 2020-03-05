@@ -134,10 +134,6 @@ fetch(PISTONS_STATS)
       //pointsLeaderImg.classList.add("w-8/12", "h-auto");
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
-      leadersSection.appendChild(pointsLeaderSection);
-      pointsLeaderSection.appendChild(pointsLeaderInfo);
-      pointsLeaderSection.appendChild(pointsLeaderImg);
-
       pointsLeaderSection.classList.add(
         "flex",
         "flex-row",
@@ -155,7 +151,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-      leadersSection.appendChild(runnersUpSection);
 
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
@@ -178,6 +173,11 @@ fetch(PISTONS_STATS)
         runnersUpSection.appendChild(runnersUp);
       }
 
+      leadersSection.appendChild(pointsLeaderSection);
+      pointsLeaderSection.appendChild(pointsLeaderInfo);
+      pointsLeaderSection.appendChild(pointsLeaderImg);
+      leadersSection.appendChild(runnersUpSection);
+
       // console.log(sortedByPoints);
     };
 
@@ -198,10 +198,6 @@ fetch(PISTONS_STATS)
       assistsLeaderImg.classList.add("w-8/12", "h-auto");
       assistsLeaderImg.src = sortedByassists[0].imgOne;
 
-      leadersSectionTwo.appendChild(assistsLeaderSection);
-      assistsLeaderSection.appendChild(assistsLeaderInfo);
-      assistsLeaderSection.appendChild(assistsLeaderImg);
-
       assistsLeaderSection.classList.add(
         "flex",
         "flex-row",
@@ -219,7 +215,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-      leadersSectionTwo.appendChild(runnersUpSection);
 
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
@@ -241,6 +236,12 @@ fetch(PISTONS_STATS)
 
         runnersUpSection.appendChild(runnersUp);
       }
+
+      leadersSectionTwo.appendChild(assistsLeaderSection);
+      assistsLeaderSection.appendChild(assistsLeaderInfo);
+      assistsLeaderSection.appendChild(assistsLeaderImg);
+      leadersSectionTwo.appendChild(runnersUpSection);
+
 
       // console.log(sortedByassists);
     };
@@ -264,10 +265,6 @@ fetch(PISTONS_STATS)
       reboundsLeaderImg.classList.add("w-8/12", "h-auto");
       reboundsLeaderImg.src = sortedByrebounds[0].imgOne;
 
-      leadersSectionThree.appendChild(reboundsLeaderSection);
-      reboundsLeaderSection.appendChild(reboundsLeaderInfo);
-      reboundsLeaderSection.appendChild(reboundsLeaderImg);
-
       reboundsLeaderSection.classList.add(
         "flex",
         "flex-row",
@@ -285,7 +282,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-      leadersSectionThree.appendChild(runnersUpSection);
 
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
@@ -308,6 +304,12 @@ fetch(PISTONS_STATS)
         runnersUpSection.appendChild(runnersUp);
       }
 
+      leadersSectionThree.appendChild(reboundsLeaderSection);
+      reboundsLeaderSection.appendChild(reboundsLeaderInfo);
+      reboundsLeaderSection.appendChild(reboundsLeaderImg);
+      leadersSectionThree.appendChild(runnersUpSection);
+
+
       // console.log(sortedByrebounds);
     };
 
@@ -328,9 +330,6 @@ fetch(PISTONS_STATS)
       FGPLeaderImg.classList.add("w-8/12", "h-auto");
       FGPLeaderImg.src = sortedByFGP[0].imgOne;
 
-      leadersSectionFour.appendChild(FGPLeaderSection);
-      FGPLeaderSection.appendChild(FGPLeaderInfo);
-      FGPLeaderSection.appendChild(FGPLeaderImg);
 
       FGPLeaderSection.classList.add(
         "flex",
@@ -349,7 +348,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-      leadersSectionFour.appendChild(runnersUpSection);
 
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
@@ -371,6 +369,12 @@ fetch(PISTONS_STATS)
 
         runnersUpSection.appendChild(runnersUp);
       }
+
+      leadersSectionFour.appendChild(FGPLeaderSection);
+      FGPLeaderSection.appendChild(FGPLeaderInfo);
+      FGPLeaderSection.appendChild(FGPLeaderImg);
+      leadersSectionFour.appendChild(runnersUpSection);
+
 
       // console.log(sortedByFGP);
     };
@@ -394,10 +398,6 @@ fetch(PISTONS_STATS)
       TPPLeaderImg.classList.add("w-8/12", "h-auto");
       TPPLeaderImg.src = sortedByTPP[0].imgOne;
 
-      leadersSectionFive.appendChild(TPPLeaderSection);
-      TPPLeaderSection.appendChild(TPPLeaderInfo);
-      TPPLeaderSection.appendChild(TPPLeaderImg);
-
       TPPLeaderSection.classList.add(
         "flex",
         "flex-row",
@@ -415,7 +415,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-      leadersSectionFive.appendChild(runnersUpSection);
 
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
@@ -437,6 +436,13 @@ fetch(PISTONS_STATS)
 
         runnersUpSection.appendChild(runnersUp);
       }
+
+      leadersSectionFive.appendChild(TPPLeaderSection);
+      TPPLeaderSection.appendChild(TPPLeaderInfo);
+      TPPLeaderSection.appendChild(TPPLeaderImg);
+      leadersSectionFive.appendChild(runnersUpSection);
+
+
 
       // console.log(sortedByTPP);
     };
