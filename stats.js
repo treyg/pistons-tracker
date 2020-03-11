@@ -185,6 +185,8 @@ fetch(PISTONS_STATS)
 
     /////////////////////////////////////////////////
 
+    //Refactor to use one function for each stat leader
+
     const showassists = () => {
       const sortedByassists = stats.sort((a, b) => (a.ast < b.ast ? 1 : -1));
 
