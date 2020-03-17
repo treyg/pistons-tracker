@@ -1,0 +1,19 @@
+{
+  "name": "stons-center",
+  "version": "1.0.0",
+  "description": "Detroit Pistons web app for news and live scores",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/treyg/pistons-tracker.git"
+  },
+  "author": "Trey Gordon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/treyg/pistons-tracker/issues"
+  },
+  "homepage": "https://github.com/treyg/pistons-tracker#readme"
+}
