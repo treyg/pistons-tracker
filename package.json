@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/treyg/pistons-tracker/issues"
   },
-  "homepage": "https://github.com/treyg/pistons-tracker#readme"
+  "homepage": "https://github.com/treyg/pistons-tracker#readme",
+  "dependencies": {}
 }
