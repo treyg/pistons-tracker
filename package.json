@@ -16,5 +16,8 @@
     "url": "https://github.com/treyg/pistons-tracker/issues"
   },
   "homepage": "https://github.com/treyg/pistons-tracker#readme",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
+  }
 }
