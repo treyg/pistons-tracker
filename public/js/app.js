@@ -39,7 +39,7 @@ fetch(PISTONS_URL)
     //Set variable for next game data
     const nextGame = pistonsData.nextEvent;
     const competitors = nextGame[0].competitions[0].competitors;
-    console.log(nextGame);
+    //console.log(nextGame);
 
     // Run function to check for a live game and hide the game preview if the game is live or completed
     const checkForLiveGame = () => {
@@ -136,7 +136,7 @@ fetch(SCOREBOARD_URL)
       games.shortName.includes("DET")
     );
 
-    console.log(livePistonsGame);
+    //console.log(livePistonsGame);
     //Check to see if live game array is populated. If so, run function to collect and print data, if not hide currentEventContainer
 
     //get live score and time for current game
@@ -215,7 +215,7 @@ fetch(PISTONS_GAMES_URL)
     const sortedStonsGames = stonsGamesData.sort((a, b) =>
       a.id > b.id ? 1 : -1
     );
-    console.log(stonsGamesData)
+    //console.log(stonsGamesData)
 
     //Show pistons game that have already been played and reverse the order to show the most recent game first
     const completedStonsGames = sortedStonsGames
@@ -275,6 +275,20 @@ fetch(PISTONS_GAMES_URL)
 
 //news for pistons
 
+
+
+fetch('data.json')
+.then(response => {
+    if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+    }
+    return response.json();
+})
+.then(jsonData => {
+    console.log(jsonData)
+
+})
+
 // const api = "21b177ecd55041b2b5174de15bafc241";
 // const requestOptions = {
 //   headers: {
@@ -285,54 +299,58 @@ fetch(PISTONS_GAMES_URL)
 // const NEWS_URL =
 //   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
 
-fetch(NEWS_URL, requestOptions)
-  .then(response => {
-    return response.json();
-  })
-  .then(newsJSON => {
-    //Set the JSON data for games to a variable
-    const stonsNews = newsJSON.value;
+// fetch(NEWS_URL, requestOptions)
+//   .then(response => {
+//     return response.json();
+//   })
+//   .then(newsJSON => {
+//     //Set the JSON data for games to a variable
+//     const stonsNews = newsJSON.value;
 
-    const showStonsNews = () => {
-      let pistonsNewsSection = document.getElementById("pistonsNewsSection");
+//     const showStonsNews = () => {
+//       let pistonsNewsSection = document.getElementById("pistonsNewsSection");
 
-      for (let i = 0; i < 10; i++) {
-        let imgContainer = document.createElement("div");
-        pistonsNewsSection.appendChild(imgContainer);
-        imgContainer.classList.add(
-          "flex",
-          "flex-row",
-          "py-2",
-          "overflow-hidden",
-          "mb-6",
-          "border-2",
-          "border-gray-200",
-          "rounded",
-          "cursor-pointer"
-        );
+//       for (let i = 0; i < 10; i++) {
+//         let imgContainer = document.createElement("div");
+//         pistonsNewsSection.appendChild(imgContainer);
+//         imgContainer.classList.add(
+//           "flex",
+//           "flex-row",
+//           "py-2",
+//           "overflow-hidden",
+//           "mb-6",
+//           "border-2",
+//           "border-gray-200",
+//           "rounded",
+//           "cursor-pointer"
+//         );
 
-        let stonsNewsImage = document.createElement("img");
-        stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
-        stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
-        imgContainer.appendChild(stonsNewsImage);
+//         let stonsNewsImage = document.createElement("img");
+//         stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
+//         stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
+//         imgContainer.appendChild(stonsNewsImage);
 
-        let stonsNewsTitle = document.createElement("div");
-        stonsNewsTitle.textContent = `${stonsNews[i].name}`;
-        stonsNewsTitle.classList.add("mx-3", "text-base");
-        imgContainer.appendChild(stonsNewsTitle);
+//         let stonsNewsTitle = document.createElement("div");
+//         stonsNewsTitle.textContent = `${stonsNews[i].name}`;
+//         stonsNewsTitle.classList.add("mx-3", "text-base");
+//         imgContainer.appendChild(stonsNewsTitle);
 
-        let stonsNewsProvider = document.createElement("p");
-        stonsNewsProvider.textContent = `${
-          stonsNews[i].provider[0].name
-        } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
-        stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
-        stonsNewsTitle.appendChild(stonsNewsProvider);
+//         let stonsNewsProvider = document.createElement("p");
+//         stonsNewsProvider.textContent = `${
+//           stonsNews[i].provider[0].name
+//         } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
+//         stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
+//         stonsNewsTitle.appendChild(stonsNewsProvider);
 
-        imgContainer.addEventListener("click", () => {
-          window.open(stonsNews[i].url);
-        });
-      }
-    };
+//         imgContainer.addEventListener("click", () => {
+//           window.open(stonsNews[i].url);
+//         });
+//       }
+//     };
 
-    showStonsNews();
-  });
+//     showStonsNews();
+ // });
+
+
+
+      
