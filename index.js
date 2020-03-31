@@ -28,14 +28,14 @@ const requestOptions = {
   }
 };
 
-// const NEWS_URL =
-//   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
+const api_url =
+  "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
 
   const {cacheGet,cacheReset} = (function() {
     const dataFile = 'public/data.json';
     let data = false;
     async function getFreshData() {
-      const api_url = `https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons`;
+      //const api_url = `https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons`;
       const data = await (await fetch(api_url, requestOptions)).json();
       fs.writeFileSync(dataFile, JSON.stringify(data));
       return data;
