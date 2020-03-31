@@ -273,83 +273,63 @@ fetch(PISTONS_GAMES_URL)
     latestGames();
   });
 
+
+  
 //news for pistons
 
 
-
 fetch('data.json')
-.then(response => {
-    if (!response.ok) {
-        throw new Error("HTTP error " + response.status);
-    }
+  .then(response => {
     return response.json();
-})
-.then(jsonData => {
-    console.log(jsonData)
+  })
+  .then(newsJSON => {
+    //Set the JSON data for games to a variable
+    const stonsNews = newsJSON.value;
+    console.log(stonsNews)
 
-})
+    const showStonsNews = () => {
+      let pistonsNewsSection = document.getElementById("pistonsNewsSection");
 
-// const api = "21b177ecd55041b2b5174de15bafc241";
-// const requestOptions = {
-//   headers: {
-//     "Ocp-Apim-Subscription-Key": api
-//   }
-// };
+      for (let i = 0; i < 10; i++) {
+        let imgContainer = document.createElement("div");
+        pistonsNewsSection.appendChild(imgContainer);
+        imgContainer.classList.add(
+          "flex",
+          "flex-row",
+          "py-2",
+          "overflow-hidden",
+          "mb-6",
+          "border-2",
+          "border-gray-200",
+          "rounded",
+          "cursor-pointer"
+        );
 
-// const NEWS_URL =
-//   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
+        let stonsNewsImage = document.createElement("img");
+        stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
+        stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
+        imgContainer.appendChild(stonsNewsImage);
 
-// fetch(NEWS_URL, requestOptions)
-//   .then(response => {
-//     return response.json();
-//   })
-//   .then(newsJSON => {
-//     //Set the JSON data for games to a variable
-//     const stonsNews = newsJSON.value;
+        let stonsNewsTitle = document.createElement("div");
+        stonsNewsTitle.textContent = `${stonsNews[i].name}`;
+        stonsNewsTitle.classList.add("mx-3", "text-base");
+        imgContainer.appendChild(stonsNewsTitle);
 
-//     const showStonsNews = () => {
-//       let pistonsNewsSection = document.getElementById("pistonsNewsSection");
+        let stonsNewsProvider = document.createElement("p");
+        stonsNewsProvider.textContent = `${
+          stonsNews[i].provider[0].name
+        } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
+        stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
+        stonsNewsTitle.appendChild(stonsNewsProvider);
 
-//       for (let i = 0; i < 10; i++) {
-//         let imgContainer = document.createElement("div");
-//         pistonsNewsSection.appendChild(imgContainer);
-//         imgContainer.classList.add(
-//           "flex",
-//           "flex-row",
-//           "py-2",
-//           "overflow-hidden",
-//           "mb-6",
-//           "border-2",
-//           "border-gray-200",
-//           "rounded",
-//           "cursor-pointer"
-//         );
+        imgContainer.addEventListener("click", () => {
+          window.open(stonsNews[i].url);
+        });
+      }
+    };
 
-//         let stonsNewsImage = document.createElement("img");
-//         stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
-//         stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
-//         imgContainer.appendChild(stonsNewsImage);
-
-//         let stonsNewsTitle = document.createElement("div");
-//         stonsNewsTitle.textContent = `${stonsNews[i].name}`;
-//         stonsNewsTitle.classList.add("mx-3", "text-base");
-//         imgContainer.appendChild(stonsNewsTitle);
-
-//         let stonsNewsProvider = document.createElement("p");
-//         stonsNewsProvider.textContent = `${
-//           stonsNews[i].provider[0].name
-//         } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
-//         stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
-//         stonsNewsTitle.appendChild(stonsNewsProvider);
-
-//         imgContainer.addEventListener("click", () => {
-//           window.open(stonsNews[i].url);
-//         });
-//       }
-//     };
-
-//     showStonsNews();
- // });
+    showStonsNews();
+ });
 
 
 
