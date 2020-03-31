@@ -5,6 +5,8 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const fetch = require("node-fetch");
+require('dotenv').config()
+
 //Set express to app variable
 const PORT = process.env.PORT || 3000;
 
@@ -21,7 +23,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //////////////////////////////////////////
 
-const api = "21b177ecd55041b2b5174de15bafc241";
+const api = process.env.API_KEY;
 const requestOptions = {
   headers: {
     "Ocp-Apim-Subscription-Key": api
@@ -31,11 +33,10 @@ const requestOptions = {
 const api_url =
   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
 
-  const {cacheGet,cacheReset} = (function() {
+  const cacheGet = function() {
     const dataFile = 'public/data.json';
     let data = false;
     async function getFreshData() {
-      //const api_url = `https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons`;
       const data = await (await fetch(api_url, requestOptions)).json();
       fs.writeFileSync(dataFile, JSON.stringify(data));
       return data;
@@ -60,19 +61,12 @@ const api_url =
       data = fresh;
       return data;
     };
-    function cacheReset() {
-      fs.unlinkSync(dataFile);
-      data = false;
-    }
-    return {
-      cacheGet,
-      cacheReset,
+    return cacheGet
       
-    };
-  
-    
-  })();
+  }();
   
   
   
-  setInterval(()=>(cacheGet()), 1000*60*60);
+  setInterval(()=>{
+    return (cacheGet());
+  }, 1000*60*60);
