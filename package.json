@@ -4,7 +4,7 @@
   "description": "Detroit Pistons web app for news and live scores",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "postcss css/tailwind.css -o public/build/tailwind.css"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/treyg/pistons-tracker#readme",
   "dependencies": {
+    "autoprefixer": "^9.7.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "node-fetch": "^2.6.0"
-  }
+    "node-fetch": "^2.6.0",
+    "postcss-cli": "^7.1.0",
+    "tailwindcss": "^1.2.0"
+  },
+  "devDependencies": {}
 }
