@@ -33,7 +33,7 @@ const requestOptions = {
 const api_url =
   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
 
-  const cacheGet = function() {
+  const {cacheGet,cacheReset} = (function() {
     const dataFile = 'public/data.json';
     let data = false;
     async function getFreshData() {
@@ -61,12 +61,18 @@ const api_url =
       data = fresh;
       return data;
     };
-    return cacheGet
+    function cacheReset() {
+      fs.unlinkSync(dataFile);
+      data = false;
+    }
+    return {
+      cacheGet,
+      cacheReset,
       
-  }();
+    };
+  
+    
+  })();
   
   
-  
-  setInterval(()=>{
-    return (cacheGet());
-  }, 1000*60*60);
+  setInterval(()=>(cacheReset(),cacheGet()), 1000*60*60);
