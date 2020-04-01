@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>StonsCenter</title>
 
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/build/tailwind.css">
  
 
 </head>
@@ -51,11 +51,11 @@
 	</div>
 
 <!-- End Nav section -->
-<div id="page-container" class="flex flex-col md:flex-row lg:flex-row border-2 border-blue-700 lg:w-11/12 m-auto">
+<div id="page-container" class="flex flex-col md:flex-row lg:flex-row border-2 lg:w-5/6 m-auto">
 
-<div id="left-container" class="md:w-1/2 lg:w-1/2 flex flex-col items-end border-2 border-red-700">
+<div id="left-container" class="md:w-1/2 lg:w-1/2 flex flex-col">
 
-    <div id="preview" class="text-lg bg-white shadow-md border border-gray-200 rounded mx-3 my-4 w-full md:max-w-lg md:w-11/12 max-w-lg">
+    <div id="preview" class="text-lg bg-white shadow-md border border-gray-200 rounded mx-3 my-4 sm:max-w-md md:max-w-lg lg:max-w-xl">
       <h2 id="startDate" class="text-lg font-semibold tracking-wide py-4 pl-4"></h2>
 
         <div id="nextGameContainer" class=" text-lg flex justify-between">
@@ -88,7 +88,7 @@
     <!-- current game - show only if game is live -->
 
     
-    <section id="currentEventContainer" class="bg-white shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl">
+    <section id="currentEventContainer" class="bg-white shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-md md:max-w-lg lg:max-w-xl">
         <div id="todaysGameStatus" class="mx-2 text-base py-4 pl-4 font-medium"></div>
   
           <div id="liveGameContainer" class=" text-lg flex justify-between">
@@ -122,7 +122,7 @@
 
     <!-- Last Five games section -->
 
-    <div id="gameSections" class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-md md:max-w-lg">
+    <div id="gameSections" class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-md md:max-w-lg lg:max-w-xl">
         <div id="lastTen" class="pb-4 text-lg font-medium tracking-wide ">Last 5 Games</div>
 
     </div>

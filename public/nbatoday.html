@@ -6,10 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>NBA Today</title>
 
-    <link
-      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="/build/tailwind.css">
   </head>
   <body class="bg-gray-200">
     <nav class="shadow flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0" style="background-color: #1D42BA;">
@@ -52,10 +49,9 @@
   <!-- End Nav section -->
 
     <!-- NBA Games today Sections -->
-    <div id="nbaToday-container" class="flex flex-col md:flex-row lg:flex-row w-full justify-center border border-solid border-black">
     <div
       id="gamesTodaySection"
-      class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-3 my-4 text-lg md:max-w-lg lg:max-w-xl w-1/3"
+      class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl"
     >
       <div
         id="gamesTodayHeading"
@@ -79,7 +75,6 @@
         League News
       </div>
     </div>
-  </div>
     
     <script type="text/javascript" src="js/league.js"></script>
     <script type="text/javascript" src="js/dayjs.js"></script>
