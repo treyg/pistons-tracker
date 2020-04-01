@@ -28,6 +28,7 @@ fetch(PISTONS_STATS)
     derrickRose.imgTwo =
       "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201565.png";
 
+
     const blakeGriffin = stats.find(e => e.player_id == 189);
     blakeGriffin.name = "Blake Griffin";
     blakeGriffin.imgOne =
