@@ -1,3 +1,5 @@
+
+
 const PISTONS_STATS =
   "https://www.balldontlie.io/api/v1/season_averages?season=2019&player_ids[]=254&player_ids[]=401&player_ids[]=189&player_ids[]=486&player_ids[]=666543&player_ids[]=189&player_ids[]=338&player_ids[]=69&player_ids[]=295&player_ids[]=329&player_ids[]=168&player_ids[]=258&player_ids[]=426&player_ids[]=666698&player_ids[]=666454&player_ids[]=441&player_ids[]=205&player_ids[]=666611&player_ids[]=2208";
 
@@ -27,7 +29,6 @@ fetch(PISTONS_STATS)
       "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/201565.png";
     derrickRose.imgTwo =
       "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201565.png";
-
 
     const blakeGriffin = stats.find(e => e.player_id == 189);
     blakeGriffin.name = "Blake Griffin";
@@ -152,7 +153,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
         runnersUp.classList.add("w-4/12");
@@ -218,7 +218,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
         runnersUp.classList.add("w-4/12");
@@ -244,7 +243,6 @@ fetch(PISTONS_STATS)
       assistsLeaderSection.appendChild(assistsLeaderInfo);
       assistsLeaderSection.appendChild(assistsLeaderImg);
       leadersSectionTwo.appendChild(runnersUpSection);
-
 
       // console.log(sortedByassists);
     };
@@ -285,7 +283,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
         runnersUp.classList.add("w-4/12");
@@ -312,7 +309,6 @@ fetch(PISTONS_STATS)
       reboundsLeaderSection.appendChild(reboundsLeaderImg);
       leadersSectionThree.appendChild(runnersUpSection);
 
-
       // console.log(sortedByrebounds);
     };
 
@@ -333,7 +329,6 @@ fetch(PISTONS_STATS)
       FGPLeaderImg.classList.add("w-8/12", "h-auto");
       FGPLeaderImg.src = sortedByFGP[0].imgOne;
 
-
       FGPLeaderSection.classList.add(
         "flex",
         "flex-row",
@@ -343,14 +338,13 @@ fetch(PISTONS_STATS)
 
       FGPLeaderInfo.innerHTML = `
       <span class="text-4xl font-semibold">${(
-        sortedByFGP[0].fg_pct * 100 
+        sortedByFGP[0].fg_pct * 100
       ).toFixed(1)}%</span>
         <p>${sortedByFGP[0].name}</P>
         `;
 
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
-
 
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
@@ -377,7 +371,6 @@ fetch(PISTONS_STATS)
       FGPLeaderSection.appendChild(FGPLeaderInfo);
       FGPLeaderSection.appendChild(FGPLeaderImg);
       leadersSectionFour.appendChild(runnersUpSection);
-
     };
 
     showFGP();
@@ -416,7 +409,6 @@ fetch(PISTONS_STATS)
       const runnersUpSection = document.createElement("div");
       runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
 
-
       for (let i = 1; i < 4; i++) {
         const runnersUp = document.createElement("div");
         runnersUp.classList.add("w-4/12");
@@ -442,7 +434,6 @@ fetch(PISTONS_STATS)
       TPPLeaderSection.appendChild(TPPLeaderInfo);
       TPPLeaderSection.appendChild(TPPLeaderImg);
       leadersSectionFive.appendChild(runnersUpSection);
-
     };
 
     showTPP();
