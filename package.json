@@ -4,6 +4,7 @@
   "description": "Detroit Pistons web app for news and live scores",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "build": "postcss css/tailwind.css -o public/build/tailwind.css"
   },
   "repository": {
