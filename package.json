@@ -1,6 +1,6 @@
 {
   "name": "stons-center",
-  "version": "1.0.0",
+  "version": "0.8",
   "description": "Detroit Pistons web app for news and live scores",
   "main": "index.js",
   "scripts": {
