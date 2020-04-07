@@ -198,7 +198,7 @@ fetch(PISTONS_STATS)
       const assistsLeaderInfo = document.createElement("div");
       assistsLeaderInfo.classList.add("mt-6");
       const assistsLeaderImg = document.createElement("img");
-      assistsLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
+      assistsLeaderImg.classList.add("h-auto", "w-2/3", "-mt-8");
       assistsLeaderImg.src = sortedByassists[0].imgOne;
 
       assistsLeaderSection.classList.add(
@@ -263,7 +263,7 @@ fetch(PISTONS_STATS)
       const reboundsLeaderInfo = document.createElement("div");
       reboundsLeaderInfo.classList.add("mt-6");
       const reboundsLeaderImg = document.createElement("img");
-      reboundsLeaderImg.classList.add("w-8/12", "h-auto", "items-start");
+      reboundsLeaderImg.classList.add("h-auto", "w-2/3", "-mt-8");
       reboundsLeaderImg.src = sortedByrebounds[0].imgOne;
 
       reboundsLeaderSection.classList.add(
@@ -326,7 +326,7 @@ fetch(PISTONS_STATS)
       const FGPLeaderInfo = document.createElement("div");
       FGPLeaderInfo.classList.add("mt-6");
       const FGPLeaderImg = document.createElement("img");
-      FGPLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
+      FGPLeaderImg.classList.add("h-auto", "w-2/3", "-mt-8");
       FGPLeaderImg.src = sortedByFGP[0].imgOne;
 
       FGPLeaderSection.classList.add(
@@ -389,7 +389,7 @@ fetch(PISTONS_STATS)
       const TPPLeaderInfo = document.createElement("div");
       TPPLeaderInfo.classList.add("mt-6");
       const TPPLeaderImg = document.createElement("img");
-      TPPLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
+      TPPLeaderImg.classList.add("h-auto", "w-2/3", "-mt-8");
       TPPLeaderImg.src = sortedByTPP[0].imgOne;
 
       TPPLeaderSection.classList.add(
