@@ -133,7 +133,7 @@ fetch(PISTONS_STATS)
       const pointsLeaderInfo = document.createElement("div");
       pointsLeaderInfo.classList.add("mt-6");
       const pointsLeaderImg = document.createElement("img");
-      pointsLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
+      pointsLeaderImg.classList.add("w-8/12", "h-auto","items-start");
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
       pointsLeaderSection.classList.add(
@@ -263,7 +263,7 @@ fetch(PISTONS_STATS)
       const reboundsLeaderInfo = document.createElement("div");
       reboundsLeaderInfo.classList.add("mt-6");
       const reboundsLeaderImg = document.createElement("img");
-      reboundsLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
+      reboundsLeaderImg.classList.add("w-8/12", "h-auto", "items-start");
       reboundsLeaderImg.src = sortedByrebounds[0].imgOne;
 
       reboundsLeaderSection.classList.add(
