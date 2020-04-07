@@ -132,6 +132,7 @@ fetch(PISTONS_STATS)
       pointsLeaderSection.classList.add("pb-4");
       const pointsLeaderInfo = document.createElement("div");
       pointsLeaderInfo.classList.add("mt-6");
+      pointsLeaderImgContainer = document.createElement('div')
       const pointsLeaderImg = document.createElement("img");
       pointsLeaderImg.classList.add('overflow-hidden','-mt-12');
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
@@ -175,7 +176,8 @@ fetch(PISTONS_STATS)
 
       leadersSection.appendChild(pointsLeaderSection);
       pointsLeaderSection.appendChild(pointsLeaderInfo);
-      pointsLeaderSection.appendChild(pointsLeaderImg);
+      pointsLeaderSection.appendChild(pointsLeaderImgContainer);
+      pointsLeaderImgContainer.appendChild(pointsLeaderImg)
       leadersSection.appendChild(runnersUpSection);
 
       // console.log(sortedByPoints);
