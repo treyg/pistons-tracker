@@ -133,7 +133,7 @@ fetch(PISTONS_STATS)
       const pointsLeaderInfo = document.createElement("div");
       pointsLeaderInfo.classList.add("mt-6");
       const pointsLeaderImg = document.createElement("img");
-      //pointsLeaderImg.classList.add("w-8/12", "h-auto");
+      pointsLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
       pointsLeaderSection.classList.add(
@@ -198,7 +198,7 @@ fetch(PISTONS_STATS)
       const assistsLeaderInfo = document.createElement("div");
       assistsLeaderInfo.classList.add("mt-6");
       const assistsLeaderImg = document.createElement("img");
-      assistsLeaderImg.classList.add("w-8/12", "h-auto");
+      assistsLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
       assistsLeaderImg.src = sortedByassists[0].imgOne;
 
       assistsLeaderSection.classList.add(
@@ -263,7 +263,7 @@ fetch(PISTONS_STATS)
       const reboundsLeaderInfo = document.createElement("div");
       reboundsLeaderInfo.classList.add("mt-6");
       const reboundsLeaderImg = document.createElement("img");
-      reboundsLeaderImg.classList.add("w-8/12", "h-auto");
+      reboundsLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
       reboundsLeaderImg.src = sortedByrebounds[0].imgOne;
 
       reboundsLeaderSection.classList.add(
@@ -326,7 +326,7 @@ fetch(PISTONS_STATS)
       const FGPLeaderInfo = document.createElement("div");
       FGPLeaderInfo.classList.add("mt-6");
       const FGPLeaderImg = document.createElement("img");
-      FGPLeaderImg.classList.add("w-8/12", "h-auto");
+      FGPLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
       FGPLeaderImg.src = sortedByFGP[0].imgOne;
 
       FGPLeaderSection.classList.add(
@@ -389,7 +389,7 @@ fetch(PISTONS_STATS)
       const TPPLeaderInfo = document.createElement("div");
       TPPLeaderInfo.classList.add("mt-6");
       const TPPLeaderImg = document.createElement("img");
-      TPPLeaderImg.classList.add("w-8/12", "h-auto");
+      TPPLeaderImg.classList.add("items-start", "w-8/12", "h-auto");
       TPPLeaderImg.src = sortedByTPP[0].imgOne;
 
       TPPLeaderSection.classList.add(
