@@ -134,7 +134,7 @@ fetch(PISTONS_STATS)
       pointsLeaderInfo.classList.add("mt-6");
       pointsLeaderImgContainer = document.createElement('div')
       const pointsLeaderImg = document.createElement("img");
-      pointsLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto','border-solid', 'border-black', 'border-4');
+      pointsLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto');
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
       pointsLeaderSection.classList.add(
@@ -198,14 +198,14 @@ fetch(PISTONS_STATS)
       assistsLeaderSection.classList.add("pb-4");
       const assistsLeaderInfo = document.createElement("div");
       assistsLeaderInfo.classList.add("mt-6");
+      const assistsLeaderImgContainer = document.createElement('div')
       const assistsLeaderImg = document.createElement("img");
-      assistsLeaderImg.classList.add("h-auto", "w-2/3", "-mt-8");
+      assistsLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto');
       assistsLeaderImg.src = sortedByassists[0].imgOne;
 
       assistsLeaderSection.classList.add(
         "flex",
-        "flex-row",
-        "justify-between",
+        "flex-col",
         "px-4"
       );
 
@@ -242,7 +242,8 @@ fetch(PISTONS_STATS)
 
       leadersSectionTwo.appendChild(assistsLeaderSection);
       assistsLeaderSection.appendChild(assistsLeaderInfo);
-      assistsLeaderSection.appendChild(assistsLeaderImg);
+      assistsLeaderSection.appendChild(assistsLeaderImgContainer);
+      assistsLeaderImgContainer.appendChild(assistsLeaderImg)
       leadersSectionTwo.appendChild(runnersUpSection);
 
       // console.log(sortedByassists);
@@ -263,14 +264,14 @@ fetch(PISTONS_STATS)
       reboundsLeaderSection.classList.add("pb-4");
       const reboundsLeaderInfo = document.createElement("div");
       reboundsLeaderInfo.classList.add("mt-6");
+      const reboundsLeaderImgContainer = document.createElement('div')
       const reboundsLeaderImg = document.createElement("img");
-      reboundsLeaderImg.classList.add("h-auto", "w-2/3", "-mt-8");
+      reboundsLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto');
       reboundsLeaderImg.src = sortedByrebounds[0].imgOne;
 
       reboundsLeaderSection.classList.add(
         "flex",
-        "flex-row",
-        "justify-between",
+        "flex-col",
         "px-4"
       );
 
@@ -307,7 +308,8 @@ fetch(PISTONS_STATS)
 
       leadersSectionThree.appendChild(reboundsLeaderSection);
       reboundsLeaderSection.appendChild(reboundsLeaderInfo);
-      reboundsLeaderSection.appendChild(reboundsLeaderImg);
+      reboundsLeaderSection.appendChild(reboundsLeaderImgContainer);
+      reboundsLeaderImgContainer.appendChild(reboundsLeaderImg)
       leadersSectionThree.appendChild(runnersUpSection);
 
       // console.log(sortedByrebounds);
@@ -326,14 +328,14 @@ fetch(PISTONS_STATS)
       FGPLeaderSection.classList.add("pb-4");
       const FGPLeaderInfo = document.createElement("div");
       FGPLeaderInfo.classList.add("mt-6");
+      const FGPLeaderImgContainer = document.createElement('div')
       const FGPLeaderImg = document.createElement("img");
-      FGPLeaderImg.classList.add("h-auto", "w-2/3", "-mt-8");
+      FGPLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto');
       FGPLeaderImg.src = sortedByFGP[0].imgOne;
 
       FGPLeaderSection.classList.add(
         "flex",
-        "flex-row",
-        "justify-between",
+        "flex-col",
         "px-4"
       );
 
@@ -370,7 +372,8 @@ fetch(PISTONS_STATS)
 
       leadersSectionFour.appendChild(FGPLeaderSection);
       FGPLeaderSection.appendChild(FGPLeaderInfo);
-      FGPLeaderSection.appendChild(FGPLeaderImg);
+      FGPLeaderSection.appendChild(FGPLeaderImgContainer);
+      FGPLeaderImgContainer.appendChild(FGPLeaderImg)
       leadersSectionFour.appendChild(runnersUpSection);
     };
 
@@ -389,14 +392,14 @@ fetch(PISTONS_STATS)
       TPPLeaderSection.classList.add("pb-4");
       const TPPLeaderInfo = document.createElement("div");
       TPPLeaderInfo.classList.add("mt-6");
+      const TPPLeaderImgContainer = document.createElement('div')
       const TPPLeaderImg = document.createElement("img");
-      TPPLeaderImg.classList.add("h-auto", "w-2/3", "-mt-8");
+      TPPLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto');
       TPPLeaderImg.src = sortedByTPP[0].imgOne;
 
       TPPLeaderSection.classList.add(
         "flex",
-        "flex-row",
-        "justify-between",
+        "flex-col",
         "px-4"
       );
 
@@ -433,7 +436,8 @@ fetch(PISTONS_STATS)
 
       leadersSectionFive.appendChild(TPPLeaderSection);
       TPPLeaderSection.appendChild(TPPLeaderInfo);
-      TPPLeaderSection.appendChild(TPPLeaderImg);
+      TPPLeaderSection.appendChild(TPPLeaderImgContainer);
+      TPPLeaderImgContainer.appendChild(TPPLeaderImg)
       leadersSectionFive.appendChild(runnersUpSection);
     };
 
