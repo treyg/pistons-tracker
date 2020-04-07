@@ -133,13 +133,12 @@ fetch(PISTONS_STATS)
       const pointsLeaderInfo = document.createElement("div");
       pointsLeaderInfo.classList.add("mt-6");
       const pointsLeaderImg = document.createElement("img");
-      pointsLeaderImg.classList.add('border-solid', 'border-4', 'border-black','overflow-hidden','-mt-8');
+      pointsLeaderImg.classList.add('overflow-hidden','-mt-12');
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
       pointsLeaderSection.classList.add(
         "flex",
         "flex-row",
-        "justify-between",
         "px-4"
       );
  
