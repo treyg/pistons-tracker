@@ -133,7 +133,7 @@ fetch(PISTONS_STATS)
       const pointsLeaderInfo = document.createElement("div");
       pointsLeaderInfo.classList.add("mt-6");
       const pointsLeaderImg = document.createElement("img");
-      pointsLeaderImg.classList.add("w-8/12", "h-auto","items-start");
+      pointsLeaderImg.classList.add("flex", "w-8/12", "h-auto","items-start");
       pointsLeaderImg.src = sortedByPoints[0].imgOne;
 
       pointsLeaderSection.classList.add(
@@ -142,7 +142,7 @@ fetch(PISTONS_STATS)
         "justify-between",
         "px-4"
       );
-
+ 
       pointsLeaderInfo.innerHTML = `
       <span class="text-4xl font-semibold">${sortedByPoints[0].pts.toFixed(
         1
