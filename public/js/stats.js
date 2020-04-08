@@ -1,4 +1,7 @@
-
+//Javascript to toggle the menu
+document.getElementById("nav-toggle").onclick = function() {
+  document.getElementById("nav-content").classList.toggle("hidden");
+};
 
 const PISTONS_STATS =
   "https://www.balldontlie.io/api/v1/season_averages?season=2019&player_ids[]=254&player_ids[]=401&player_ids[]=189&player_ids[]=486&player_ids[]=666543&player_ids[]=189&player_ids[]=338&player_ids[]=69&player_ids[]=295&player_ids[]=329&player_ids[]=168&player_ids[]=258&player_ids[]=426&player_ids[]=666698&player_ids[]=666454&player_ids[]=441&player_ids[]=205&player_ids[]=666611&player_ids[]=2208";
