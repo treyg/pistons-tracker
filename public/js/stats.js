@@ -445,4 +445,135 @@ fetch(PISTONS_STATS)
     };
 
     showTPP();
+
+    
+    //Steals Per Game section
+
+    const showStealsPG = () => {
+      const sortedByStealsPG = stats.sort((a, b) =>
+        a.stl < b.stl ? 1 : -1
+      );
+
+      const leadersSectionSix = document.getElementById("leadersSectionSix");
+
+      const stealsPGLeaderSection = document.createElement("div");
+      stealsPGLeaderSection.classList.add("pb-4");
+      const stealsPGLeaderInfo = document.createElement("div");
+      stealsPGLeaderInfo.classList.add("mt-6");
+      const stealsPGLeaderImgContainer = document.createElement('div')
+      const stealsPGLeaderImg = document.createElement("img");
+      stealsPGLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto');
+      stealsPGLeaderImg.src = sortedByStealsPG[0].imgOne;
+
+      stealsPGLeaderSection.classList.add(
+        "flex",
+        "flex-col",
+        "px-4"
+      );
+
+      stealsPGLeaderInfo.innerHTML = `
+      <span class="text-4xl font-semibold">${(sortedByStealsPG[0].stl.toFixed(1))}</span>
+        <p>${sortedByStealsPG[0].name}</P>
+        `;
+
+      const runnersUpSection = document.createElement("div");
+      runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
+
+      for (let i = 1; i < 4; i++) {
+        const runnersUp = document.createElement("div");
+        runnersUp.classList.add("w-4/12");
+        const runnersUpImg = document.createElement("img");
+        runnersUpImg.src = sortedByStealsPG[i].imgTwo;
+
+        //console.log(runnersUpImg);
+
+        runnersUp.innerHTML = `
+        <span class = "text-sm">${sortedByStealsPG[i].name}</span>
+          <br>
+            <span class="font-semibold">${(sortedByStealsPG[i].stl).toFixed(
+              1
+            )}<img src=${
+          sortedByStealsPG[i].imgTwo
+        } class="w-16 ml-auto -mt-4"></img></span>
+        `;
+
+        runnersUpSection.appendChild(runnersUp);
+      }
+
+      leadersSectionSix.appendChild(stealsPGLeaderSection);
+      stealsPGLeaderSection.appendChild(stealsPGLeaderInfo);
+      stealsPGLeaderSection.appendChild(stealsPGLeaderImgContainer);
+      stealsPGLeaderImgContainer.appendChild(stealsPGLeaderImg)
+      leadersSectionSix.appendChild(runnersUpSection);
+    };
+
+    showStealsPG();
+
+    
+
+/////Show Blocks per game
+
+    const showBlocksPG = () => {
+      const sortedByBlocksPG = stats.sort((a, b) =>
+        a.blk < b.blk ? 1 : -1
+      );
+
+      const leadersSectionSeven = document.getElementById("leadersSectionSeven");
+
+      const blocksPGLeaderSection = document.createElement("div");
+      blocksPGLeaderSection.classList.add("pb-4");
+      const blocksPGLeaderInfo = document.createElement("div");
+      blocksPGLeaderInfo.classList.add("mt-6");
+      const blocksPGLeaderImgContainer = document.createElement('div')
+      const blocksPGLeaderImg = document.createElement("img");
+      blocksPGLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto');
+      blocksPGLeaderImg.src = sortedByBlocksPG[0].imgOne;
+
+      blocksPGLeaderSection.classList.add(
+        "flex",
+        "flex-col",
+        "px-4"
+      );
+
+      blocksPGLeaderInfo.innerHTML = `
+      <span class="text-4xl font-semibold">${(
+        sortedByBlocksPG[0].blk
+      ).toFixed(1)}</span>
+        <p>${sortedByBlocksPG[0].name}</P>
+        `;
+
+      const runnersUpSection = document.createElement("div");
+      runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
+
+      for (let i = 1; i < 4; i++) {
+        const runnersUp = document.createElement("div");
+        runnersUp.classList.add("w-4/12");
+        const runnersUpImg = document.createElement("img");
+        runnersUpImg.src = sortedByBlocksPG[i].imgTwo;
+
+        //console.log(runnersUpImg);
+
+        runnersUp.innerHTML = `
+        <span class = "text-sm">${sortedByBlocksPG[i].name}</span>
+          <br>
+            <span class="font-semibold">${(sortedByBlocksPG[i].blk).toFixed(
+              1
+            )}<img src=${
+          sortedByBlocksPG[i].imgTwo
+        } class="w-16 ml-auto -mt-4"></img></span>
+        `;
+
+        runnersUpSection.appendChild(runnersUp);
+      }
+
+      leadersSectionSeven.appendChild(blocksPGLeaderSection);
+      blocksPGLeaderSection.appendChild(blocksPGLeaderInfo);
+      blocksPGLeaderSection.appendChild(blocksPGLeaderImgContainer);
+      blocksPGLeaderImgContainer.appendChild(blocksPGLeaderImg)
+      leadersSectionSeven.appendChild(runnersUpSection);
+    };
+
+    showBlocksPG();
+  
+
   });
