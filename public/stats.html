@@ -10,37 +10,38 @@
   </head>
   <body class="bg-gray-200">
     
-   <nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0" style="background-color: #1D42BA;">
-		<div class="flex items-center flex-shrink-0 text-white mr-6">
-			<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
-				<span class="text-2xl pl-2"><i class="em em-grinning"></i>StonsCenter</span>
-			</a>
-		</div>
-
-		<div class="block lg:hidden">
-			<button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-red-700">
-                <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/basketball-net.png"> -->
-                <svg class="fill-current text-red-600 h-3 w-3" viewBox="0 0 20 20"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-			</button>
-		</div>
-
-		<div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
-			<ul class="list-reset lg:flex justify-end flex-1 items-center">
-				<li class="mr-3">
-					<a class="inline-block py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline" href="index.html">Home</a>
-				</li>
-				<li class="mr-3">
-					<a class="inline-block text-white no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="stats.html">Stats</a>
-				</li>
-				<li class="mr-3">
-					<a class="inline-block text-white no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="nbatoday.html">NBA Today</a>
-				</li>
-				<li class="mr-3">
-					<a class="inline-block text-white no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Podcasts</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
+    <nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0" style="background-color: #1D42BA;">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+          <span class="text-2xl pl-2"><i class="em em-grinning"></i>StonsCenter</span>
+        </a>
+      </div>
+  
+      <div class="block lg:hidden">
+        <button id="nav-toggle" class="flex items-center px-3 py-2 border-2 rounded hover:border-gray-400 text-gray-500 border-red-700">
+                  <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/basketball-net.png"> -->
+                  <svg class="fill-current text-red-600 h-3 w-3" viewBox="0 0 20 20"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+      </div>
+  
+      <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
+        <ul class="list-reset lg:flex justify-end flex-1 items-center">
+          <li class="mr-3">
+            <a class="inline-block py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline" href="index.html">Home</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline" href="stats.html">Stats</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline" href="nbatoday.html">NBA Today</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline" href="#">Podcasts</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  
 
 
     <!-- End Nav section -->
@@ -92,7 +93,25 @@
         </h2>
       </section>
 
-      
+      <section
+      id="leadersSectionSix"
+      class="bg-white shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl"
+    >
+      <h2 class="px-4 pt-4 text-lg font-semibold tracking-wide">
+        Steals Per Game
+      </h2>
+    </section>
+
+    <section
+    id="leadersSectionSeven"
+    class="bg-white shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-md  md:max-w-lg lg:max-w-xl"
+  >
+    <h2 class="px-4 pt-4 text-lg font-semibold tracking-wide">
+      Blocks Per Game
+    </h2>
+  </section>
+
+    
 
     <script type="text/javascript" src="js/stats.js"></script>
     <script type="text/javascript" src="js/dayjs.js"></script>
