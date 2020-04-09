@@ -446,6 +446,70 @@ fetch(PISTONS_STATS)
 
     showTPP();
 
+
+     //Free Throw Percentage
+
+     const showFreeThrowPercentage = () => {
+      const sortedByFreeThrowPercentage = stats.sort((a, b) =>
+        a.ft_pct < b.ft_pct ? 1 : -1
+      );
+
+      const leadersSectionEight = document.getElementById("leadersSectionEight");
+
+      const freeThrowPercentageLeaderSection = document.createElement("div");
+      freeThrowPercentageLeaderSection.classList.add("pb-4");
+      const freeThrowPercentageLeaderInfo = document.createElement("div");
+      freeThrowPercentageLeaderInfo.classList.add("mt-6");
+      const freeThrowPercentageLeaderImgContainer = document.createElement('div')
+      const freeThrowPercentageLeaderImg = document.createElement("img");
+      freeThrowPercentageLeaderImgContainer.classList.add('overflow-hidden','-mt-24', 'w-5/6','ml-auto');
+      freeThrowPercentageLeaderImg.src = sortedByFreeThrowPercentage[0].imgOne;
+
+      freeThrowPercentageLeaderSection.classList.add(
+        "flex",
+        "flex-col",
+        "px-4"
+      );
+
+      freeThrowPercentageLeaderInfo.innerHTML = `
+      <span class="text-4xl font-semibold">${(
+        sortedByFreeThrowPercentage[0].ft_pct * 100
+      ).toFixed(1)}%</span>
+        <p>${sortedByFreeThrowPercentage[0].name}</P>
+        `;
+
+      const runnersUpSection = document.createElement("div");
+      runnersUpSection.classList.add("px-4", "py-4", "flex", "justify-between");
+
+      for (let i = 1; i < 4; i++) {
+        const runnersUp = document.createElement("div");
+        runnersUp.classList.add("w-4/12");
+        const runnersUpImg = document.createElement("img");
+        runnersUpImg.src = sortedByFreeThrowPercentage[i].imgTwo;
+
+        runnersUp.innerHTML = `
+        <span class = "text-sm">${sortedByFreeThrowPercentage[i].name}</span>
+          <br>
+            <span class="font-semibold">${(sortedByFreeThrowPercentage[i].ft_pct * 100).toFixed(
+              1
+            )}%<img src=${
+          sortedByFreeThrowPercentage[i].imgTwo
+        } class="w-16 ml-auto -mt-4"></img></span>
+        `;
+
+        runnersUpSection.appendChild(runnersUp);
+      }
+
+      leadersSectionEight.appendChild(freeThrowPercentageLeaderSection);
+      freeThrowPercentageLeaderSection.appendChild(freeThrowPercentageLeaderInfo);
+      freeThrowPercentageLeaderSection.appendChild(freeThrowPercentageLeaderImgContainer);
+      freeThrowPercentageLeaderImgContainer.appendChild(freeThrowPercentageLeaderImg)
+      leadersSectionEight.appendChild(runnersUpSection);
+    };
+
+    showFreeThrowPercentage();
+
+
     
     //Steals Per Game section
 
