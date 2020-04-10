@@ -274,7 +274,41 @@ fetch(PISTONS_GAMES_URL)
 
 
     ///Add Next Five Game Sections Here
-    
+    const upcomingGames = sortedStonsGames
+      .reverse()
+      .filter(games => games.status !== "Final" && dayjs(games.date).$d > dayjs().$d);
+      console.log(upcomingGames)
+
+      nextFiveGames = () => {
+        let upcomingGamesSection = document.getElementById('upcomingGamesSection')
+
+        for(let i = 1; i<=5; i++) {
+          let futureGameSection = document.createElement('div')
+          let upcomingHomeTeamSection = document.createElement('div')
+          //console.log(upcomingGames[i].home_team.name)
+          upcomingHomeTeamSection.textContent = `${upcomingGames[i].home_team.name}`
+          
+          let upcomingAwayTeamSection = document.createElement('div')
+          upcomingAwayTeamSection.textContent = `${upcomingGames[i].visitor_team.name}`
+          
+          
+          upcomingGamesSection.appendChild(futureGameSection)
+          futureGameSection.appendChild(upcomingHomeTeamSection)
+          futureGameSection.appendChild(upcomingAwayTeamSection)
+
+        }
+
+
+        
+      }
+      
+      nextFiveGames()
+
+
+
+
+
+
   });
 
 
@@ -293,7 +327,7 @@ fetch('data.json')
   .then(newsJSON => {
     //Set the JSON data for games to a variable
     const stonsNews = newsJSON.value;
-    console.log(stonsNews)
+    //console.log(stonsNews)
 
     const showStonsNews = () => {
       let pistonsNewsSection = document.getElementById("pistonsNewsSection");
