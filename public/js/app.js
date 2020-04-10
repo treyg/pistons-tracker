@@ -284,9 +284,27 @@ fetch(PISTONS_GAMES_URL)
 
         for(let i = 1; i<=5; i++) {
           let futureGameSection = document.createElement('div')
+          futureGameSection.classList.add(
+            "border-b",
+            "border-gray-400",
+            "pb-2",
+            "mb-2",
+            'flex',
+            'flex-row',
+            'justify-between',
+            'items-end'
+          )
+
           let upcomingHomeTeamSection = document.createElement('div')
           //console.log(upcomingGames[i].home_team.name)
           upcomingHomeTeamSection.textContent = `${upcomingGames[i].home_team.name}`
+
+          let gameTimeSection = document.createElement('div')
+          gameTimeSection.innerHTML = `
+            <span class="text-xs font-semibold m-auto">${upcomingGames[i].status}</span>
+            <br>${dayjs(upcomingGames[i].date).format('ddd, MMMM D')}
+          `
+          gameTimeSection.classList.add('flex', 'flex-col', 'content-center','text-sm')
           
           let upcomingAwayTeamSection = document.createElement('div')
           upcomingAwayTeamSection.textContent = `${upcomingGames[i].visitor_team.name}`
@@ -294,6 +312,7 @@ fetch(PISTONS_GAMES_URL)
           
           upcomingGamesSection.appendChild(futureGameSection)
           futureGameSection.appendChild(upcomingHomeTeamSection)
+          futureGameSection.appendChild(gameTimeSection)
           futureGameSection.appendChild(upcomingAwayTeamSection)
 
         }
