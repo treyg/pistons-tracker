@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>StonsCenter</title>
+
+    <link rel="stylesheet" href="/build/tailwind.css" />
+  </head>
+  <body class="bg-gray-200">
+    <nav
+      class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0"
+      style="background-color: #1d42ba;"
+    >
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <a
+          class="text-white no-underline hover:text-white hover:no-underline"
+          href="#"
+        >
+          <span class="text-2xl pl-2"
+            ><i class="em em-grinning"></i>StonsCenter</span
+          >
+        </a>
+      </div>
+
+      <div class="block lg:hidden">
+        <button
+          id="nav-toggle"
+          class="flex items-center px-3 py-2 border-2 rounded hover:border-gray-400 text-gray-500 border-red-700"
+        >
+          <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/basketball-net.png"> -->
+          <svg class="fill-current text-red-600 h-3 w-3" viewBox="0 0 20 20">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0"
+        id="nav-content"
+      >
+        <ul class="list-reset lg:flex justify-end flex-1 items-center">
+          <li>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center"
+              href="index.html"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center"
+              href="stats.html"
+              >Stats</a
+            >
+          </li>
+          <li>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center"
+              href="nbatoday.html"
+              >NBA Today</a
+            >
+          </li>
+          <li>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center"
+              href="podcast.html"
+              >Podcasts</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- End Nav section -->
+    <div
+      id="page-container"
+      class="flex flex-col m-auto mt-24 md:mt-18 max-w-xl"
+    >
+      <div id="podcast-section" class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-xl lg:max-w-xl">
+
+        <h2 id="podHeader" class="pb-4 text-lg font-semibold tracking-wide ">Podcasts</h2>
+        <iframe class="mb-4" src="https://castbox.fm/app/castbox/player/id1078862?v=8.20.0&autoplay=0" frameborder="0" width="100%" height="500"></iframe>
+
+        <iframe class="mb-4" src="https://castbox.fm/app/castbox/player/id2023142?v=8.20.0&autoplay=0" frameborder="0" width="100%" height="500"></iframe>
+
+        <iframe class="mb-4" src="https://castbox.fm/app/castbox/player/id2413088?v=8.20.0&autoplay=0" frameborder="0" width="100%" height="500"></iframe>
+
+      </div>
+
+    </div>
+
+    <script type="text/javascript" src="js\app.js"></script>
+    <script type="text/javascript" src="js/dayjs.js"></script>
+  </body>
+</html>
