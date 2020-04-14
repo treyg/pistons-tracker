@@ -1,0 +1,18 @@
+
+
+{
+    "name": "StonsCenter",
+    "short_name": "StonsCenter",
+    "lang": "en-US",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#1d42ba",
+    "background_color": "#C8102E",
+    "icons": [
+      {
+        "src": "\\images\\oldlogo.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
