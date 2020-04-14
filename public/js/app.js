@@ -277,7 +277,6 @@ fetch(PISTONS_GAMES_URL)
     const upcomingGames = sortedStonsGames
       .reverse()
       .filter(games => games.status !== "Final" && dayjs(games.date).$d > dayjs().$d);
-      console.log(upcomingGames)
 
       nextFiveGames = () => {
         let upcomingGamesSection = document.getElementById('upcomingGamesSection')
