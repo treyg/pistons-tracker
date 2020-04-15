@@ -1,3 +1,6 @@
+
+// const staticCacheName = "site-static-v1";
+
 // const staticCacheName = "site-static-v1";
 // const dynamicCache = 'site-dynamic-v1'
 // const assets = [
@@ -30,7 +33,9 @@
 
 //Install service worker
 self.addEventListener("install", (evt) => {
+
   //console.log('sw has been installed')
+  // //console.log('sw has been installed')
   // evt.waitUntil(
   //   caches.open(staticCacheName).then((cache) => {
   //     console.log("caching shell assets");
@@ -69,3 +74,4 @@ self.addEventListener("fetch", (evt) => {
   //   })
   // );
 });
+//
