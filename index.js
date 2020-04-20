@@ -7,6 +7,9 @@ const path = require("path");
 const fetch = require("node-fetch");
 require('dotenv').config()
 
+const compression = require('compression');
+app.use(compression());
+
 //Set express to app variable
 const PORT = process.env.PORT || 3000;
 
