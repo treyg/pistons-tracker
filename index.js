@@ -5,9 +5,12 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const fetch = require("node-fetch");
+const secure = require('ssl-express-www');
+const compression = require('compression');
 require('dotenv').config()
 
-const compression = require('compression');
+app.use(secure)
+
 app.use(compression());
 
 //Set express to app variable
