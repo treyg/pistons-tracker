@@ -329,15 +329,8 @@ fetch(PISTONS_GAMES_URL)
 
   });
 
-
-
-  
-
-
   
 //news for pistons
-
-
 fetch('data.json')
   .then(response => {
     return response.json();
