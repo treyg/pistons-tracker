@@ -338,7 +338,7 @@ fetch('data.json')
   .then(newsJSON => {
     //Set the JSON data for games to a variable
     const stonsNews = newsJSON.value;
-    //console.log(stonsNews)
+    console.log(stonsNews)
 
     const showStonsNews = () => {
       let pistonsNewsSection = document.getElementById("pistonsNewsSection");
