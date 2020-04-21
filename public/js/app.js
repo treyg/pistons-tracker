@@ -338,7 +338,6 @@ fetch('data.json')
   .then(newsJSON => {
     //Set the JSON data for games to a variable
     const stonsNews = newsJSON.value;
-    console.log(stonsNews)
 
     const showStonsNews = () => {
       let pistonsNewsSection = document.getElementById("pistonsNewsSection");
@@ -358,6 +357,7 @@ fetch('data.json')
           "cursor-pointer"
         );
 
+    
         let stonsNewsImage = document.createElement("img");
         stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
         stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
