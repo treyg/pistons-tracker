@@ -5,10 +5,8 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const fetch = require("node-fetch");
-const compression = require('compression');
-require('dotenv').config()
-
-
+const compression = require("compression");
+require("dotenv").config();
 
 app.use(compression());
 
@@ -31,53 +29,72 @@ app.use(express.static(path.join(__dirname, "public")));
 const api = process.env.API_KEY;
 const requestOptions = {
   headers: {
-    "Ocp-Apim-Subscription-Key": api
-  }
+    "Ocp-Apim-Subscription-Key": api,
+  },
 };
 
 const api_url =
   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
 
-  const {cacheGet,cacheReset} = (function() {
-    const dataFile = 'public/data.json';
-    let data = false;
-    async function getFreshData() {
-      const data = await (await fetch(api_url, requestOptions)).json();
-      fs.writeFileSync(dataFile, JSON.stringify(data));
-      return data;
-    }
-    function getOldData() {
-      let oldData;
-      try {
-        oldData = JSON.parse(fs.readFileSync(dataFile).toString());
-      } catch(e) {
-        oldData = false;
-      }
-      return oldData;
-    }
-    async function cacheGet() {
-      if (data) return data;
-      const old = getOldData();
-      if (old) {
-        data = old;
-        return data;
-      }
-      const fresh = await getFreshData();
-      data = fresh;
-      return data;
-    };
-    function cacheReset() {
-      fs.unlinkSync(dataFile);
-      data = false;
-    }
-    return {
-      cacheGet,
-      cacheReset,
+const getData = () => {
+  fetch(api_url, requestOptions)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let newsData = data;
+      //console.log(newsData);
+
+      let dataFile = 'public/data.json'
+
+      fs.writeFile(dataFile, JSON.stringify(newsData), function (err) {
+        if(err) return console.log(err)
+        return newsData
+      })
       
-    };
-  
-    
-  })();
-  
-  
-  setInterval(()=>(cacheReset(),cacheGet()), 1000*60*60);
+    });
+};
+
+setInterval(() => getData(), 1000*60*2);
+
+// const {cacheGet,cacheReset} = (function() {
+//   const dataFile = 'public/data.json';
+//   let data = false;
+//   async function getFreshData() {
+//     const data = await (await fetch(api_url, requestOptions)).json();
+//     fs.writeFileSync(dataFile, JSON.stringify(data));
+//     return data;
+//   }
+//   function getOldData() {
+//     let oldData;
+//     try {
+//       oldData = JSON.parse(fs.readFileSync(dataFile).toString());
+//     } catch(e) {
+//       oldData = false;
+//     }
+//     return oldData;
+//   }
+//   async function cacheGet() {
+//     if (data) return data;
+//     const old = getOldData();
+//     if (old) {
+//       data = old;
+//       return data;
+//     }
+//     const fresh = await getFreshData();
+//     data = fresh;
+//     return data;
+//   };
+//   function cacheReset() {
+//     fs.unlinkSync(dataFile);
+//     data = false;
+//   }
+//   return {
+//     cacheGet,
+//     cacheReset,
+
+//   };
+
+// })();
+
+// setInterval(()=>(cacheReset(),cacheGet()), 1000*60*60);
