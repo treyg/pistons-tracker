@@ -55,7 +55,7 @@ const getData = () => {
     });
 };
 
-setInterval(() => getData(), 1000*60*2);
+setInterval(() => getData(), 1000*60*60);
 
 // const {cacheGet,cacheReset} = (function() {
 //   const dataFile = 'public/data.json';
