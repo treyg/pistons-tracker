@@ -7,6 +7,7 @@ const path = require("path");
 const fetch = require("node-fetch");
 var CronJob = require('cron').CronJob;
 
+
 const compression = require("compression");
 require("dotenv").config();
 
@@ -45,9 +46,9 @@ const getData = () => {
     })
     .then((data) => {
       let newsData = data;
-      // console.log(newsData);
+      console.log(newsData);
 
-      let dataFile = 'public/data.json'
+      const dataFile = path.join(__dirname, "public", "data.json");
 
       fs.writeFile(dataFile, JSON.stringify(newsData), function (err) {
         if(err) return console.log(err)
@@ -57,10 +58,10 @@ const getData = () => {
     });
 };
 
-//setInterval(() => getData(), 1000*60*60);
+setInterval(() => getData(), 1000*60);
 
-let job = new CronJob('0 * * * *', getData())
-job.start()
+// let job = new CronJob('0 * * * *', getData())
+// job.start()
 
 // const {cacheGet,cacheReset} = (function() {
 //   const dataFile = 'public/data.json';
