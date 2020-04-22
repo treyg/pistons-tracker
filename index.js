@@ -50,8 +50,8 @@ const getData = () => {
 
       const dataFile = path.join(__dirname, "public", "data.json");
 
-      fs.writeFile(dataFile, JSON.stringify(newsData), function (err) {
-        if(err) return console.log(err)
+      fs.writeFileSync(dataFile, JSON.stringify(newsData), function (err) {
+        if(err) throw err
         return newsData
       })
       
