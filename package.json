@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/treyg/pistons-tracker#readme",
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.1.2",
     "autoprefixer": "^9.7.5",
     "compression": "^1.7.4",
     "cron": "^1.8.2",
