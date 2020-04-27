@@ -42,9 +42,9 @@ var database = admin.database();
 //console.log(database)
 
 var ref = database.ref("currentNews");
-var actualData = ref.on("value", function (snapshot) {
-  //console.log(snapshot.val())
-});
+// var actualData = ref.on("value", function (snapshot) {
+//   //console.log(snapshot.val())
+// });
 
 const api = process.env.API_KEY;
 const requestOptions = {
@@ -67,7 +67,7 @@ const getData = () => {
     });
 };
 
-getData();
+//getData();
 
 // const getData = () => {
 //   fetch(api_url, requestOptions)
