@@ -1,3 +1,5 @@
+
+
 //Javascript to toggle the menu
 document.getElementById("nav-toggle").onclick = function() {
   document.getElementById("nav-content").classList.toggle("hidden");
@@ -322,13 +324,43 @@ fetch(PISTONS_GAMES_URL)
       
       nextFiveGames()
 
-
-
-
-
-
   });
 
+
+
+    //Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDz-XuB2IrPKc8FzYzrw8NWdJt9UokVcu0",
+      authDomain: "stons-center-26695.firebaseapp.com",
+      databaseURL: "https://stons-center-26695.firebaseio.com",
+      projectId: "stons-center-26695",
+      storageBucket: "stons-center-26695.appspot.com",
+      messagingSenderId: "718892526120",
+      appId: "1:718892526120:web:c260b1190ba3093745a31d",
+      measurementId: "G-ZHF7DPDMXH"
+    };
+    //Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    //console.log(firebase)
+    firebase.analytics();
+
+    const database = firebase.database()
+    //console.log(database)
+
+    const databaseRef = database.ref('currentNews')
+
+    console.log(databaseRef)
+
+    databaseRef.on('value', gotData, errData)
+
+    function gotData(data) {
+      console.log(data.val())
+    }
+
+    function errData (err){
+      console.log('error')
+      console.log(err)
+    }
   
 //news for pistons
 fetch('data.json')

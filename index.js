@@ -5,8 +5,7 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const fetch = require("node-fetch");
-var CronJob = require('cron').CronJob;
-
+var CronJob = require("cron").CronJob;
 
 const compression = require("compression");
 require("dotenv").config();
@@ -29,6 +28,24 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //////////////////////////////////////////
 
+const admin = require("firebase-admin");
+const serviceAccount = require("./documents/stons-center-26695-firebase-adminsdk-e0kpa-b68e508f64.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://stons-center-26695.firebaseio.com",
+});
+
+//const db = admin.firestore()
+
+var database = admin.database();
+//console.log(database)
+
+var ref = database.ref("currentNews");
+var actualData = ref.on("value", function (snapshot) {
+  //console.log(snapshot.val())
+});
+
 const api = process.env.API_KEY;
 const requestOptions = {
   headers: {
@@ -45,20 +62,33 @@ const getData = () => {
       return response.json();
     })
     .then((data) => {
-      let newsData = data;
-      console.log(newsData);
-
-      const dataFile = path.join(__dirname, "public", "data.json");
-
-      fs.writeFileSync(dataFile, JSON.stringify(newsData), function (err) {
-        if(err) throw err
-        return newsData
-      })
-      
+      let currentNewsData = data;
+      return database.ref("currentNews").update(currentNewsData);
     });
 };
 
-setInterval(() => getData(), 1000*60);
+getData();
+
+// const getData = () => {
+//   fetch(api_url, requestOptions)
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((data) => {
+//       let newsData = data;
+//       //console.log(newsData);
+
+//       const dataFile = path.join(__dirname, "public", "data.json");
+
+//       fs.writeFileSync(dataFile, JSON.stringify(newsData), function (err) {
+//         if(err) throw err
+//         return newsData
+//       })
+
+//     });
+// };
+
+//setInterval(() => getData(), 1000*60*60);
 
 // let job = new CronJob('0 * * * *', getData())
 // job.start()
