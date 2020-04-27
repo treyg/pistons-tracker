@@ -41,10 +41,6 @@ admin.initializeApp({
 var database = admin.database();
 //console.log(database)
 
-var ref = database.ref("currentNews");
-// var actualData = ref.on("value", function (snapshot) {
-//   //console.log(snapshot.val())
-// });
 
 const api = process.env.API_KEY;
 const requestOptions = {
@@ -67,7 +63,10 @@ const getData = () => {
     });
 };
 
-//getData();
+let job = new CronJob('0 * * * *', getData())
+job.start()
+
+
 
 // const getData = () => {
 //   fetch(api_url, requestOptions)
@@ -93,44 +92,3 @@ const getData = () => {
 // let job = new CronJob('0 * * * *', getData())
 // job.start()
 
-// const {cacheGet,cacheReset} = (function() {
-//   const dataFile = 'public/data.json';
-//   let data = false;
-//   async function getFreshData() {
-//     const data = await (await fetch(api_url, requestOptions)).json();
-//     fs.writeFileSync(dataFile, JSON.stringify(data));
-//     return data;
-//   }
-//   function getOldData() {
-//     let oldData;
-//     try {
-//       oldData = JSON.parse(fs.readFileSync(dataFile).toString());
-//     } catch(e) {
-//       oldData = false;
-//     }
-//     return oldData;
-//   }
-//   async function cacheGet() {
-//     if (data) return data;
-//     const old = getOldData();
-//     if (old) {
-//       data = old;
-//       return data;
-//     }
-//     const fresh = await getFreshData();
-//     data = fresh;
-//     return data;
-//   };
-//   function cacheReset() {
-//     fs.unlinkSync(dataFile);
-//     data = false;
-//   }
-//   return {
-//     cacheGet,
-//     cacheReset,
-
-//   };
-
-// })();
-
-// setInterval(()=>(cacheReset(),cacheGet()), 1000*60*60);
