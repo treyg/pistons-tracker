@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "firebase": "^7.14.1",
     "firebase-admin": "^8.11.0",
+    "heroku-ssl-redirect": "0.0.4",
     "node-fetch": "^2.6.0",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.2.0"
