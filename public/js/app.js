@@ -1,7 +1,5 @@
-
-
 //Javascript to toggle the menu
-document.getElementById("nav-toggle").onclick = function() {
+document.getElementById("nav-toggle").onclick = function () {
   document.getElementById("nav-content").classList.toggle("hidden");
 };
 
@@ -9,7 +7,7 @@ document.getElementById("nav-toggle").onclick = function() {
 mybutton = document.getElementById("myBtn");
 
 // When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {
+window.onscroll = function () {
   scrollFunction();
 };
 
@@ -32,10 +30,10 @@ const PISTONS_URL =
   "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/8";
 
 fetch(PISTONS_URL)
-  .then(response => {
+  .then((response) => {
     return response.json();
   })
-  .then(pistonsJSON => {
+  .then((pistonsJSON) => {
     //Set the JSON data for games to a variable
     const pistonsData = pistonsJSON.team;
     //Set variable for next game data
@@ -94,15 +92,14 @@ fetch(PISTONS_URL)
 
       //Hide time remaining if game hasn't started yet
       if (nextGame[0].competitions[0].status.period === 0) {
-        
         let timeLeft = document.getElementById("timeLeft");
-        timeLeft.classList.add('mb-5', 'justify-around');
+        timeLeft.classList.add("mb-5", "justify-around");
         quarter.textContent = nextGame[0].competitions[0].venue.fullName;
         quarter.classList.add("text-base");
         remainingTime.innerHTML = `<span class="text-white text-base border rounded p-2 bg-green-500 hover:bg-green-600 cursor-pointer ">Get Tickets</span>`;
-        remainingTime.addEventListener('click', () => {
-          window.open(nextGame[0].competitions[0].tickets[0].links[0].href)
-        } )
+        remainingTime.addEventListener("click", () => {
+          window.open(nextGame[0].competitions[0].tickets[0].links[0].href);
+        });
       }
 
       //Set visitor team div to display visitor team name
@@ -128,13 +125,13 @@ const SCOREBOARD_URL =
   "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard";
 
 fetch(SCOREBOARD_URL)
-  .then(response => {
+  .then((response) => {
     return response.json();
   })
-  .then(scoreboardJSON => {
+  .then((scoreboardJSON) => {
     //Set the JSON data for games to a variable
     const scoreboardData = scoreboardJSON;
-    const livePistonsGame = scoreboardData.events.filter(games =>
+    const livePistonsGame = scoreboardData.events.filter((games) =>
       games.shortName.includes("DET")
     );
 
@@ -207,10 +204,10 @@ const PISTONS_GAMES_URL =
   "https://www.balldontlie.io/api/v1/games?seasons[]=2019&team_ids[]=9&per_page=82";
 
 fetch(PISTONS_GAMES_URL)
-  .then(response => {
+  .then((response) => {
     return response.json();
   })
-  .then(stonsGamesJSON => {
+  .then((stonsGamesJSON) => {
     //Set the JSON data for games to a variable
     const stonsGamesData = stonsGamesJSON.data;
     //Sort pistons games to be in  order starting at beginning of the season
@@ -222,7 +219,7 @@ fetch(PISTONS_GAMES_URL)
     //Show pistons game that have already been played and reverse the order to show the most recent game first
     const completedStonsGames = sortedStonsGames
       .reverse()
-      .filter(games => games.status == "Final");
+      .filter((games) => games.status == "Final");
 
     const latestGames = () => {
       let gameSections = document.getElementById("gameSections");
@@ -274,148 +271,191 @@ fetch(PISTONS_GAMES_URL)
 
     latestGames();
 
-
     ///Add Next Five Game Sections Here
     const upcomingGames = sortedStonsGames
       .reverse()
-      .filter(games => games.status !== "Final" && dayjs(games.date).$d > dayjs().$d);
+      .filter(
+        (games) => games.status !== "Final" && dayjs(games.date).$d > dayjs().$d
+      );
 
-      nextFiveGames = () => {
-        let upcomingGamesSection = document.getElementById('upcomingGamesSection')
+    nextFiveGames = () => {
+      let upcomingGamesSection = document.getElementById(
+        "upcomingGamesSection"
+      );
 
-        for(let i = 1; i<=5; i++) {
-          let futureGameSection = document.createElement('div')
-          futureGameSection.classList.add(
-            "border-b",
-            "border-gray-400",
-            "pb-2",
-            "mb-2",
-            'flex',
-            'flex-row',
-            'justify-between',
-            'items-end'
-          )
-
-          let upcomingHomeTeamSection = document.createElement('div')
-          //console.log(upcomingGames[i].home_team.name)
-          upcomingHomeTeamSection.textContent = `${upcomingGames[i].home_team.name}`
-
-          let gameTimeSection = document.createElement('div')
-          gameTimeSection.innerHTML = `
-            <span class="text-xs font-semibold m-auto">${upcomingGames[i].status}</span>
-            <br>${dayjs(upcomingGames[i].date).format('ddd, MMMM D')}
-          `
-          gameTimeSection.classList.add('flex', 'flex-col', 'content-center','text-sm')
-          
-          let upcomingAwayTeamSection = document.createElement('div')
-          upcomingAwayTeamSection.textContent = `${upcomingGames[i].visitor_team.name}`
-          
-          
-          upcomingGamesSection.appendChild(futureGameSection)
-          futureGameSection.appendChild(upcomingHomeTeamSection)
-          futureGameSection.appendChild(gameTimeSection)
-          futureGameSection.appendChild(upcomingAwayTeamSection)
-
-        }
-
-
-        
-      }
-      
-      nextFiveGames()
-
-  });
-
-
-
-    //Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyDz-XuB2IrPKc8FzYzrw8NWdJt9UokVcu0",
-      authDomain: "stons-center-26695.firebaseapp.com",
-      databaseURL: "https://stons-center-26695.firebaseio.com",
-      projectId: "stons-center-26695",
-      storageBucket: "stons-center-26695.appspot.com",
-      messagingSenderId: "718892526120",
-      appId: "1:718892526120:web:c260b1190ba3093745a31d",
-      measurementId: "G-ZHF7DPDMXH"
-    };
-    //Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    //console.log(firebase)
-    firebase.analytics();
-
-    const database = firebase.database()
-    //console.log(database)
-
-    const databaseRef = database.ref('currentNews')
-
-    console.log(databaseRef)
-
-    databaseRef.on('value', gotData, errData)
-
-    function gotData(data) {
-      console.log(data.val())
-    }
-
-    function errData (err){
-      console.log('error')
-      console.log(err)
-    }
-  
-//news for pistons
-fetch('data.json')
-  .then(response => {
-    return response.json();
-  })
-  .then(newsJSON => {
-    //Set the JSON data for games to a variable
-    const stonsNews = newsJSON.value;
-
-    const showStonsNews = () => {
-      let pistonsNewsSection = document.getElementById("pistonsNewsSection");
-
-      for (let i = 0; i < 10; i++) {
-        let imgContainer = document.createElement("div");
-        pistonsNewsSection.appendChild(imgContainer);
-        imgContainer.classList.add(
+      for (let i = 1; i <= 5; i++) {
+        let futureGameSection = document.createElement("div");
+        futureGameSection.classList.add(
+          "border-b",
+          "border-gray-400",
+          "pb-2",
+          "mb-2",
           "flex",
           "flex-row",
-          "py-2",
-          "overflow-hidden",
-          "mb-6",
-          "border-2",
-          "border-gray-200",
-          "rounded",
-          "cursor-pointer"
+          "justify-between",
+          "items-end"
         );
 
-    
-        let stonsNewsImage = document.createElement("img");
-        stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
-        stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
-        imgContainer.appendChild(stonsNewsImage);
+        let upcomingHomeTeamSection = document.createElement("div");
+        //console.log(upcomingGames[i].home_team.name)
+        upcomingHomeTeamSection.textContent = `${upcomingGames[i].home_team.name}`;
 
-        let stonsNewsTitle = document.createElement("div");
-        stonsNewsTitle.textContent = `${stonsNews[i].name}`;
-        stonsNewsTitle.classList.add("mx-3", "text-base");
-        imgContainer.appendChild(stonsNewsTitle);
+        let gameTimeSection = document.createElement("div");
+        gameTimeSection.innerHTML = `
+            <span class="text-xs font-semibold m-auto">${
+              upcomingGames[i].status
+            }</span>
+            <br>${dayjs(upcomingGames[i].date).format("ddd, MMMM D")}
+          `;
+        gameTimeSection.classList.add(
+          "flex",
+          "flex-col",
+          "content-center",
+          "text-sm"
+        );
 
-        let stonsNewsProvider = document.createElement("p");
-        stonsNewsProvider.textContent = `${
-          stonsNews[i].provider[0].name
-        } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
-        stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
-        stonsNewsTitle.appendChild(stonsNewsProvider);
+        let upcomingAwayTeamSection = document.createElement("div");
+        upcomingAwayTeamSection.textContent = `${upcomingGames[i].visitor_team.name}`;
 
-        imgContainer.addEventListener("click", () => {
-          window.open(stonsNews[i].url);
-        });
+        upcomingGamesSection.appendChild(futureGameSection);
+        futureGameSection.appendChild(upcomingHomeTeamSection);
+        futureGameSection.appendChild(gameTimeSection);
+        futureGameSection.appendChild(upcomingAwayTeamSection);
       }
     };
 
-    showStonsNews();
- });
+    nextFiveGames();
+  });
 
+//Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyDz-XuB2IrPKc8FzYzrw8NWdJt9UokVcu0",
+  authDomain: "stons-center-26695.firebaseapp.com",
+  databaseURL: "https://stons-center-26695.firebaseio.com",
+  projectId: "stons-center-26695",
+  storageBucket: "stons-center-26695.appspot.com",
+  messagingSenderId: "718892526120",
+  appId: "1:718892526120:web:c260b1190ba3093745a31d",
+  measurementId: "G-ZHF7DPDMXH",
+};
+//Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+//console.log(firebase)
+firebase.analytics();
 
+const database = firebase.database();
+//console.log(database)
 
-      
+const databaseRef = database.ref("currentNews");
+
+//console.log(databaseRef)
+
+databaseRef.once("value", getNewsData, errData);
+
+function getNewsData(data) {
+  let stories = data.val();
+  //console.log(stories)
+
+  const stonsNews = stories.value;
+
+  const showStonsNews = () => {
+    let pistonsNewsSection = document.getElementById("pistonsNewsSection");
+
+    for (let i = 0; i < stonsNews.length; i++) {
+      let imgContainer = document.createElement("div");
+      pistonsNewsSection.appendChild(imgContainer);
+      imgContainer.classList.add(
+        "flex",
+        "flex-row",
+        "py-2",
+        "overflow-hidden",
+        "mb-6",
+        "border-2",
+        "border-gray-200",
+        "rounded",
+        "cursor-pointer"
+      );
+
+      let stonsNewsImage = document.createElement("img");
+      stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
+      stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
+      imgContainer.appendChild(stonsNewsImage);
+
+      let stonsNewsTitle = document.createElement("div");
+      stonsNewsTitle.textContent = `${stonsNews[i].name}`;
+      stonsNewsTitle.classList.add("mx-3", "text-base");
+      imgContainer.appendChild(stonsNewsTitle);
+
+      let stonsNewsProvider = document.createElement("p");
+      stonsNewsProvider.textContent = `${
+        stonsNews[i].provider[0].name
+      } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
+      stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
+      stonsNewsTitle.appendChild(stonsNewsProvider);
+
+      imgContainer.addEventListener("click", () => {
+        window.open(stonsNews[i].url);
+      });
+    }
+  };
+
+  showStonsNews();
+}
+
+function errData(err) {
+  console.log("error");
+  console.log(err);
+}
+
+//news for pistons
+// fetch('data.json')
+//   .then(response => {
+//     return response.json();
+//   })
+//   .then(newsJSON => {
+//     //Set the JSON data for games to a variable
+//     const stonsNews = newsJSON.value;
+
+//     const showStonsNews = () => {
+//       let pistonsNewsSection = document.getElementById("pistonsNewsSection");
+
+//       for (let i = 0; i < 10; i++) {
+//         let imgContainer = document.createElement("div");
+//         pistonsNewsSection.appendChild(imgContainer);
+//         imgContainer.classList.add(
+//           "flex",
+//           "flex-row",
+//           "py-2",
+//           "overflow-hidden",
+//           "mb-6",
+//           "border-2",
+//           "border-gray-200",
+//           "rounded",
+//           "cursor-pointer"
+//         );
+
+//         let stonsNewsImage = document.createElement("img");
+//         stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
+//         stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
+//         imgContainer.appendChild(stonsNewsImage);
+
+//         let stonsNewsTitle = document.createElement("div");
+//         stonsNewsTitle.textContent = `${stonsNews[i].name}`;
+//         stonsNewsTitle.classList.add("mx-3", "text-base");
+//         imgContainer.appendChild(stonsNewsTitle);
+
+//         let stonsNewsProvider = document.createElement("p");
+//         stonsNewsProvider.textContent = `${
+//           stonsNews[i].provider[0].name
+//         } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
+//         stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
+//         stonsNewsTitle.appendChild(stonsNewsProvider);
+
+//         imgContainer.addEventListener("click", () => {
+//           window.open(stonsNews[i].url);
+//         });
+//       }
+//     };
+
+//     showStonsNews();
+//  });
