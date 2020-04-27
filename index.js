@@ -2,9 +2,12 @@
 const express = require("express");
 //Set express to app variable
 const app = express();
-const fs = require("fs");
 const path = require("path");
 const fetch = require("node-fetch");
+
+var sslRedirect = require('heroku-ssl-redirect');
+app.use(sslRedirect());
+
 var CronJob = require("cron").CronJob;
 
 const compression = require("compression");
