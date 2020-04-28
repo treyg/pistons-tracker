@@ -55,24 +55,19 @@ const requestOptions = {
 const api_url =
   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
 
-const getData = () => {
+// 
+
+
+
+setInterval(() => {
+  console.log('triggering hourly event')
   fetch(api_url, requestOptions)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      let currentNewsData = data;
-      return database.ref("currentNews").update(currentNewsData);
-    })
-    .catch((error) => {
-      console.log('error', error)
-    })
-};
-
-// let job = new CronJob('0 * * * *', getData())
-// job.start()
-
-setInterval(() => getData(), 1000*60)
+    .then((response) => response.json())
+    .then((currentNewsData) =>
+      database.ref("currentNews").update(currentNewsData)
+    )
+    .catch((err) => console.log(err));
+}, 1000 * 60);
 
 
 
