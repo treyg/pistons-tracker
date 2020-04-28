@@ -13,7 +13,6 @@ app.use(sslRedirect());
 var CronJob = require("cron").CronJob;
 
 const compression = require("compression");
-require("dotenv").config();
 
 app.use(compression());
 
