@@ -71,7 +71,7 @@ setInterval(() => {
       database.ref("currentNews").update(currentNewsData)
     )
     .catch((err) => console.log(err));
-}, 1000 * 60);
+}, 1000 * 60 * 60);
 
 
 // const getData = () => {
@@ -95,6 +95,5 @@ setInterval(() => {
 
 //setInterval(() => getData(), 1000*60*60);
 
-// let job = new CronJob('0 * * * *', getData())
-// job.start()
+
 
