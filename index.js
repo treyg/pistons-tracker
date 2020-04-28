@@ -52,8 +52,9 @@ const requestOptions = {
   },
 };
 
-const api_url =
-  "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
+const api_url = "https://pistons-news.cognitiveservices.azure.com/bing/v7.0"
+  //"https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
+
 
 // 
 
