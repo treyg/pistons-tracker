@@ -6,6 +6,8 @@ const path = require("path");
 require('dotenv').config()
 const fetch = require("node-fetch");
 
+console.log(process.env.API_KEY)
+
 var sslRedirect = require('heroku-ssl-redirect');
 app.use(sslRedirect());
 
