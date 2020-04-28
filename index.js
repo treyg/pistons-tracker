@@ -63,7 +63,10 @@ const getData = () => {
     .then((data) => {
       let currentNewsData = data;
       return database.ref("currentNews").update(currentNewsData);
-    });
+    })
+    .catch((error) => {
+      console.log('error', error)
+    })
 };
 
 // let job = new CronJob('0 * * * *', getData())
