@@ -66,8 +66,10 @@ const getData = () => {
     });
 };
 
-let job = new CronJob('0 * * * *', getData())
-job.start()
+// let job = new CronJob('0 * * * *', getData())
+// job.start()
+
+setInterval(() => getData(), 1000*60)
 
 
 
