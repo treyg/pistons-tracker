@@ -84,5 +84,5 @@ const getData = () => {
   .catch((err) => console.log(err));
 }
 
-let job = new CronJob('* * * * *', getData())
+let job = new CronJob('0 * * * *', getData())
 job.start()
