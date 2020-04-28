@@ -60,40 +60,29 @@ const api_url =
 
 
 
-setInterval(() => {
-  console.log('triggering hourly event')
-  fetch(api_url, requestOptions)
-    .then((response) => {
-      console.log(response);
-      return response.json();
-    })
-    .then((currentNewsData) =>
-      database.ref("currentNews").update(currentNewsData)
-    )
-    .catch((err) => console.log(err));
-}, 1000 * 60 * 60);
-
-
-// const getData = () => {
+// setInterval(() => {
 //   fetch(api_url, requestOptions)
 //     .then((response) => {
+//       console.log(response);
 //       return response.json();
 //     })
-//     .then((data) => {
-//       let newsData = data;
-//       //console.log(newsData);
+//     .then((currentNewsData) =>
+//       database.ref("currentNews").update(currentNewsData)
+//     )
+//     .catch((err) => console.log(err));
+// }, 1000 * 60 * 60);
 
-//       const dataFile = path.join(__dirname, "public", "data.json");
+const getData = () => {
+  fetch(api_url, requestOptions)
+  .then((response) => {
+    console.log(response);
+    return response.json();
+  })
+  .then((currentNewsData) =>
+    database.ref("currentNews").update(currentNewsData)
+  )
+  .catch((err) => console.log(err));
+}
 
-//       fs.writeFileSync(dataFile, JSON.stringify(newsData), function (err) {
-//         if(err) throw err
-//         return newsData
-//       })
-
-//     });
-// };
-
-//setInterval(() => getData(), 1000*60*60);
-
-
-
+let job = new CronJob('* * * * *', getData())
+job.start()
