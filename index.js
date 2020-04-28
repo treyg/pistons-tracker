@@ -66,7 +66,6 @@ setInterval(() => {
       console.log(response);
       return response.json();
     })
-
     .then((currentNewsData) =>
       database.ref("currentNews").update(currentNewsData)
     )
