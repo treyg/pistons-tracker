@@ -3,7 +3,6 @@ const express = require("express");
 //Set express to app variable
 const app = express();
 const path = require("path");
-require('dotenv').config()
 const fetch = require("node-fetch");
 
 console.log(process.env.API_KEY)
