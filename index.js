@@ -63,6 +63,7 @@ setInterval(() => {
   console.log('triggering hourly event')
   fetch(api_url, requestOptions)
     .then((response) => response.json())
+    console.log(response)
     .then((currentNewsData) =>
       database.ref("currentNews").update(currentNewsData)
     )
