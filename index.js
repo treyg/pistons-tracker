@@ -46,7 +46,7 @@ var database = admin.database();
 
 
 //const api = process.env.API_KEY;
-const api = cc7503e5704e44c2b14387c5dcfc993a
+const api = "cc7503e5704e44c2b14387c5dcfc993a"
 const requestOptions = {
   headers: {
     "Ocp-Apim-Subscription-Key": api,
@@ -57,7 +57,6 @@ const api_url =
   "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
 
 // 
-
 
 
 setInterval(() => {
