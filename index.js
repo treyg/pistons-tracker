@@ -62,14 +62,16 @@ const api_url =
 setInterval(() => {
   console.log('triggering hourly event')
   fetch(api_url, requestOptions)
-    .then((response) => response.json())
-    console.log(response)
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+
     .then((currentNewsData) =>
       database.ref("currentNews").update(currentNewsData)
     )
     .catch((err) => console.log(err));
 }, 1000 * 60);
-
 
 
 // const getData = () => {
