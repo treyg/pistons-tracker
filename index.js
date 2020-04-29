@@ -70,7 +70,7 @@ setInterval(() => {
       database.ref("currentNews").update(currentNewsData)
     )
     .catch((err) => console.log(err));
-}, 1000 * 60 * 3);
+}, 1000 * 60 * 60);
 
 // const getData = () => {
 //   fetch(api_url, requestOptions)
