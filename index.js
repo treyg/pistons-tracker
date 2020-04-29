@@ -60,29 +60,29 @@ const api_url =
 
 
 
-// setInterval(() => {
-//   fetch(api_url, requestOptions)
-//     .then((response) => {
-//       console.log(response);
-//       return response.json();
-//     })
-//     .then((currentNewsData) =>
-//       database.ref("currentNews").update(currentNewsData)
-//     )
-//     .catch((err) => console.log(err));
-// }, 1000 * 60 * 60);
-
-const getData = () => {
+setInterval(() => {
   fetch(api_url, requestOptions)
-  .then((response) => {
-    console.log(response);
-    return response.json();
-  })
-  .then((currentNewsData) =>
-    database.ref("currentNews").update(currentNewsData)
-  )
-  .catch((err) => console.log(err));
-}
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((currentNewsData) =>
+      database.ref("currentNews").update(currentNewsData)
+    )
+    .catch((err) => console.log(err));
+}, 1000 * 60 * 3);
 
-let job = new CronJob('0 * * * *', getData())
-job.start()
+// const getData = () => {
+//   fetch(api_url, requestOptions)
+//   .then((response) => {
+//     console.log(response);
+//     return response.json();
+//   })
+//   .then((currentNewsData) =>
+//     database.ref("currentNews").update(currentNewsData)
+//   )
+//   .catch((err) => console.log(err));
+// }
+
+// let job = new CronJob('0 * * * *', getData())
+// job.start()
