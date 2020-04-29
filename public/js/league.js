@@ -40,7 +40,7 @@ fetch(LEAGUE_GAMES_TODAY)
       statusArea.classList.add("flex", "flex-col", "justify-center");
 
       let gameTime = document.createElement("div");
-      gameTime.innerHTML = `Today <br> ${dayjs(
+      gameTime.innerHTML = `Today <br> ${moment(
         eventsToday[i].competitions[0].date
       ).format("h:mm a")}`;
       gameTime.classList.add(
@@ -119,7 +119,6 @@ fetch(LEAGUE_GAMES_TODAY)
       }
     }
 
-    console.log(eventsToday);
   });
 
 //League News
@@ -134,12 +133,12 @@ const LEAGUE_NEWS_URL =
     .then(leagueNewsJSON => {
       //Set the JSON data for games to a variable
       const leagueNews = leagueNewsJSON.articles;
-      // console.log(leagueNews);
+       console.log(leagueNews);
 
       //Sort league news to show newest stories first
       const sortedLeagueNews = leagueNews.sort((a, b) =>
-        dayjs(a.categories[0].createDate).format("H:MM") >
-        dayjs(b.categories[0].createDate).format("H:MM")
+        moment(a.categories[0].createDate).format("H:MM") >
+        moment(b.categories[0].createDate).format("H:MM")
           ? 1
           : -1
       );
@@ -187,7 +186,14 @@ const LEAGUE_NEWS_URL =
           leagueImgContainer.appendChild(leagueNewsDescription);
 
           let leagueNewsProvider = document.createElement("p");
-          leagueNewsProvider.textContent = `${sortedLeagueNews[i].images[0].credit}`;
+         leagueNewsProvider.textContent = `${sortedLeagueNews[i].images[0].credit}`;
+//Consider sorting and adding timestamp for league news. Issue is that date placement isn't consistent within each array
+          // if(sortedLeagueNews[i].categories[4] === undefined) {
+          //   leagueNewsProvider.textContent = `${sortedLeagueNews[i].images[0].credit}`
+          // } else {
+          //   leagueNewsProvider.textContent = `${sortedLeagueNews[i].images[0].credit} | ${moment(sortedLeagueNews[i].categories[4].createDate).fromNow('ss')} ago`
+          // }
+
           leagueNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
           leagueNewsDescription.appendChild(leagueNewsProvider);
 
