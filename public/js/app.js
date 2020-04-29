@@ -1,4 +1,5 @@
 
+
 //Javascript to toggle the menu
 document.getElementById("nav-toggle").onclick = function () {
   document.getElementById("nav-content").classList.toggle("hidden");
@@ -58,15 +59,13 @@ fetch(PISTONS_URL)
     const showNextGameData = () => {
       //let startTime = document.getElementById('startTime')
       let startDate = document.getElementById("startDate");
-      startDate.textContent = dayjs(nextGame[0].competitions[0].date).format(
-        "dddd h:mm"
-      );
+      startDate.textContent = moment(nextGame[0].competitions[0].date).format('dddd h:mm');
       //If game is today, make display say today rather than day of the week
       if (
-        dayjs(nextGame[0].competitions[0].date).format("dddd") ==
-        dayjs().format("dddd")
+        moment(nextGame[0].competitions[0].date).format("dddd") ==
+        moment().format("dddd")
       ) {
-        startDate.innerHTML = `Today at ${dayjs(
+        startDate.innerHTML = `Today at ${moment(
           nextGame[0].competitions[0].date
         ).format("h:mm")}`;
       }
@@ -276,7 +275,7 @@ fetch(PISTONS_GAMES_URL)
     const upcomingGames = sortedStonsGames
       .reverse()
       .filter(
-        (games) => games.status !== "Final" && dayjs(games.date).$d > dayjs().$d
+        (games) => games.status !== "Final" && moment(games.date).$d > moment().$d
       );
 
     nextFiveGames = () => {
@@ -306,7 +305,7 @@ fetch(PISTONS_GAMES_URL)
             <span class="text-xs font-semibold m-auto">${
               upcomingGames[i].status
             }</span>
-            <br>${dayjs(upcomingGames[i].date).format("ddd, MMMM D")}
+            <br>${moment(upcomingGames[i].date).format("ddd, MMMM D")}
           `;
         gameTimeSection.classList.add(
           "flex",
@@ -355,9 +354,12 @@ databaseRef.once("value", getNewsData, errData);
 
 function getNewsData(data) {
   let stories = data.val();
-  //console.log(stories)
+  console.log(stories)
 
-  const stonsNews = stories.value;
+
+  const stonsNews = stories.value.sort((a, b) =>
+  a.datePublished < b.datePublished ? 1 : -1
+);
 
   const showStonsNews = () => {
     let pistonsNewsSection = document.getElementById("pistonsNewsSection");
@@ -390,7 +392,7 @@ function getNewsData(data) {
       let stonsNewsProvider = document.createElement("p");
       stonsNewsProvider.textContent = `${
         stonsNews[i].provider[0].name
-      } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
+      } | ${moment(stonsNews[i].datePublished).fromNow('ss')} ago`;
       stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
       stonsNewsTitle.appendChild(stonsNewsProvider);
 
@@ -399,7 +401,7 @@ function getNewsData(data) {
       });
     }
   };
-  
+
   showStonsNews();
 }
 
@@ -407,5 +409,3 @@ function errData(err) {
   console.log("error");
   console.log(err);
 }
-
-console.log(dayjs())
