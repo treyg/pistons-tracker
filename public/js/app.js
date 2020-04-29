@@ -1,3 +1,4 @@
+
 //Javascript to toggle the menu
 document.getElementById("nav-toggle").onclick = function () {
   document.getElementById("nav-content").classList.toggle("hidden");
@@ -398,7 +399,7 @@ function getNewsData(data) {
       });
     }
   };
-
+  
   showStonsNews();
 }
 
@@ -407,55 +408,4 @@ function errData(err) {
   console.log(err);
 }
 
-//news for pistons
-// fetch('data.json')
-//   .then(response => {
-//     return response.json();
-//   })
-//   .then(newsJSON => {
-//     //Set the JSON data for games to a variable
-//     const stonsNews = newsJSON.value;
-
-//     const showStonsNews = () => {
-//       let pistonsNewsSection = document.getElementById("pistonsNewsSection");
-
-//       for (let i = 0; i < 10; i++) {
-//         let imgContainer = document.createElement("div");
-//         pistonsNewsSection.appendChild(imgContainer);
-//         imgContainer.classList.add(
-//           "flex",
-//           "flex-row",
-//           "py-2",
-//           "overflow-hidden",
-//           "mb-6",
-//           "border-2",
-//           "border-gray-200",
-//           "rounded",
-//           "cursor-pointer"
-//         );
-
-//         let stonsNewsImage = document.createElement("img");
-//         stonsNewsImage.src = `${stonsNews[i].image.thumbnail.contentUrl}`;
-//         stonsNewsImage.classList.add("ml-3", "w-16", "h-16", "rounded-sm");
-//         imgContainer.appendChild(stonsNewsImage);
-
-//         let stonsNewsTitle = document.createElement("div");
-//         stonsNewsTitle.textContent = `${stonsNews[i].name}`;
-//         stonsNewsTitle.classList.add("mx-3", "text-base");
-//         imgContainer.appendChild(stonsNewsTitle);
-
-//         let stonsNewsProvider = document.createElement("p");
-//         stonsNewsProvider.textContent = `${
-//           stonsNews[i].provider[0].name
-//         } | ${dayjs(stonsNews[i].datePublished).format("ddd MMM DD")}`;
-//         stonsNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
-//         stonsNewsTitle.appendChild(stonsNewsProvider);
-
-//         imgContainer.addEventListener("click", () => {
-//           window.open(stonsNews[i].url);
-//         });
-//       }
-//     };
-
-//     showStonsNews();
-//  });
+console.log(dayjs())
