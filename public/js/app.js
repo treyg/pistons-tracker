@@ -354,7 +354,7 @@ databaseRef.once("value", getNewsData, errData);
 
 function getNewsData(data) {
   let stories = data.val();
-  console.log(stories)
+  //console.log(stories)
 
 
   const stonsNews = stories.value.sort((a, b) =>
