@@ -7,57 +7,102 @@
     <title>Stons Center</title>
 
     <!-- PWA met content -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json" />
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="StonsCenter">
-    <meta name="apple-mobile-web-app-title" content="StonsCenter">
-    <meta name="theme-color" content="#C8102E">
-    <meta name="msapplication-navbutton-color" content="#C8102E">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="msapplication-starturl" content="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#1d42ba">
-    <link rel="icon" type="image/png" sizes="192x192" href="public\images\oldlogo.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="192x192" href="public\images\oldlogo.png">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="StonsCenter" />
+    <meta name="apple-mobile-web-app-title" content="StonsCenter" />
+    <meta name="theme-color" content="#C8102E" />
+    <meta name="msapplication-navbutton-color" content="#C8102E" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="msapplication-starturl" content="/" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#1d42ba" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="public\images\oldlogo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="192x192"
+      href="public\images\oldlogo.png"
+    />
 
     <link rel="stylesheet" href="/build/tailwind.css" />
   </head>
   <body class="bg-gray-200">
-    
-  	<nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0" style="background-color: #1D42BA;">
+    <nav
+      class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0"
+      style="background-color: #1d42ba"
+    >
       <div>
         <a class="flex flex-row items-center" href="index.html">
-                  <img class="w-12 inline-block" src="\images\oldlogo.png" alt=""> <span class="text-2xl text-white pl-2 inline-block font-mono">StonsCenter</span>
+          <img class="w-12 inline-block" src="\images\oldlogo.png" alt="" />
+          <span class="text-2xl text-white pl-2 inline-block font-mono"
+            >StonsCenter</span
+          >
         </a>
-          </div>
-          
+      </div>
+
       <div class="block lg:hidden">
-        <button id="nav-toggle" class="flex items-center px-3 py-2 border-2 rounded hover:border-gray-400 text-gray-500 border-red-700">
-                  <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/basketball-net.png"> -->
-                  <svg class="fill-current text-red-600 h-3 w-3" viewBox="0 0 20 20"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        <button
+          id="nav-toggle"
+          class="flex items-center px-3 py-2 border-2 rounded hover:border-gray-400 text-gray-500 border-red-700"
+        >
+          <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/basketball-net.png"> -->
+          <svg class="fill-current text-red-600 h-3 w-3" viewBox="0 0 20 20">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
         </button>
       </div>
-      
-      <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
+
+      <div
+        class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0"
+        id="nav-content"
+      >
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
           <li>
-            <a class="flex py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide" href="index.html">Home</a>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide"
+              href="index.html"
+              >Home</a
+            >
           </li>
           <li>
-            <a class="flex py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide" href="stats.html">Stats</a>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide"
+              href="stats.html"
+              >Stats</a
+            >
           </li>
           <li>
-            <a class="flex py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide" href="nbatoday.html">NBA Today</a>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide"
+              href="nbatoday.html"
+              >NBA Today</a
+            >
           </li>
           <li>
-            <a class="flex py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide" href="podcast.html">Podcasts</a>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide"
+              href="podcast.html"
+              >Podcasts</a
+            >
           </li>
         </ul>
       </div>
     </nav>
-  
 
     <!-- End Nav section -->
     <div
@@ -97,9 +142,8 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="js\app.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/dayjs.js"></script>
     <script type="text/javascript" src="js/register.js"></script>
-
   </body>
 </html>
