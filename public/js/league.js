@@ -1,5 +1,5 @@
 //Javascript to toggle the menu
-document.getElementById("nav-toggle").onclick = function() {
+document.getElementById("nav-toggle").onclick = function () {
   document.getElementById("nav-content").classList.toggle("hidden");
 };
 
@@ -8,10 +8,10 @@ const LEAGUE_GAMES_TODAY =
   "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard";
 
 fetch(LEAGUE_GAMES_TODAY)
-  .then(response => {
+  .then((response) => {
     return response.json();
   })
-  .then(gamesTodayJSON => {
+  .then((gamesTodayJSON) => {
     //Set the JSON data for games to a variable
     const gamesToday = gamesTodayJSON;
     //Set variable for just games today
@@ -115,102 +115,89 @@ fetch(LEAGUE_GAMES_TODAY)
       //If game is completed set inner hmtl to final
       if (eventsToday[i].status.type.completed === true) {
         gameTime.innerHTML = `<span class="text-black">Final</span>`;
-      
       }
     }
-
   });
 
 //League News
 
-const LEAGUE_NEWS_URL =
-  "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news";
+// const LEAGUE_NEWS_URL =
+//   "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news";
 
-  fetch(LEAGUE_NEWS_URL)
-    .then(response => {
-      return response.json();
-    })
-    .then(leagueNewsJSON => {
-      //Set the JSON data for games to a variable
-      const leagueNews = leagueNewsJSON.articles;
-       console.log(leagueNews);
+// fetch(LEAGUE_NEWS_URL)
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((leagueNewsJSON) => {
+//     //Set the JSON data for games to a variable
+//     const leagueNews = leagueNewsJSON.articles;
 
-      //Sort league news to show newest stories first
-      const sortedLeagueNews = leagueNews.sort((a, b) =>
-        moment(a.categories[0].createDate).format("H:MM") >
-        moment(b.categories[0].createDate).format("H:MM")
-          ? 1
-          : -1
-      );
+//     //Sort league news to show newest stories first
+//     const sortedLeagueNews = leagueNews.sort((a, b) =>
+//       moment(a.categories[0].createDate).format("H:MM") >
+//       moment(b.categories[0].createDate).format("H:MM")
+//         ? 1
+//         : -1
+//     );
 
-      const showLeagueNews = () => {
-        let leagueNewsSection = document.getElementById("leagueNewsSection");
-        //Loop through leagueNews JSON data and create sections for each story
-        for (let i = 0; i < 6; i++) {
-          let leagueImgContainer = document.createElement("div");
-          leagueNewsSection.appendChild(leagueImgContainer);
-          leagueImgContainer.classList.add(
-            "flex",
-            "flex-col",
-            "py-2",
-            "overflow-hidden",
-            "mb-6",
-            "border-2",
-            "border-gray-200",
-            "rounded",
-            "cursor-pointer"
-          );
+//     const showLeagueNews = () => {
+//       let leagueNewsSection = document.getElementById("leagueNewsSection");
+//       //Loop through leagueNews JSON data and create sections for each story
+//       for (let i = 0; i < 6; i++) {
+//         let leagueImgContainer = document.createElement("div");
+//         leagueNewsSection.appendChild(leagueImgContainer);
+//         leagueImgContainer.classList.add(
+//           "flex",
+//           "flex-col",
+//           "py-2",
+//           "overflow-hidden",
+//           "mb-6",
+//           "border-2",
+//           "border-gray-200",
+//           "rounded",
+//           "cursor-pointer"
+//         );
 
-          let leagueNewsImage = document.createElement("img");
-          leagueNewsImage.src = `${sortedLeagueNews[i].images[0].url}`;
-          leagueNewsImage.classList.add("mx-3", "rounded-sm");
-          leagueImgContainer.appendChild(leagueNewsImage);
-          //If no image is given for story, leave image blank and continue loop
-          if (leagueNews[i].images[0].url == undefined) {
-            leagueNewsImage.src = ``;
-          }
+//         let leagueNewsImage = document.createElement("img");
+//         leagueNewsImage.src = `${sortedLeagueNews[i].images[0].url}`;
+//         leagueNewsImage.classList.add("mx-3", "rounded-sm");
+//         leagueImgContainer.appendChild(leagueNewsImage);
+//         //If no image is given for story, leave image blank and continue loop
+//         if (leagueNews[i].images[0].url == undefined) {
+//           leagueNewsImage.src = ``;
+//         }
 
-          let leagueNewsTitle = document.createElement("div");
-          leagueNewsTitle.textContent = `${sortedLeagueNews[i].headline}`;
-          leagueNewsTitle.classList.add(
-            "mx-3",
-            "text-base",
-            "mt-2",
-            "font-medium"
-          );
-          leagueImgContainer.appendChild(leagueNewsTitle);
+//         let leagueNewsTitle = document.createElement("div");
+//         leagueNewsTitle.textContent = `${sortedLeagueNews[i].headline}`;
+//         leagueNewsTitle.classList.add(
+//           "mx-3",
+//           "text-base",
+//           "mt-2",
+//           "font-medium"
+//         );
+//         leagueImgContainer.appendChild(leagueNewsTitle);
 
-          let leagueNewsDescription = document.createElement("div");
-          leagueNewsDescription.textContent = `${sortedLeagueNews[i].description}`;
-          leagueNewsDescription.classList.add("text-sm", "mx-3", "mt-2");
-          leagueImgContainer.appendChild(leagueNewsDescription);
+//         let leagueNewsDescription = document.createElement("div");
+//         leagueNewsDescription.textContent = `${sortedLeagueNews[i].description}`;
+//         leagueNewsDescription.classList.add("text-sm", "mx-3", "mt-2");
+//         leagueImgContainer.appendChild(leagueNewsDescription);
 
-          let leagueNewsProvider = document.createElement("p");
-         leagueNewsProvider.textContent = `${sortedLeagueNews[i].images[0].credit}`;
-//Consider sorting and adding timestamp for league news. Issue is that date placement isn't consistent within each array
-          // if(sortedLeagueNews[i].categories[4] === undefined) {
-          //   leagueNewsProvider.textContent = `${sortedLeagueNews[i].images[0].credit}`
-          // } else {
-          //   leagueNewsProvider.textContent = `${sortedLeagueNews[i].images[0].credit} | ${moment(sortedLeagueNews[i].categories[4].createDate).fromNow('ss')} ago`
-          // }
+//         let leagueNewsProvider = document.createElement("p");
+//         leagueNewsProvider.textContent = `${sortedLeagueNews[i].images[0].credit}`;
 
-          leagueNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
-          leagueNewsDescription.appendChild(leagueNewsProvider);
+//         leagueNewsProvider.classList.add("text-xs", "text-gray-800", "pt-1");
+//         leagueNewsDescription.appendChild(leagueNewsProvider);
 
-          //Default league news source to espn if no credit is given
-          if (leagueNews[i].images[0].credit == undefined) {
-            leagueNewsProvider.innerHTML = `ESPN`;
-          }
+//         //Default league news source to espn if no credit is given
+//         if (leagueNews[i].images[0].credit == undefined) {
+//           leagueNewsProvider.innerHTML = `ESPN`;
+//         }
 
-          leagueImgContainer.addEventListener("click", () => {
-            window.open(leagueNews[i].links.web.short.href);
-          });
-        }
-      };
+//         leagueImgContainer.addEventListener("click", () => {
+//           window.open(leagueNews[i].links.web.short.href);
+//         });
+//       }
+//     };
 
-      showLeagueNews();
-    });
-
-
-
-    
+//     showLeagueNews();
+//   });

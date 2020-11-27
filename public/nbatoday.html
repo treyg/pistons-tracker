@@ -6,61 +6,108 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>NBA Today</title>
 
-     <!-- PWA met content -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- PWA met content -->
+    <link rel="manifest" href="/manifest.json" />
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="StonsCenter">
-    <meta name="apple-mobile-web-app-title" content="StonsCenter">
-    <meta name="theme-color" content="#C8102E">
-    <meta name="msapplication-navbutton-color" content="#C8102E">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="msapplication-starturl" content="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#1d42ba">
-    <link rel="icon" type="image/png" sizes="192x192" href="public\images\oldlogo.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="192x192" href="public\images\oldlogo.png">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="StonsCenter" />
+    <meta name="apple-mobile-web-app-title" content="StonsCenter" />
+    <meta name="theme-color" content="#C8102E" />
+    <meta name="msapplication-navbutton-color" content="#C8102E" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="msapplication-starturl" content="/" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#1d42ba" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="public\images\oldlogo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="192x192"
+      href="public\images\oldlogo.png"
+    />
 
     <link rel="stylesheet" href="/build/tailwind.css" />
+
+    <!-- Vue Js CDN for fetching news-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   </head>
   <body class="bg-gray-200">
-    
-    <nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0" style="background-color: #1D42BA;">
+    <nav
+      class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0"
+      style="background-color: #1d42ba"
+    >
       <div>
         <a class="flex flex-row items-center" href="index.html">
-                  <img class="w-12 inline-block" src="\images\oldlogo.png" alt=""> <span class="text-2xl text-white pl-2 inline-block font-mono">StonsCenter</span>
+          <img class="w-12 inline-block" src="\images\oldlogo.png" alt="" />
+          <span class="text-2xl text-white pl-2 inline-block font-mono"
+            >StonsCenter</span
+          >
         </a>
-          </div>
-          
+      </div>
+
       <div class="block lg:hidden">
-        <button id="nav-toggle" class="flex items-center px-3 py-2 border-2 rounded hover:border-gray-400 text-gray-500 border-red-700">
-                  <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/basketball-net.png"> -->
-                  <svg class="fill-current text-red-600 h-3 w-3" viewBox="0 0 20 20"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        <button
+          id="nav-toggle"
+          class="flex items-center px-3 py-2 border-2 rounded hover:border-gray-400 text-gray-500 border-red-700"
+        >
+          <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/basketball-net.png"> -->
+          <svg class="fill-current text-red-600 h-3 w-3" viewBox="0 0 20 20">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
         </button>
       </div>
-  
-      <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
+
+      <div
+        class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0"
+        id="nav-content"
+      >
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
           <li>
-            <a class="flex py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide" href="index.html">Home</a>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide"
+              href="index.html"
+              >Home</a
+            >
           </li>
           <li>
-            <a class="flex py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide" href="stats.html">Stats</a>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide"
+              href="stats.html"
+              >Stats</a
+            >
           </li>
           <li>
-            <a class="flex py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide" href="nbatoday.html">NBA Today</a>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide"
+              href="nbatoday.html"
+              >NBA Today</a
+            >
           </li>
           <li>
-            <a class="flex py-2 px-4 text-white text-lg  hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide" href="podcast.html">Podcasts</a>
+            <a
+              class="flex py-2 px-4 text-white text-lg hover:bg-red-700 rounded-sm no-underline justify-center tracking-wide"
+              href="podcast.html"
+              >Podcasts</a
+            >
           </li>
         </ul>
       </div>
     </nav>
-  
-  
-  
-  <!-- End Nav section -->
+
+    <!-- End Nav section -->
 
     <!-- NBA Games today Sections -->
     <div
@@ -73,7 +120,7 @@
       >
         <div
           id="gamesTodayHeading"
-          class="pb-4 text-lg font-semibold tracking-wide "
+          class="pb-4 text-lg font-semibold tracking-wide"
         >
           NBA Games Today
         </div>
@@ -81,15 +128,38 @@
       </div>
 
       <!-- League News Section -->
-      <div
+      <!-- <div
         id="leagueNewsSection"
-        class="bg-white py-4 px-4 flex flex-col  shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-xl  md:max-w-md lg:max-w-xl "
+        class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-xl md:max-w-md lg:max-w-xl"
       >
-        <div
-          id="leagueHeader"
-          class="pb-4 text-lg font-semibold tracking-wide "
-        >
+        <div id="leagueHeader" class="pb-4 text-lg font-semibold tracking-wide">
           League News
+        </div>
+      </div> -->
+
+      <!-- Test Vue League News Section -->
+      <div
+        id="vueNews"
+        class="bg-white py-4 px-4 flex flex-col shadow-md border border-gray-200 rounded mx-3 my-4 text-lg sm:max-w-xl md:max-w-md lg:max-w-xl"
+      >
+        <div id="leagueHeader" class="pb-4 text-lg font-semibold tracking-wide">
+          League News
+        </div>
+        <div v-for="result in results" ::key="result.key">
+          <!-- Try Using v-bind for source
+           -->
+          <div
+            class="flex flex-col py-2 overflow-hidden mb-6 border-2 border-gray-200rounded cursor-pointer"
+          >
+            <img class="mx-3 rounded-sm" :src="result.images[0].url" alt="" />
+            <h2 class="mx-3 text-base mt-2 font-medium">
+              {{ result.headline }}
+            </h2>
+            <p class="text-sm mx-3 mt-2">{{ result.description }}</p>
+            <p class="text-xs mx-3 text-gray-800 pt-1">
+              {{result.images[0].credit}}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -97,6 +167,30 @@
     <script type="text/javascript" src="js/league.js"></script>
     <script type="text/javascript" src="./libs/moment.js"></script>
     <script type="text/javascript" src="js/register.js"></script>
-
+    <!-- Add axios CDN -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </body>
 </html>
+
+<script>
+  var app = new Vue({
+    el: "#vueNews",
+    data: {
+      endpoint:
+        "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news",
+      results: [],
+    },
+    // fetch data from espn with axios on mount
+    mounted() {
+      axios.get(this.endpoint).then((response) => {
+        //Set this.results to espn data sorted by time
+        this.results = response.data.articles.sort((a, b) =>
+          moment(a.categories[0].createDate).format("H:MM") >
+          moment(b.categories[0].createDate).format("H:MM")
+            ? 1
+            : -1
+        );
+      });
+    },
+  });
+</script>
