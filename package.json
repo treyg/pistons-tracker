@@ -18,17 +18,17 @@
   },
   "homepage": "https://github.com/treyg/pistons-tracker#readme",
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^2.1.2",
-    "autoprefixer": "^9.7.5",
+    "@fullhuman/postcss-purgecss": "^2.3.0",
+    "autoprefixer": "^9.8.6",
     "compression": "^1.7.4",
     "cron": "^1.8.2",
     "express": "^4.17.1",
-    "firebase": "^7.14.1",
-    "firebase-admin": "^8.11.0",
+    "firebase": "^7.24.0",
+    "firebase-admin": "^8.13.0",
     "heroku-ssl-redirect": "0.0.4",
     "node-fetch": "^2.6.1",
-    "postcss-cli": "^7.1.0",
-    "tailwindcss": "^1.2.0"
+    "postcss-cli": "^7.1.2",
+    "tailwindcss": "^1.9.6"
   },
   "devDependencies": {}
 }
