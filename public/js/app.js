@@ -201,7 +201,7 @@ fetch(SCOREBOARD_URL)
 
 // Set data for showing last 5 pistons games
 const PISTONS_GAMES_URL =
-  "https://www.balldontlie.io/api/v1/games?seasons[]=2019&team_ids[]=9&per_page=82";
+  "https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=9&per_page=82";
 
 fetch(PISTONS_GAMES_URL)
   .then((response) => {
