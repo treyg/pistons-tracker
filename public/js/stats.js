@@ -4,7 +4,7 @@ document.getElementById("nav-toggle").onclick = function () {
 };
 
 const PISTONS_STATS =
-  "https://www.balldontlie.io/api/v1/season_averages?season=2020&player_ids[]=FILL&player_ids[]=401&player_ids[]=189&player_ids[]=FILL&player_ids[]=666543&player_ids[]=189&player_ids[]=338&player_ids[]=FILL&player_ids[]=FILL&player_ids[]=329&player_ids[]=FILL&player_ids[]=FILL&player_ids[]=FILL&player_ids[]=FILL&player_ids[]=FILL&player_ids[]=441&player_ids[]=FILL&player_ids[]=FILL&player_ids[]=FILL";
+  "https://www.balldontlie.io/api/v1/season_averages?season=2020&player_ids[]=3547256&player_ids[]=401&player_ids[]=189&player_ids[]=144&player_ids[]=666543&player_ids[]=189&player_ids[]=338&player_ids[]=182&player_ids[]=3547241&player_ids[]=329&player_ids[]=234&player_ids[]=3547298&player_ids[]=307&player_ids[]=354&player_ids[]=371&player_ids[]=441&player_ids[]=666899&player_ids[]=3547267&player_ids[]=487";
 
 //'https://www.balldontlie.io/api/v1/stats?seasons=[]2019&per_page=100'
 //'https://www.balldontlie.io/api/v1/players?year=[]2019?per_page=100'
@@ -19,12 +19,12 @@ fetch(PISTONS_STATS)
     const stats = statsJSON.data;
     console.log(stats);
 
-    const lukeKennard = stats.find((e) => e.player_id == 254);
-    lukeKennard.name = "Luke Kennard";
-    lukeKennard.imgOne =
-      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1628379.png";
-    lukeKennard.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628379.png";
+    const saddiqBey = stats.find((e) => e.player_id == 3547256);
+    saddiqBey.name = "Saddiq Bey";
+    saddiqBey.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1630180.png";
+    saddiqBey.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630180.png";
 
     const derrickRose = stats.find((e) => e.player_id == 401);
     derrickRose.name = "Derrick Rose";
@@ -40,12 +40,12 @@ fetch(PISTONS_STATS)
     blakeGriffin.imgTwo =
       "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201933.png";
 
-    const christianWood = stats.find((e) => e.player_id == 486);
-    christianWood.name = "Christian Wood";
-    christianWood.imgOne =
-      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1626174.png";
-    christianWood.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/1040x760/1626174.png";
+    const wayneEllington = stats.find((e) => e.player_id == 144);
+    wayneEllington.name = "Wayne Ellington";
+    wayneEllington.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/201961.png";
+    wayneEllington.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/1040x760/201961.png";
 
     const sekouDoumbouya = stats.find((e) => e.player_id == 666543);
     sekouDoumbouya.name = "Sekou Doumbouya";
@@ -59,72 +59,75 @@ fetch(PISTONS_STATS)
     sviMykhailiuk.imgTwo =
       "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629004.png";
 
-    const bruceBrown = stats.find((e) => e.player_id == 69);
-    bruceBrown.name = "Bruce Brown";
-    bruceBrown.imgOne =
-      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1628971.png";
-    bruceBrown.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628971.png";
+    const jermiGrant = stats.find((e) => e.player_id == 182);
+    jermiGrant.name = "Jermai Grant";
+    jermiGrant.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/203924.png";
+    jermiGrant.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203924.png";
 
-    const thonMaker = stats.find((e) => e.player_id == 295);
-    thonMaker.name = "Thon Maker";
-    thonMaker.imgOne =
-      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1627748.png";
-    thonMaker.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627748.png";
+    const killianHayes = stats.find((e) => e.player_id == 3547241);
+    killianHayes.name = "Killian Hayes";
+    killianHayes.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1630165.png";
+    killianHayes.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630165.png";
 
-    const langstonGalloway = stats.find((e) => e.player_id == 168);
-    langstonGalloway.name = "L. Galloway";
-    langstonGalloway.imgOne =
-      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/204038.png";
-    langstonGalloway.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/204038.png";
+    const joshJackson = stats.find((e) => e.player_id == 234);
+    joshJackson.name = "Josh Jackson";
+    joshJackson.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1628367.png";
+    joshJackson.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628367.png";
 
-    const brandonKnight = stats.find((e) => e.player_id == 258);
-    brandonKnight.name = "Brandon Knight";
-    brandonKnight.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202688.png";
+    const sabenLee = stats.find((e) => e.player_id == 3547298);
+    sabenLee.name = "Saben Lee";
+    sabenLee.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1630240.png";
+    sabenLee.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630240.png";
 
-    const tonySnell = stats.find((e) => e.player_id == 426);
-    tonySnell.name = "Tony Snell";
-    tonySnell.imgOne =
-      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/203503.png";
-    tonySnell.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203503.png";
+    const rodneyMcgruder = stats.find((e) => e.player_id == 307);
+    rodneyMcgruder.name = "Rodney McGruder";
+    rodneyMcgruder.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/203585.png";
+    rodneyMcgruder.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203585.png";
 
-    const louisKing = stats.find((e) => e.player_id == 666698);
-    louisKing.name = "Louis King";
-    louisKing.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629663.png";
+    const jahlilOkafor = stats.find((e) => e.player_id == 354);
+    jahlilOkafor.name = "Jahlil Okafor";
+    jahlilOkafor.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1626143.png";
+    jahlilOkafor.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626143.png";
 
-    const jordanBone = stats.find((e) => e.player_id == 666454);
-    jordanBone.name = "Jordan Bone";
-    jordanBone.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629648.png";
+    const masonPlumlee = stats.find((e) => e.player_id == 371);
+    masonPlumlee.name = "Mason Plumlee";
+    masonPlumlee.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/203486.png";
+    masonPlumlee.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203486.png";
 
-    const khyriThomas = stats.find((e) => e.player_id == 441);
-    khyriThomas.name = "Khyri Thomas";
-    khyriThomas.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629017.png";
+    const deividasSirvydis = stats.find((e) => e.player_id == 666899);
+    deividasSirvydis.name = "Deividas Sirvydis";
+    deividasSirvydis.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1629686.png";
+    deividasSirvydis.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629686.png";
 
-    const johnHenson = stats.find((e) => e.player_id == 205);
-    johnHenson.name = "John Henson";
-    johnHenson.imgOne =
-      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/203089.png";
-    johnHenson.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203089.png ";
+    const isaiahStewart = stats.find((e) => e.player_id == 3547267);
+    isaiahStewart.name = "Isaiah Stewart";
+    isaiahStewart.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1630191.png";
+    isaiahStewart.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1630191.png ";
 
-    const dontaHall = stats.find((e) => e.player_id == 666611);
-    dontaHall.name = "Donta Hall";
-    dontaHall.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629743.png";
-
-    const derrickWaltonJr = stats.find((e) => e.player_id == 2208);
-    derrickWaltonJr.name = "D. Walton Jr.";
-    derrickWaltonJr.imgOne =
-      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1628476.png";
-    derrickWaltonJr.imgTwo =
-      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629743.png";
+    const delonWright = stats.find((e) => e.player_id == 487);
+    delonWright.name = "Delon Wright";
+    delonWright.imgOne =
+      "https://ak-static.cms.nba.com/wp-content/uploads/silos/nba/latest/440x700/1626153.png";
+    delonWright.imgTwo =
+      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626153.png";
 
     const showPoints = () => {
       const sortedByPoints = stats.sort((a, b) => (a.pts < b.pts ? 1 : -1));
