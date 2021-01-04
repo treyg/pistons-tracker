@@ -205,12 +205,13 @@ fetch(PISTONS_GAMES_URL)
     //Show pistons game that have already been played and reverse the order to show the most recent game first
     const completedStonsGames = sortedStonsGames
       .reverse()
-      .filter((games) => games.status == "Final");
+      .filter((games) => games.status === "Final");
+    console.log(completedStonsGames);
 
     const latestGames = () => {
       let gameSections = document.getElementById("gameSections");
 
-      for (let i = 0; i.length && i < 5; i++) {
+      for (let i = 0; i < 5; i++) {
         let homeTeamSection = document.createElement("div");
         gameSections.appendChild(homeTeamSection);
         let homeName = document.createElement("div");
@@ -258,12 +259,11 @@ fetch(PISTONS_GAMES_URL)
     latestGames();
 
     ///Add Next Five Game Sections Here
-    const upcomingGames = sortedStonsGames.reverse();
-    // .filter(
-    //   (games) =>
-    //     games.status !== "Final" && moment(games.date).$d > moment().$d
-    // );
-    console.log(upcomingGames);
+    const upcomingGames = sortedStonsGames
+      .reverse()
+      .filter((games) => moment(games.date) >= moment());
+
+    //console.log(upcomingGames);
 
     nextFiveGames = () => {
       let upcomingGamesSection = document.getElementById(
