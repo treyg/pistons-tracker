@@ -114,8 +114,6 @@
     <!-- End Nav section -->
     <h1 mx-28>test</h1>
     <div class="m-auto border-green-200" id="redditFeed">
-      <button @click="fetchData()">Load Data</button>
-
       <div v-for="post in posts" :key="post.title">
         <h1>{{ post.data.title }}</h1>
       </div>
@@ -143,9 +141,9 @@
             this.posts = d.data.children;
           });
       },
-      mounted() {
-        this.fetchData();
-      },
+    },
+    mounted() {
+      this.fetchData();
     },
   });
 </script>
