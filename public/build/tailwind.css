@@ -243,7 +243,6 @@ p {
 button {
   background-color: transparent;
   background-image: none;
-  padding: 0;
 }
 
 /**
@@ -336,10 +335,6 @@ button {
   cursor: pointer;
 }
 
-table {
-  border-collapse: collapse;
-}
-
 
 h2 {
   font-size: inherit;
@@ -405,43 +400,63 @@ img {
 }
 
 .bg-white {
+  --bg-opacity: 1;
   background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
 }
 
 .bg-gray-200 {
+  --bg-opacity: 1;
   background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
 }
 
 .bg-gray-800 {
+  --bg-opacity: 1;
   background-color: #2d3748;
+  background-color: rgba(45, 55, 72, var(--bg-opacity));
 }
 
 .bg-green-500 {
+  --bg-opacity: 1;
   background-color: #48bb78;
+  background-color: rgba(72, 187, 120, var(--bg-opacity));
 }
 
 .hover\:bg-red-700:hover {
+  --bg-opacity: 1;
   background-color: #c53030;
+  background-color: rgba(197, 48, 48, var(--bg-opacity));
 }
 
 .hover\:bg-green-600:hover {
+  --bg-opacity: 1;
   background-color: #38a169;
+  background-color: rgba(56, 161, 105, var(--bg-opacity));
 }
 
 .border-gray-200 {
+  --border-opacity: 1;
   border-color: #edf2f7;
+  border-color: rgba(237, 242, 247, var(--border-opacity));
 }
 
 .border-gray-400 {
+  --border-opacity: 1;
   border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
 }
 
 .border-red-700 {
+  --border-opacity: 1;
   border-color: #c53030;
+  border-color: rgba(197, 48, 48, var(--border-opacity));
 }
 
 .hover\:border-gray-400:hover {
+  --border-opacity: 1;
   border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
 }
 
 .rounded-sm {
@@ -488,10 +503,6 @@ img {
   display: grid;
 }
 
-.table {
-  display: table;
-}
-
 .hidden {
   display: none;
 }
@@ -520,6 +531,10 @@ img {
   align-items: center;
 }
 
+.content-center {
+  align-content: center;
+}
+
 .justify-end {
   justify-content: flex-end;
 }
@@ -534,10 +549,6 @@ img {
 
 .justify-around {
   justify-content: space-around;
-}
-
-.content-center {
-  align-content: center;
 }
 
 .flex-1 {
@@ -578,6 +589,30 @@ img {
 
 .h-16 {
   height: 4rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
 }
 
 .m-auto {
@@ -767,55 +802,45 @@ img {
 }
 
 .text-black {
+  --text-opacity: 1;
   color: #000;
+  color: rgba(0, 0, 0, var(--text-opacity));
 }
 
 .text-white {
+  --text-opacity: 1;
   color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
 }
 
 .text-gray-500 {
+  --text-opacity: 1;
   color: #a0aec0;
+  color: rgba(160, 174, 192, var(--text-opacity));
 }
 
 .text-gray-600 {
+  --text-opacity: 1;
   color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
 }
 
 .text-gray-800 {
+  --text-opacity: 1;
   color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
 }
 
 .text-red-600 {
+  --text-opacity: 1;
   color: #e53e3e;
+  color: rgba(229, 62, 62, var(--text-opacity));
 }
 
 .text-green-500 {
+  --text-opacity: 1;
   color: #48bb78;
-}
-
-.text-xs {
-  font-size: 0.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-}
-
-.text-base {
-  font-size: 1rem;
-}
-
-.text-lg {
-  font-size: 1.125rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
+  color: rgba(72, 187, 120, var(--text-opacity));
 }
 
 .no-underline {
@@ -864,6 +889,45 @@ img {
 
 .z-10 {
   z-index: 10;
+}
+
+@-webkit-keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
+            animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
 }
 
 @media (min-width: 640px) {
