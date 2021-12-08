@@ -3,28 +3,6 @@ document.getElementById("nav-toggle").onclick = function () {
   document.getElementById("nav-content").classList.toggle("hidden");
 };
 
-//Get scroll button:
-mybutton = document.getElementById("myBtn");
-
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function () {
-  scrollFunction();
-};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-}
-
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
 //Get data for info about detroit pistons
 const PISTONS_URL =
   "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/8";
@@ -187,8 +165,12 @@ fetch(SCOREBOARD_URL)
   });
 
 // Set data for showing last 5 pistons games
-const PISTONS_GAMES_URL =
-  "https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=9&per_page=82";
+function getCurrentYear() {
+  let currentYear = new Date().getFullYear();
+  return currentYear;
+}
+
+const PISTONS_GAMES_URL = `https://www.balldontlie.io/api/v1/games?seasons[]=${getCurrentYear()}&team_ids[]=9&per_page=82`;
 
 fetch(PISTONS_GAMES_URL)
   .then((response) => {
@@ -214,10 +196,11 @@ fetch(PISTONS_GAMES_URL)
       for (let i = 0; i < 5; i++) {
         let homeTeamSection = document.createElement("div");
         gameSections.appendChild(homeTeamSection);
-        let homeName = document.createElement("div");
-        homeName.textContent = `${completedStonsGames[i].home_team.name}`;
 
+        let homeName = document.createElement("p");
+        homeName.textContent = `${completedStonsGames[i].home_team.name}`;
         homeTeamSection.appendChild(homeName);
+
         let homeScore = document.createElement("span");
         homeScore.textContent = ` ${completedStonsGames[i].home_team_score}`;
         homeScore.classList.add("float-right");
@@ -225,12 +208,15 @@ fetch(PISTONS_GAMES_URL)
 
         let visitorTeamSection = document.createElement("div");
         homeTeamSection.appendChild(visitorTeamSection);
-        let visitorName = document.createElement("div");
+
+        let visitorName = document.createElement("p");
         visitorName.textContent = `${completedStonsGames[i].visitor_team.name}`;
         visitorTeamSection.appendChild(visitorName);
+
         let visitorScore = document.createElement("span");
         visitorScore.textContent = `${completedStonsGames[i].visitor_team_score}`;
         visitorName.appendChild(visitorScore);
+
         visitorScore.classList.add("float-right");
         visitorTeamSection.classList.add(
           "border-b",
@@ -263,7 +249,7 @@ fetch(PISTONS_GAMES_URL)
       .reverse()
       .filter((games) => moment(games.date) >= moment());
 
-    //console.log(upcomingGames);
+    console.log(upcomingGames);
 
     nextFiveGames = () => {
       let upcomingGamesSection = document.getElementById(
@@ -314,7 +300,8 @@ fetch(PISTONS_GAMES_URL)
     nextFiveGames();
   });
 
-//Your web app's Firebase configuration
+//Section for showing News
+//Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyDz-XuB2IrPKc8FzYzrw8NWdJt9UokVcu0",
   authDomain: "stons-center-26695.firebaseapp.com",
