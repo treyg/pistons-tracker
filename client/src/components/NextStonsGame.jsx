@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import getStonsData from "../api/getStonsData";
 import StonsGame from "./StonsGame";
 
-const StonsGames = () => {
+const NextStonsGame = () => {
   const { data, isLoading, error } = useQuery(["stonsData"], getStonsData);
 
   if (isLoading) return <Loader />;
@@ -18,4 +18,4 @@ const StonsGames = () => {
   }
 };
 
-export default StonsGames;
+export default NextStonsGame;

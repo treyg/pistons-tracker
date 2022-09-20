@@ -11,7 +11,6 @@ const NbaGames = () => {
   if (isLoading) return <Loader />;
   if (error) return <p>`An error has occurred: ${error.message}`</p>;
   if (nbaData) {
-    console.log(nbaData);
     return (
       <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
         <h2 className="text-2xl font-bold">Upcoming Games</h2>
