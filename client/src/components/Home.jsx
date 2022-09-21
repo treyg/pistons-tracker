@@ -2,8 +2,8 @@ import React from "react";
 import { useQuery } from "react-query";
 import Loader from "./Loader";
 import NextStonsGame from "./NextStonsGame";
-import NextFive from "./NextFive";
 import LastFive from "./LastFive";
+import NextFive from "./NextFive";
 import StonsNews from "./StonsNews";
 import getStonsGames from "../api/getStonsGames";
 
@@ -22,8 +22,8 @@ const Home = () => {
     return (
       <>
         <NextStonsGame />
-        <NextFive nextFive={upcomingFive} />
         <LastFive lastFive={prevFive} />
+        <NextFive nextFive={upcomingFive} />
         <StonsNews />
       </>
     );
