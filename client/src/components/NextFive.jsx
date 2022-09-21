@@ -9,7 +9,6 @@ const NextFive = (props) => {
   //   const homeTeam = nextFive.competitions[0].competitors[0].team;
   //   const awayTeam = nextFive.competitions[0].competitors[1].team;
 
-  console.log(nextFive);
   return (
     <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
       <h2 className="font-bold">Next Five Games</h2>

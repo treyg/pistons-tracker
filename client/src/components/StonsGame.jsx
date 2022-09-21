@@ -1,41 +1,54 @@
 import React from "react";
 import dayjs from "dayjs";
 const StonsGame = (props) => {
-  const event = props.team;
-  const date = event.nextEvent[0].date;
-  const status = event.nextEvent[0];
-  const homeTeam = event.nextEvent[0].competitions[0].competitors[0].team;
-  const awayTeam = event.nextEvent[0].competitions[0].competitors[1].team;
+  const checkIfToday = () => {
+    const today = new Date().toDateString();
+    switch (true) {
+      case new Date(props.date).toDateString() === today:
+        return `Today, at ${dayjs(today).format("h:mm A")}`;
+      case props.liveStatus === "post":
+        return "Final";
+      default:
+        return `${dayjs(props.date).format("dddd MMM D")} at
+        ${dayjs(props.date).format("h:mm A")}`;
+    }
+  };
+
+  //This will be function to replace the ticket button and show the score if the game is live
+  //checkIfLive()
+
   return (
     <section>
-      <h2 className="font-bold">
-        {dayjs(date).format("dddd MMM D")} at {dayjs(date).format("h:mm A")}
-      </h2>
+      <h2 className="font-bold">{checkIfToday()}</h2>
       <div className="grid grid-cols-4 gap-x-7">
         <div className="flex flex-col items-center">
           <img
             style={{ maxWidth: "5rem" }}
-            src={homeTeam.logos[0].href}
-            alt={homeTeam.name}
+            src={props.homeLogo}
+            alt={props.homeName}
           />
-          <p>{homeTeam.shortDisplayName}</p>
+          <p>{props.homeShortName}</p>
         </div>
-        <div className="col-span-2 flex flex-col items-center gap-2 self-center text-center">
-          <p className="text-sm">{status.competitions[0].venue.fullName}</p>
-          <a
-            className="hover:bg-green-600 cursor-pointer rounded border bg-green p-2 text-base text-white"
-            href=""
-          >
-            Get Tickets
-          </a>
+        <div className="col-span-2 flex flex-col items-center gap-1 self-center text-center">
+          <p>{props.broadcast ? props.broadcast : ""}</p>
+          <p className="text-sm">{props.venue}</p>
+          <div className="status-center mt-4">
+            {" "}
+            <a
+              className="hover:bg-green-600 cursor-pointer rounded border bg-green p-2 text-base text-white"
+              href=""
+            >
+              Get Tickets
+            </a>
+          </div>
         </div>
         <div className="flex flex-col items-center">
           <img
             style={{ maxWidth: "5rem" }}
-            src={awayTeam.logos[0].href}
-            alt={awayTeam.name}
+            src={props.awayLogo}
+            alt={props.awayTeam}
           />
-          <p>{awayTeam.shortDisplayName}</p>
+          <p>{props.awayShortname}</p>
         </div>
       </div>
     </section>

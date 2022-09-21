@@ -69,9 +69,7 @@ const LastFive = (props) => {
                   {event.visitor_team_score}
                 </p>
               </div>
-              <div className="w-4">
-                <p>{checkWinner(event)}</p>
-              </div>
+              <div className="w-4">{checkWinner(event)}</div>
             </div>
           </div>
         ))}
