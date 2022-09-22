@@ -1,4 +1,4 @@
-// if its before jan 1st the current year is the current year, if its after jan 1st the current year the current year - 1
+
 const currentSeason = new Date().getMonth() < 0 ? new Date().getFullYear() : new Date().getFullYear() - 1;
 
 const getStonsGames = async () => {

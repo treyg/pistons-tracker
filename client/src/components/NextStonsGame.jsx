@@ -18,7 +18,6 @@ const NextStonsGame = () => {
     const broadcast =
       event.nextEvent[0].competitions[0].broadcasts[0].media.shortName;
     const liveStatus = game.competitions[0].status.type.state;
-    //console.log(status);
     return (
       <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
         <StonsGame
