@@ -27,8 +27,8 @@ const LastFive = (props) => {
       <h2 className="font-bold">Last Five Games</h2>
       <div className="mt-5">
         {lastFive.map((event) => (
-          <div className="" key={event.id}>
-            <div className="grid grid-flow-col grid-cols-3 items-center gap-4 border-b py-2">
+          <div key={event.id}>
+            <div className="grid grid-flow-col grid-cols-3 items-center gap-4 border-b p-2">
               <div className="col-span-2">
                 <p
                   className={
