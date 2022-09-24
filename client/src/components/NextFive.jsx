@@ -2,14 +2,18 @@ import React from "react";
 import dayjs from "dayjs";
 
 const NextFive = (props) => {
-  console.log(props.nextFive);
-
   return (
     <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
-      <h2 className="mb-5 font-bold">Next Five Games</h2>
+      <h2 className="mb-5 font-bold">
+        Next Five Games
+        <span className="font-normal">{`- ${props.nextFive.season?.name}`}</span>
+      </h2>
       <div className="flex flex-col gap-3">
-        {props.nextFive.events.map((game) => (
-          <div className="align-center flex justify-between rounded border-2 border-gray-200 px-2 py-2">
+        {props.nextFive.events.slice(0, 5).map((game) => (
+          <div
+            key={game.id}
+            className="align-center flex justify-between rounded border-2 border-gray-200 px-2 py-2"
+          >
             <div className="w-4/5">
               <div className="flex flex-row py-1 text-base">
                 <img
