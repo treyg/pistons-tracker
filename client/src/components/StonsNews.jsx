@@ -30,7 +30,8 @@ const StonsNews = () => {
           <h2 className="mb-5 font-bold">Stons News</h2>
           {news.map((article) => (
             <StonsNewsItem
-              key={article.id}
+              key={article.url}
+              link={article.url}
               title={article.name}
               author={article.provider[0].name}
               datePublished={article.datePublished}
