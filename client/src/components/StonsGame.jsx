@@ -19,7 +19,7 @@ const StonsGame = (props) => {
 
   return (
     <section>
-      {/* <h2 className="font-bold">{checkIfToday()}</h2> */}
+      <h2 className="font-bold">{checkIfToday()}</h2>
       <div className="grid grid-cols-4 gap-x-7">
         <div className="flex flex-col items-center">
           <img
