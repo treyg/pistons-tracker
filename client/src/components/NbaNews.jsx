@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import getLeagueNews from "../api/getLeagueNews";
-import NbaArticle from "./NbaArticle";
+import NbaNewsItem from "./NbaNewsItem";
 
 const NbaNews = () => {
   const [news, setNews] = useState([]);
@@ -18,7 +18,7 @@ const NbaNews = () => {
     <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
       <h2 className="mb-4 text-2xl font-bold">Top Stories</h2>
       {news.map((article) => (
-        <NbaArticle
+        <NbaNewsItem
           key={article.published}
           link={article.links.web.href}
           headline={article.headline}
@@ -27,6 +27,7 @@ const NbaNews = () => {
           byline={article.byline}
           links={article.links}
           image={article.images[0].url}
+          datePublished={article.lastModified}
         />
       ))}
     </section>
