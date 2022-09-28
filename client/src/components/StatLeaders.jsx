@@ -23,20 +23,6 @@ const StatLeaders = (props) => {
       });
     }
   });
-  //Function to sort the stats
-  const filterStats = (stat) => {
-    return neededStats
-      .sort((a, b) => b[stat] - a[stat])
-      .slice(0, 4)
-      .map((player) => {
-        return {
-          statName: stat,
-          name: player.name,
-          stat: player[stat],
-          headshot: player.headshot,
-        };
-      });
-  };
   const statArr = [
     "ppg",
     "rpg",
@@ -48,6 +34,39 @@ const StatLeaders = (props) => {
     "fg3_pct",
     "fg3m",
   ];
+  const statNames = [
+    "Points Per Game",
+    "Rebounds Per Game",
+    "Steals Per Game",
+    "Free Throw Percentage",
+    "Assists Per Game",
+    "Blocks Per Game",
+    "Field Goal Percentage",
+    "3 Point Percentage",
+    "3 Pointers Made Per Game",
+  ];
+
+  const byOneHundred = [
+    "Free Throw Percentage",
+    "Field Goal Percentage",
+    "3 Point Percentage",
+  ];
+
+  //Function to sort the stats
+  const filterStats = (stat) => {
+    return neededStats
+      .sort((a, b) => b[stat] - a[stat])
+      .slice(0, 4)
+      .map((player) => {
+        return {
+          statName: statNames[statArr.indexOf(stat)],
+          name: player.name,
+          stat: player[stat],
+          headshot: player.headshot,
+        };
+      });
+  };
+
   const leadersArr = [];
   statArr.map((stat) => {
     leadersArr.push(filterStats(stat));
@@ -55,7 +74,6 @@ const StatLeaders = (props) => {
 
   return (
     <>
-      <h2 className="mb-4 text-2xl font-bold">Leaders</h2>
       <section className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {leadersArr.map((stat) => {
           const leader = stat[0];
@@ -66,7 +84,11 @@ const StatLeaders = (props) => {
                 <Leader
                   key={leader.stat}
                   name={leader.name}
-                  stat={leader.stat}
+                  stat={
+                    byOneHundred.includes(leader.statName)
+                      ? (leader.stat * 100).toFixed(1) + "%"
+                      : leader.stat
+                  }
                   statName={leader.statName}
                   headshot={leader.headshot}
                 />
@@ -76,7 +98,11 @@ const StatLeaders = (props) => {
                       <RunnerUp
                         key={runnerUp.stat}
                         name={runnerUp.name}
-                        stat={runnerUp.stat}
+                        stat={
+                          byOneHundred.includes(runnerUp.statName)
+                            ? (runnerUp.stat * 100).toFixed(1) + "%"
+                            : runnerUp.stat
+                        }
                         headshot={runnerUp.headshot}
                       />
                     );
