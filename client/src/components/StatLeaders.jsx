@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-//import { useEffect, useState } from "react";
+import React from "react";
 import Leader from "./Leader";
 import RunnerUp from "./RunnerUp";
 
