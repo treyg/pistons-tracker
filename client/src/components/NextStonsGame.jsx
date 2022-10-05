@@ -2,14 +2,24 @@ import React from "react";
 import { useQuery } from "react-query";
 import Loader from "./Loader";
 import getStonsData from "../api/getStonsData";
+import getLeagueGames from "../api/getLeagueGames";
 import StonsGame from "./StonsGame";
 
 const NextStonsGame = () => {
   const { data, isLoading, error } = useQuery(["stonsData"], getStonsData);
+  const {
+    data: leagueData,
+    isLoading: leagueLoading,
+    error: leagueError,
+  } = useQuery(["leagueGames"], getLeagueGames);
 
-  if (isLoading) return <Loader />;
-  if (error) return <p>`An error has occurred: ${error.message}`</p>;
-  if (data) {
+  if (isLoading || leagueLoading) return <Loader />;
+  if (error || leagueError)
+    return <p>`An error has occurred: ${error.message}`</p>;
+  if (data && leagueData) {
+    const liveStonsGame = leagueData.events.filter((game) =>
+      game.shortName.includes("DET")
+    );
     const event = data.team;
     const date = event.nextEvent[0].date;
     const game = event.nextEvent[0];
@@ -27,7 +37,12 @@ const NextStonsGame = () => {
           awayName={awayTeam.name}
           homeShortName={homeTeam.shortDisplayName}
           awayShortname={awayTeam.shortDisplayName}
+          homeScore={liveStonsGame[0].competitions[0].competitors[0].score}
+          awayScore={liveStonsGame[0].competitions[0].competitors[1].score}
           venue={game.competitions[0].venue.fullName}
+          status={game.competitions[0].status.displayClock}
+          period={game.competitions[0].status.period}
+          shortDetail={game.competitions[0].status.type.shortDetail}
           liveStatus={liveStatus}
           broadcast={broadcast}
           date={date}
