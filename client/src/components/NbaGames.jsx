@@ -6,15 +6,16 @@ import getLeagueGames from "../api/getLeagueGames";
 
 const NbaGames = () => {
   //getLeagueGames is a function that calls the api
-  const { nbaData, isLoading, error } = useQuery(["nbaGames"], getLeagueGames);
+  const { data, isLoading, error } = useQuery(["nbaGames"], getLeagueGames);
 
   if (isLoading) return <Loader />;
   if (error) return <p>`An error has occurred: ${error.message}`</p>;
-  if (nbaData) {
+  if (data) {
+    console.log(data);
     return (
       <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
-        <h2 className="text-2xl font-bold">Upcoming Games</h2>
-        {nbaData.events.map((game) => (
+        <h2 className="text-2xl font-bold">Games Today</h2>
+        {data.events.map((game) => (
           <NbaGame key={game.id} {...game} />
         ))}
       </section>

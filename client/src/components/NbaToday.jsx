@@ -4,7 +4,7 @@ import NbaGames from "./NbaGames";
 
 const NbaToday = () => {
   return (
-    <div>
+    <div className="grid sm:grid-cols-1 md:grid-cols-2">
       <NbaGames />
       <NbaNews />
     </div>
