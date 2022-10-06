@@ -20,14 +20,17 @@ const NextStonsGame = () => {
     const liveStonsGame = leagueData.events.filter((game) =>
       game.shortName.includes("DET")
     );
+    console.log(data);
     const event = data.team;
     const date = event.nextEvent[0].date;
     const game = event.nextEvent[0];
     const homeTeam = event.nextEvent[0].competitions[0].competitors[0].team;
     const awayTeam = event.nextEvent[0].competitions[0].competitors[1].team;
     const broadcast =
-      event.nextEvent[0].competitions[0].broadcasts[0].media.shortName;
+      event.nextEvent[0].competitions[0]?.broadcasts[0]?.media.shortName;
     const liveStatus = game.competitions[0].status.type.state;
+    const ticketLink =
+      event.nextEvent[0].competitions[0].tickets[0].links[0].href;
     return (
       <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
         <StonsGame
@@ -37,14 +40,15 @@ const NextStonsGame = () => {
           awayName={awayTeam.name}
           homeShortName={homeTeam.shortDisplayName}
           awayShortname={awayTeam.shortDisplayName}
-          homeScore={liveStonsGame[0].competitions[0].competitors[0].score}
-          awayScore={liveStonsGame[0].competitions[0].competitors[1].score}
+          homeScore={liveStonsGame[0]?.competitions[0].competitors[0].score}
+          awayScore={liveStonsGame[0]?.competitions[0].competitors[1].score}
           venue={game.competitions[0].venue.fullName}
           status={game.competitions[0].status.displayClock}
           period={game.competitions[0].status.period}
           shortDetail={game.competitions[0].status.type.shortDetail}
           liveStatus={liveStatus}
           broadcast={broadcast}
+          ticketLink={ticketLink}
           date={date}
         />
       </section>

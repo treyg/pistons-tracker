@@ -1,11 +1,9 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const navigation = [
-  { name: "Home", href: "/", current: true },
+  { name: "Home", href: "/", current: false },
   { name: "NBA Today", href: "/nba", current: false },
   { name: "Stats", href: "/stats", current: false },
   { name: "Podcasts", href: "/podcasts", current: false },
