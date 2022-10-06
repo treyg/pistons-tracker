@@ -2,6 +2,12 @@ import React from "react";
 import dayjs from "dayjs";
 
 const NextFive = (props) => {
+  const futureFive = props.nextFive.events
+    .filter((event) => {
+      return dayjs(event.date).isAfter(dayjs());
+    })
+    .slice(0, 5);
+
   return (
     <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
       <h2 className="mb-5 font-bold">
@@ -9,7 +15,7 @@ const NextFive = (props) => {
         <span className="font-normal">{`- ${props.nextFive.season?.name}`}</span>
       </h2>
       <div className="flex flex-col gap-3">
-        {props.nextFive.events.slice(0, 5).map((game) => (
+        {futureFive.map((game) => (
           <div
             key={game.id}
             className="align-center flex justify-between rounded border-2 border-gray-200 px-2 py-2"
