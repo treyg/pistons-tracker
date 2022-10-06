@@ -12,7 +12,7 @@ const StonsGame = (props) => {
         return `Today, at ${dayjs(today).format("h:mm A")}`;
       //return dayjs(props.date).fromNow();
       case props.liveStatus === "in":
-        return <span className="text-green">LIVE</span>;
+        return <span className="font-semibold text-green">LIVE</span>;
       case props.liveStatus === "post":
         return "Final";
       default:
@@ -41,7 +41,7 @@ const StonsGame = (props) => {
               <div className="status-center mt-4">
                 <a
                   className="hover:bg-green-600 cursor-pointer rounded border bg-green p-2 text-base text-white"
-                  href=""
+                  href={props?.ticketLink}
                 >
                   Get Tickets
                 </a>
