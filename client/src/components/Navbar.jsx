@@ -1,19 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-
-const navigation = [
-  { name: "Home", href: "/", current: false },
-  { name: "NBA Today", href: "/nba", current: false },
-  { name: "Stats", href: "/stats", current: false },
-  { name: "Podcasts", href: "/podcasts", current: false },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Navbar = () => {
+  const navigation = [
+    { name: "Home", href: "/", current: null },
+    { name: "NBA Today", href: "/nba", current: null },
+    { name: "Stats", href: "/stats", current: null },
+    { name: "Podcasts", href: "/podcasts", current: null },
+  ];
+
+  const location = useLocation();
+
+  navigation.forEach((item) => {
+    if (item.href === location.pathname) {
+      item.current = true;
+    }
+  });
+
   return (
     <Disclosure as="nav" className="bg-primary-dark">
       {({ open }) => (
