@@ -1,29 +1,7 @@
-# template-vite-react-tailwind-v3
+## Stons Center
 
-- **template of:** vite + react
-- **tailwindcss:** v3.x
+Detroit Pistons web app for news and live scores
 
-## Started
-```bash
-yarn
-# or `npm install`
-```
+- Built with Vite, React, Tailwind, Firebase and Node JS.
 
----
-## Develop
-```bash
-yarn dev
-# or `npm run dev`
-```
-
----
-## Build
-```bash
-yarn build
-# or `npm run build`
-```
-
----
-<p align="center">
-<img src="./powered-by-vitawind-bright.png">
-</p>
+News data from Azure search and ESPN. Stats and live scores from ESPN. Pistons news data is fetched every hour using node js then saved to firebase. Live roster is scraped from the NBA website and saved to firebase.

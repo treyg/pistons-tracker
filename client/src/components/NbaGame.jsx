@@ -10,7 +10,6 @@ const Game = (props) => {
   const homeTeam = game.competitors[0];
   const awayTeam = game.competitors[1];
 
-  console.log(game);
   const getStatus = () => {
     if (game.status.type.state === "final") {
       updateStatus(game.status.type.shortDetail);

@@ -11,7 +11,7 @@ const StonsNews = () => {
   useEffect(() => {
     const fetchNews = () => {
       setLoading(true);
-      const newsRef = ref(db, "currentNews/value");
+      const newsRef = ref(db, "news/articles");
       onValue(newsRef, (snapshot) => {
         const fullNews = snapshot.val();
         setFullNews(fullNews);
