@@ -31,22 +31,32 @@ const Home = () => {
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 5);
     return (
-      <>
-        <NextStonsGame />
-        <LastFive lastFive={prevFive} />
-        {/* <NextFive nextFive={nextFive} /> */}
-        <StonsNews />
-      </>
+      <div className="flex flex-col md:flex-row">
+        <div className="left-cont md:w-1/2">
+          <NextStonsGame />
+          <LastFive lastFive={prevFive} />
+          {/* <NextFive nextFive={nextFive} /> */}
+        </div>
+        <div className="right-cont md:w-1/2">
+          <StonsNews />
+        </div>
+      </div>
     );
   }
 
   if (nextFive && stonsGamesError) {
     return (
       <>
-        <NextStonsGame />
-        {/* <LastFive lastFive={prevFive} /> */}
-        <NextFive nextFive={nextFive} />
-        <StonsNews />
+        <div className="flex flex-col md:flex-row">
+          <div className="left-cont md:w-1/2">
+            <NextStonsGame />
+            {/* <LastFive lastFive={prevFive} /> */}
+            <NextFive nextFive={nextFive} />
+          </div>
+          <div className="right-cont md:w-1/2">
+            <StonsNews />
+          </div>
+        </div>
       </>
     );
   }
