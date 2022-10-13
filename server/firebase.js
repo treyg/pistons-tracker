@@ -1,9 +1,9 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+
+// import { initializeApp } from "firebase/app";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { getDatabase, ref, set, get } from "firebase/database";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -53,9 +53,7 @@ const getNews = () => {
     fetch(api_url, requestOptions)
         .then((res) => res.json())
         .then((data) => {
-
             const news = data.value;
-            console.log(data)
             set(ref(database, 'news'), {
                 articles: news
             })
