@@ -43,12 +43,12 @@ const Navbar = () => {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="block h-8 w-auto lg:hidden"
-                    src="../../public/classic-stons.png"
+                    src="../../classic-stons.png"
                     alt="Workflow"
                   />
                   <img
                     className="hidden h-8 w-auto lg:block"
-                    src="../../public/classic-stons.png"
+                    src="../../classic-stons.png"
                     alt="Workflow"
                   />
                 </div>
