@@ -10,7 +10,7 @@ const StonsNewsItem = (props) => {
       className="mb-6 flex cursor-pointer flex-row overflow-hidden rounded border-2 border-gray-200 py-2"
     >
       <img
-        src={props.image ? props.image : "../../public/new-logo.svg"}
+        src={props.image ? props.image : "../../public/new-logo.png"}
         className="ml-3 h-16 w-16 rounded-sm"
       />
       <div className="mx-3 text-base">
