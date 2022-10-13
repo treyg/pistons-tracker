@@ -20,7 +20,7 @@ const NextStonsGame = () => {
     const liveStonsGame = leagueData.events.filter((game) =>
       game.shortName.includes("DET")
     );
-    console.log(data);
+
     const event = data.team;
     const date = event.nextEvent[0].date;
     const game = event.nextEvent[0];
