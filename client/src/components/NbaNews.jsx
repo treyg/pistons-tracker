@@ -15,18 +15,18 @@ const NbaNews = () => {
   }, []);
 
   return (
-    <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
+    <section className="mx-3 my-4 flex h-max flex-col rounded py-4 px-4 shadow-md">
       <h2 className="mb-4 text-2xl font-bold">Top Stories</h2>
       {news.map((article) => (
         <NbaNewsItem
           key={article.published}
           link={article.links.web.href}
           headline={article.headline}
-          captions={article.images[0].caption}
+          captions={article?.images[0]?.caption}
           description={article.description}
           byline={article.byline}
           links={article.links}
-          image={article.images[0].url}
+          image={article?.images[0]?.url ?? "../../bball-placeholder.jpg"}
           datePublished={article.lastModified}
         />
       ))}

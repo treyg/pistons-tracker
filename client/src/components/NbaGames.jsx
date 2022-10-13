@@ -21,7 +21,7 @@ const NbaGames = () => {
     );
   } else {
     return (
-      <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
+      <section className="mx-3 my-4 flex h-max flex-col rounded py-4 px-4 shadow-md">
         <h2 className="text-2xl font-bold">Upcoming Games</h2>
         <p className="mt-5">No games today</p>
       </section>

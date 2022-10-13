@@ -4,6 +4,7 @@ import RunnerUp from "./RunnerUp";
 
 const StatLeaders = (props) => {
   const leaders = props.leaders;
+
   const neededStats = [];
   Object.entries(leaders).map(([key, value]) => {
     if (value.stats) {
@@ -70,6 +71,7 @@ const StatLeaders = (props) => {
   statArr.map((stat) => {
     leadersArr.push(filterStats(stat));
   });
+  console.log(leadersArr);
 
   return (
     <>
