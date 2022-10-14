@@ -54,6 +54,7 @@ const getNews = () => {
     fetch(api_url, requestOptions)
         .then((res) => res.json())
         .then((data) => {
+            console.log('Got news from Azure')
             const news = data.value;
             set(ref(database, 'news'), {
                 articles: news
