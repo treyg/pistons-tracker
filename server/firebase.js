@@ -4,6 +4,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { getDatabase, ref, set, get } from "firebase/database";
 // import { getAnalytics } from "firebase/analytics";
+import fetch from 'node-fetch';
 
 import * as dotenv from "dotenv";
 dotenv.config();
