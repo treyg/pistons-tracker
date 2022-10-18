@@ -3,8 +3,9 @@ import { scrapeRoster } from "./scrape.js";
 import { updateRoster, playerData, getNews } from "./firebase.js";
 
 async function runIndex() {
+    console.log('Scraping Roster')
     scrapeRoster();
-
+    console.log('Updating Roster')
     const rosterObj = await playerData;
 
     const pushPlayerInfo = async () => {
@@ -59,6 +60,7 @@ async function runIndex() {
                 });
         };
         await getPlayerIds();
+
         updateRoster(rosterObj);
     };
 
@@ -73,4 +75,3 @@ setInterval(runIndex, 1000 * 60 * 60 * 8);
 
 //call get news every hour
 setInterval(getNews, 1000 * 60 * 60);
-

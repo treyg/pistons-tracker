@@ -15,7 +15,7 @@ const NbaNews = () => {
   }, []);
 
   return (
-    <section className="mx-3 my-4 flex h-max flex-col rounded py-4 px-4 shadow-md">
+    <section className="mx-3 my-4 flex h-max flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
       <h2 className="mb-4 text-2xl font-bold">Top Stories</h2>
       {news.map((article) => (
         <NbaNewsItem

@@ -9,7 +9,7 @@ const NextFive = (props) => {
     .slice(0, 5);
 
   return (
-    <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
+    <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
       <h2 className="mb-5 font-bold">
         Upcoming Games
         <span className="font-normal">{`- ${props.nextFive.season?.name}`}</span>

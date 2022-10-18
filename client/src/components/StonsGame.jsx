@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import RelativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(RelativeTime);
 const StonsGame = (props) => {
-  //   console.log(props);
   const checkIfToday = () => {
     const today = new Date().toDateString();
     switch (true) {
@@ -40,7 +39,7 @@ const StonsGame = (props) => {
               <p className="text-sm">{props.venue}</p>
               <div className="status-center mt-4">
                 <a
-                  className="hover:bg-green-600 cursor-pointer rounded border bg-green p-2 text-base text-white"
+                  className="hover:bg-green-600 cursor-pointer rounded bg-green p-2 text-base text-white"
                   href={props?.ticketLink}
                 >
                   Get Tickets

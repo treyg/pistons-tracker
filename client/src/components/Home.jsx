@@ -25,63 +25,81 @@ const Home = () => {
     return <Loader />;
   }
 
-  if (stonsGames && nextFiveError) {
-    const gameData = stonsGames.data;
-    const prevFive = gameData
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 5);
+  const gameData = stonsGames.data ?? [];
+  const prevFive = gameData
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5);
 
-    return (
-      <div className="flex flex-col md:flex-row">
-        <div className="left-cont md:w-1/2">
-          <NextStonsGame />
-          <LastFive lastFive={prevFive} />
-          {/* <NextFive nextFive={nextFive} /> */}
-        </div>
-        <div className="right-cont md:w-1/2">
-          <StonsNews />
-        </div>
+  //   if (stonsGames && nextFiveError) {
+  //     const gameData = stonsGames.data;
+  //     const prevFive = gameData
+  //       .sort((a, b) => new Date(b.date) - new Date(a.date))
+  //       .slice(0, 5);
+
+  //     return (
+  //       <div className="flex flex-col md:flex-row">
+  //         <div className="left-cont md:w-1/2">
+  //           <NextStonsGame />
+  //           <LastFive lastFive={prevFive} />
+  //           {/* <NextFive nextFive={nextFive} /> */}
+  //         </div>
+  //         <div className="right-cont md:w-1/2">
+  //           <StonsNews />
+  //         </div>
+  //       </div>
+  //     );
+  //   }
+
+  //   if (nextFive && stonsGamesError) {
+  //     return (
+  //       <>
+  //         <div className="flex flex-col md:flex-row">
+  //           <div className="left-cont md:w-1/2">
+  //             <NextStonsGame />
+  //             {/* <LastFive lastFive={prevFive} /> */}
+  //             <NextFive nextFive={nextFive} />
+  //           </div>
+  //           <div className="right-cont md:w-1/2">
+  //             <StonsNews />
+  //           </div>
+  //         </div>
+  //       </>
+  //     );
+  //   }
+
+  //   if (stonsGames && nextFive) {
+  //     const gameData = stonsGames.data;
+  //     const prevFive = gameData
+  //       .sort((a, b) => new Date(b.date) - new Date(a.date))
+  //       .slice(0, 5);
+
+  //     return (
+  //       <div className="flex flex-col md:flex-row">
+  //         <div className="left-cont md:w-1/2">
+  //           <NextStonsGame />
+  //           <LastFive lastFive={prevFive} />
+  //           <NextFive nextFive={nextFive} />
+  //         </div>
+  //         <div className="right-cont md:w-1/2">
+  //           <StonsNews />
+  //         </div>
+  //       </div>
+  //     );
+  //   }
+
+  //refactor return statements to be more DRY
+  return (
+    <div className="flex flex-col dark:bg-stons-black md:flex-row">
+      <div className="left-cont md:w-1/2">
+        <NextStonsGame />
+        <LastFive lastFive={prevFive} />
+        <NextFive nextFive={nextFive} />
       </div>
-    );
-  }
-
-  if (nextFive && stonsGamesError) {
-    return (
-      <>
-        <div className="flex flex-col md:flex-row">
-          <div className="left-cont md:w-1/2">
-            <NextStonsGame />
-            {/* <LastFive lastFive={prevFive} /> */}
-            <NextFive nextFive={nextFive} />
-          </div>
-          <div className="right-cont md:w-1/2">
-            <StonsNews />
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  if (stonsGames && nextFive) {
-    const gameData = stonsGames.data;
-    const prevFive = gameData
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 5);
-
-    console.log(prevFive);
-    return (
-      <div className="flex flex-col md:flex-row">
-        <div className="left-cont md:w-1/2">
-          <NextStonsGame />
-          <LastFive lastFive={prevFive} />
-          <NextFive nextFive={nextFive} />
-        </div>
-        <div className="right-cont md:w-1/2">
-          <StonsNews />
-        </div>
+      <div className="right-cont md:w-1/2">
+        <StonsNews />
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Home;

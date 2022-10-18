@@ -12,7 +12,7 @@ const NbaGames = () => {
   if (error) return <p>`An error has occurred: ${error.message}`</p>;
   if (data) {
     return (
-      <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
+      <section className="mx-3 my-4 flex h-max flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
         <h2 className="text-2xl font-bold">Games Today</h2>
         {data.events.map((game) => (
           <NbaGame key={game.id} {...game} />

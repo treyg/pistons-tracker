@@ -32,7 +32,7 @@ const NextStonsGame = () => {
     const ticketLink =
       event.nextEvent[0].competitions[0]?.tickets[0]?.links[0]?.href;
     return (
-      <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
+      <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
         <StonsGame
           homeLogo={homeTeam.logos[0].href}
           awayLogo={awayTeam.logos[0].href}

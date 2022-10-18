@@ -4,7 +4,7 @@ import RosterPlayer from "./RosterPlayer";
 const Roster = (props) => {
   const roster = props.roster;
   return (
-    <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
+    <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
       <h2 className="mb-4 text-2xl font-bold">Full Roster</h2>
       <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Object.values(roster).map((player) => (

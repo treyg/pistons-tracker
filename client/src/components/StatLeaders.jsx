@@ -75,13 +75,13 @@ const StatLeaders = (props) => {
 
   return (
     <>
-      <section className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <section className="mx-3 grid grid-cols-1 gap-3 py-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {leadersArr.map((stat) => {
           const leader = stat[0];
           const runnersUp = stat.slice(1, 4);
           if (leader) {
             return (
-              <article className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
+              <article className=" flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
                 <Leader
                   key={leader.stat}
                   name={leader.name}

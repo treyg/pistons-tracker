@@ -12,11 +12,13 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/nba" element={<NbaToday />} />
-        <Route path="/stats" element={<Stats />} />
-      </Routes>
+      <div className="bg-gray-200">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/nba" element={<NbaToday />} />
+          <Route path="/stats" element={<Stats />} />
+        </Routes>
+      </div>
     </QueryClientProvider>
   );
 }

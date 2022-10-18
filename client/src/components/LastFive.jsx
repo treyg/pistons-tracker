@@ -23,7 +23,7 @@ const LastFive = (props) => {
   };
 
   return (
-    <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
+    <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
       <h2 className="font-bold">Last Five Games</h2>
 
       <div className="mt-5">

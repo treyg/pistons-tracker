@@ -7,7 +7,7 @@ const StonsNewsItem = (props) => {
   return (
     <a
       href={props.link}
-      className="mb-6 flex cursor-pointer flex-row overflow-hidden rounded border-2 border-gray-200 py-2"
+      className="flex cursor-pointer flex-row overflow-hidden rounded border-2 border-gray-200 py-2"
     >
       <img
         src={props.image ? props.image : "../../new-logo.png"}
