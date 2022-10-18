@@ -30,6 +30,7 @@ const Home = () => {
     const prevFive = gameData
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 5);
+
     return (
       <div className="flex flex-col md:flex-row">
         <div className="left-cont md:w-1/2">
@@ -66,6 +67,8 @@ const Home = () => {
     const prevFive = gameData
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 5);
+
+    console.log(prevFive);
     return (
       <div className="flex flex-col md:flex-row">
         <div className="left-cont md:w-1/2">

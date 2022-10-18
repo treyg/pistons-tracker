@@ -25,54 +25,59 @@ const LastFive = (props) => {
   return (
     <section className="mx-3 my-4 flex flex-col rounded py-4 px-4 shadow-md">
       <h2 className="font-bold">Last Five Games</h2>
+
       <div className="mt-5">
-        {lastFive.map((event) => (
-          <div key={event.id}>
-            <div className="grid grid-flow-col grid-cols-3 items-center gap-4 border-b p-2">
-              <div className="col-span-2">
-                <p
-                  className={
-                    event.home_team_score > event.visitor_team_score
-                      ? "font-semibold"
-                      : ""
-                  }
-                >
-                  {event.home_team.name}
-                </p>
-                <p
-                  className={
-                    event.home_team_score < event.visitor_team_score
-                      ? "font-semibold"
-                      : ""
-                  }
-                >
-                  {event.visitor_team.name}
-                </p>
+        {lastFive.length === 0 ? (
+          <span className="text-gray-500">Not enough games played yet</span>
+        ) : (
+          lastFive.map((event) => (
+            <div key={event.id}>
+              <div className="grid grid-flow-col grid-cols-3 items-center gap-4 border-b p-2">
+                <div className="col-span-2">
+                  <p
+                    className={
+                      event.home_team_score > event.visitor_team_score
+                        ? "font-semibold"
+                        : ""
+                    }
+                  >
+                    {event.home_team.name}
+                  </p>
+                  <p
+                    className={
+                      event.home_team_score < event.visitor_team_score
+                        ? "font-semibold"
+                        : ""
+                    }
+                  >
+                    {event.visitor_team.name}
+                  </p>
+                </div>
+                <div className="scores justify-self-end border-r pr-4">
+                  <p
+                    className={
+                      event.home_team_score > event.visitor_team_score
+                        ? "font-semibold"
+                        : ""
+                    }
+                  >
+                    {event.home_team_score}
+                  </p>
+                  <p
+                    className={
+                      event.home_team_score < event.visitor_team_score
+                        ? "font-semibold"
+                        : ""
+                    }
+                  >
+                    {event.visitor_team_score}
+                  </p>
+                </div>
+                <div className="w-4">{checkWinner(event)}</div>
               </div>
-              <div className="scores justify-self-end border-r pr-4">
-                <p
-                  className={
-                    event.home_team_score > event.visitor_team_score
-                      ? "font-semibold"
-                      : ""
-                  }
-                >
-                  {event.home_team_score}
-                </p>
-                <p
-                  className={
-                    event.home_team_score < event.visitor_team_score
-                      ? "font-semibold"
-                      : ""
-                  }
-                >
-                  {event.visitor_team_score}
-                </p>
-              </div>
-              <div className="w-4">{checkWinner(event)}</div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </section>
   );
