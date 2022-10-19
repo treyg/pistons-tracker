@@ -8,7 +8,7 @@ const StonsGame = (props) => {
     switch (true) {
       case new Date(props.date).toDateString() === today &&
         new Date(props.date).getTime() > new Date().getTime():
-        return `Today, at ${dayjs(today).format("h:mm A")}`;
+        return `Today, at ${dayjs(props.date).format("h:mm A")}`;
       //return dayjs(props.date).fromNow();
       case props.liveStatus === "in":
         return <span className="font-semibold text-green">LIVE</span>;

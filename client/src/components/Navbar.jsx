@@ -80,6 +80,7 @@ const Navbar = () => {
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
+                  as={Link}
                   to={item.href}
                   className={classNames(
                     item.current
