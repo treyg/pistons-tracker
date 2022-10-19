@@ -27,7 +27,7 @@ const StonsNews = () => {
         <Loader />
       ) : (
         <div className="mx-3 my-4 flex flex-col gap-3 rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
-          <h2 className="mb-5 font-bold">Stons News</h2>
+          <h2 className="mb-5 text-xl font-semibold">Stons News</h2>
           {news.map((article) => (
             <StonsNewsItem
               key={article.url}

@@ -22,7 +22,7 @@ const Stats = () => {
   }, []);
 
   return (
-    <div>
+    <div className="dark:text-gray-300">
       <StatLeaders leaders={roster} />
       <Roster roster={roster} />
     </div>

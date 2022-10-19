@@ -12,8 +12,8 @@ const NbaGames = () => {
   if (error) return <p>`An error has occurred: ${error.message}`</p>;
   if (data) {
     return (
-      <section className="mx-3 my-4 flex h-max flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
-        <h2 className="text-2xl font-bold">Games Today</h2>
+      <section className="mx-3 my-4 flex h-max flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black dark:text-gray-300">
+        <h2 className="text-xl font-semibold">Games Today</h2>
         {data.events.map((game) => (
           <NbaGame key={game.id} {...game} />
         ))}
@@ -22,7 +22,7 @@ const NbaGames = () => {
   } else {
     return (
       <section className="mx-3 my-4 flex h-max flex-col rounded py-4 px-4 shadow-md">
-        <h2 className="text-2xl font-bold">Upcoming Games</h2>
+        <h2 className="text-xl font-bold">Upcoming Games</h2>
         <p className="mt-5">No games today</p>
       </section>
     );

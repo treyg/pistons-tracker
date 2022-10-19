@@ -10,7 +10,7 @@ const NextFive = (props) => {
 
   return (
     <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
-      <h2 className="mb-5 font-bold">
+      <h2 className="mb-5 text-xl font-semibold">
         Upcoming Games
         <span className="font-normal">{`- ${props.nextFive.season?.name}`}</span>
       </h2>
@@ -18,7 +18,7 @@ const NextFive = (props) => {
         {futureFive.map((game) => (
           <div
             key={game.id}
-            className="align-center flex justify-between rounded border-2 border-gray-200 px-2 py-2"
+            className="align-center flex justify-between rounded border-2 border-gray-200 px-2 py-2 dark:border-gray-700"
           >
             <div className="w-4/5">
               <div className="flex flex-row py-1 text-base">

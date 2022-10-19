@@ -12,7 +12,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Navbar />
-      <div className="bg-gray-200">
+      <div className="dark:bg-gray-700">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/nba" element={<NbaToday />} />

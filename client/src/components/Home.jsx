@@ -89,7 +89,7 @@ const Home = () => {
 
   //refactor return statements to be more DRY
   return (
-    <div className="flex flex-col dark:bg-stons-black md:flex-row">
+    <div className="flex flex-col dark:text-gray-300 md:flex-row">
       <div className="left-cont md:w-1/2">
         <NextStonsGame />
         <LastFive lastFive={prevFive} />
