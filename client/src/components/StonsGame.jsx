@@ -4,16 +4,17 @@ import RelativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(RelativeTime);
 const StonsGame = (props) => {
   const checkIfToday = () => {
-    const today = new Date().toDateString();
+    const formattedToday = dayjs(new Date().toDateString()).format(
+      "YYYY-MM-DD"
+    );
+    const formattedGameDate = dayjs(props.date).format("YYYY-MM-DD");
     switch (true) {
-      case new Date(props.date).toDateString() === today &&
-        new Date(props.date).getTime() > new Date().getTime():
-        return `Today, at ${dayjs(props.date).format("h:mm A")}`;
-      //return dayjs(props.date).fromNow();
       case props.liveStatus === "in":
         return <span className="font-semibold text-green">LIVE</span>;
       case props.liveStatus === "post":
         return "Final";
+      case formattedGameDate === formattedToday && props.status !== "in":
+        return `Today, at ${dayjs(props.date).format("h:mm A")}`;
       default:
         return `${dayjs(props.date).format("dddd MMM D")} at
         ${dayjs(props.date).format("h:mm A")}`;
