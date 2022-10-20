@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { SunIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { useState, useEffect } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -21,6 +22,37 @@ const Navbar = () => {
       item.current = true;
     }
   });
+
+  //Darkmode setup
+  const [darkMode, setDarkMode] = useState(false);
+
+  const checkForDarkMode = () => {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches &&
+      localStorage.getItem("darkMode") === "true"
+    ) {
+      setDarkMode(true);
+      document.body.classList.add("dark");
+    }
+  };
+
+  const toggleDarkMode = () => {
+    //toggle dark mode and save to local storage
+    if (darkMode) {
+      setDarkMode(false);
+      document.body.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
+    } else {
+      setDarkMode(true);
+      document.body.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
+    }
+  };
+
+  useEffect(() => {
+    checkForDarkMode();
+  }, []);
 
   return (
     <Disclosure as="nav" className="bg-primary-dark">
@@ -72,6 +104,14 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
+
+              <button
+                className="z-10 rounded-md  px-3 py-2 text-sm font-medium text-gray-200"
+                onClick={toggleDarkMode}
+                id="darkModeBtn"
+              >
+                <SunIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
             </div>
           </div>
 

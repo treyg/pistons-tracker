@@ -50,7 +50,7 @@ const StonsGame = (props) => {
           ) : (
             <>
               <div id="liveTimeLeft" className="flex flex-col items-center">
-                <p className="flex flex-row text-sm">{props.shortDetail}</p>
+                <p className="text-md flex flex-row">{props.shortDetail}</p>
               </div>
               <section className="flex gap-20">
                 <p className="text-3xl">{props.homeScore}</p>
