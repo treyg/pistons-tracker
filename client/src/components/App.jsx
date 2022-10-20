@@ -3,6 +3,7 @@ import { Route, Routes, Link } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Navbar from "./Navbar";
 import NbaToday from "./NbaToday";
+//import Podcasts from "./Podcasts";
 import Stats from "./Stats";
 import Home from "./Home";
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/nba" element={<NbaToday />} />
           <Route path="/stats" element={<Stats />} />
+          {/* <Route path="/podcasts" element={<Podcasts />} /> */}
         </Routes>
       </div>
     </QueryClientProvider>
