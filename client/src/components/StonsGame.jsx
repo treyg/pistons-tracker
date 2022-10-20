@@ -35,7 +35,7 @@ const StonsGame = (props) => {
         </div>
         <div className="col-span-2 flex flex-col items-center gap-1 self-center text-center">
           <p>{props.broadcast ? props.broadcast : ""}</p>
-          {props.liveStatus !== "in" ? (
+          {props.liveStatus !== "in" && props.liveStatus !== "final" ? (
             <>
               <p className="text-sm">{props.venue}</p>
               <div className="status-center mt-4">
