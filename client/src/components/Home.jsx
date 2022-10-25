@@ -13,13 +13,13 @@ const Home = () => {
     data: nextFive,
     isLoading: nextFiveLoading,
     isError: nextFiveError,
-  } = useQuery(["nextFiveStons"], getNextFiveStons);
+  } = useQuery(["nextFiveStons"], () => getNextFiveStons());
 
   const {
     data: stonsGames,
     isLoading: stonsGamesLoading,
     isError: stonsGamesError,
-  } = useQuery(["stonsGames"], getStonsGames);
+  } = useQuery(["stonsGames"], () => getStonsGames());
 
   if (stonsGamesLoading || nextFiveLoading) {
     return <Loader />;
@@ -31,8 +31,8 @@ const Home = () => {
     .slice(0, 5);
 
   //   if (stonsGames && nextFiveError) {
-  //     const gameData = stonsGames.data;
-  //     const prevFive = gameData
+  //     let gameData = stonsGames.data;
+  //     let prevFive = gameData
   //       .sort((a, b) => new Date(b.date) - new Date(a.date))
   //       .slice(0, 5);
 
@@ -68,8 +68,8 @@ const Home = () => {
   //   }
 
   //   if (stonsGames && nextFive) {
-  //     const gameData = stonsGames.data;
-  //     const prevFive = gameData
+  //     let gameData = stonsGames.data;
+  //     let prevFive = gameData
   //       .sort((a, b) => new Date(b.date) - new Date(a.date))
   //       .slice(0, 5);
 
