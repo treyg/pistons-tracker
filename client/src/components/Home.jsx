@@ -26,9 +26,13 @@ const Home = () => {
   }
 
   const gameData = stonsGames.data ?? [];
-  const prevFive = gameData
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 5);
+  const prevFive = () => {
+    const finishedGames = gameData.filter((game) => game.status === "Final");
+    const sortedGames = finishedGames.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    return sortedGames.slice(0, 5);
+  };
 
   //   if (stonsGames && nextFiveError) {
   //     let gameData = stonsGames.data;
@@ -92,7 +96,7 @@ const Home = () => {
     <div className="flex flex-col dark:text-gray-300 md:flex-row">
       <div className="left-cont md:w-1/2">
         <NextStonsGame />
-        <LastFive lastFive={prevFive} />
+        <LastFive lastFive={prevFive()} />
         <NextFive nextFive={nextFive} />
       </div>
       <div className="right-cont md:w-1/2">
