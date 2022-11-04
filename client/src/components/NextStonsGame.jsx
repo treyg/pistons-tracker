@@ -29,8 +29,8 @@ const NextStonsGame = () => {
     const broadcast =
       event.nextEvent[0].competitions[0]?.broadcasts[0]?.media.shortName;
     const liveStatus = game.competitions[0].status.type.state;
-    const ticketLink =
-      event.nextEvent[0].competitions[0]?.tickets[0].links[0].href;
+    //const ticketLink =
+    // event.nextEvent[0].competitions[0]?.tickets[0].links[0].href;
     return (
       <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
         <StonsGame
@@ -48,7 +48,7 @@ const NextStonsGame = () => {
           shortDetail={game.competitions[0].status.type.shortDetail}
           liveStatus={liveStatus}
           broadcast={broadcast}
-          ticketLink={ticketLink ? ticketLink : null}
+          //ticketLink={ticketLink ? ticketLink : null}
           date={date}
         />
       </section>
