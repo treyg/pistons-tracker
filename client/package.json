@@ -22,6 +22,7 @@
     "prettier-plugin-tailwindcss": "^0.1.5",
     "react-router-dom": "^6.3.0",
     "vitawind": "^2.2.4",
-    "vite": "^2.7.2"
+    "vite": "^2.7.2",
+    "vite-plugin-pwa": "^0.13.3"
   }
 }
