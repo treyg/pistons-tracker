@@ -11,8 +11,10 @@ const StonsGame = (props) => {
     switch (true) {
       case props.liveStatus === "in":
         return <span className="font-semibold text-green">LIVE</span>;
-      case props.liveStatus === "post":
+      case props.liveStatus === "post" && props.shortDetail != "Postponed":
         return "Final";
+      case props.shortDetail === "Postponed":
+        return "Postponed";
       case formattedGameDate === formattedToday && props.status !== "in":
         return `Today, at ${dayjs(props.date).format("h:mm A")}`;
       default:

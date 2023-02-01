@@ -13,7 +13,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Navbar />
-      <div className="dark:bg-[#1e1e24]">
+      <div className="min-h-screen dark:bg-[#1e1e24]">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/nba" element={<NbaToday />} />
