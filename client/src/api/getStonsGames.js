@@ -1,5 +1,15 @@
 const currentSeason = () => {
-  return new Date().getFullYear();
+  const currentDate = new Date();
+  let currentYear = currentDate.getFullYear();
+  if (
+    //nba starts in october and ends in june
+    currentDate >= new Date(`${currentYear}-10-14`) &&
+    currentDate <= new Date(`${currentYear + 1}-06-14`)
+  ) {
+    return currentYear;
+  } else {
+    return currentYear - 1;
+  }
 };
 
 const getStonsGames = async () => {
