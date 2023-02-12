@@ -13,7 +13,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "firebase": "^9.9.2",
-    "got": "^12.3.0",
+    "got": "^12.5.3",
     "jsdom": "^20.0.0",
     "node-fetch": "^3.2.10",
     "node-schedule": "^2.1.0"
