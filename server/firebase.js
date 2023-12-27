@@ -39,33 +39,36 @@ const playerData = get(ref(database, 'roster')).then(snapshot => {
 })
 
 //Function to fetch news from azure and save to firebase
-const api_url =
-    "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=detroit+pistons";
+const endpoint = process.env.BING_SEARCH_V7_ENDPOINT;
+const query = "Detroit Pistons";
+const api_key = process.env.API_KEY; 
 
-const api_key = process.env.API_KEY;
 const requestOptions = {
     headers: {
         "Ocp-Apim-Subscription-Key": api_key,
     },
 };
 
-
 const getNews = () => {
-    fetch(api_url, requestOptions)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log('Got news from Azure')
-            const news = data.value;
-            set(ref(database, 'news'), {
-                articles: news
-            })
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+   const url = `${endpoint}?q=${encodeURIComponent(query)}`;
+   console.log(`Requesting: ${url}`);
+   
+   fetch(url, requestOptions)
+       .then((res) => {
+           console.log(`Response status: ${res.status}`);
+           console.log(`Response headers: ${JSON.stringify([...res.headers])}`);
+           return res.json();
+       })
+       .then((data) => {
+           console.log('Got news from Azure');
+           const news = data;
+           console.log(news);
+           set(ref(database, 'news'), { articles: news });
+       })
+       .catch((err) => {
+           console.log(err);
+       });
 };
-
-
 
 
 export { updateRoster, playerData, getNews };
