@@ -14,7 +14,7 @@ const StonsNews = () => {
       const newsRef = ref(db, "news/articles");
       onValue(newsRef, (snapshot) => {
         const fullNews = snapshot.val();
-        setFullNews(fullNews);
+        setFullNews(fullNews.value);
         setLoading(false);
       });
     };
