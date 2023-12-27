@@ -62,7 +62,6 @@ const getNews = () => {
        .then((data) => {
            console.log('Got news from Azure');
            const news = data;
-           console.log(news);
            set(ref(database, 'news'), { articles: news });
        })
        .catch((err) => {
