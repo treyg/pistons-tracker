@@ -4,11 +4,11 @@ import { updateRoster, playerData, getNews } from "./firebase.js";
 import express from "express";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const fakeport = process.env.PORT || 1234;
 
 // Start the Express server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(fakeport, () => {
+  console.log(`Server running on port ${fakeport}`);
 });
 
 async function runIndex() {
