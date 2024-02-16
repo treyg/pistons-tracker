@@ -83,3 +83,5 @@ async function getPlayerStats(rosterObj, playerIds) {
     });
   }
 }
+
+runIndex();
