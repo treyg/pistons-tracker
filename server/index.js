@@ -21,21 +21,28 @@ app.listen(fakeport, () => {
   console.log(`Server running on port ${fakeport}`);
 });
 
+function sanitizeKey(key) {
+  return key.replace(/[.#$\/\[\]]/g, "");
+}
+
+async function sanitizeNames(rosterObj) {
+  const sanitizedRosterObj = {};
+  Object.entries(rosterObj).forEach(([key, value]) => {
+    const sanitizedName = value?.name.replace(/\s/g, "%20").toLowerCase();
+    const sanitizedKey = sanitizeKey(key);
+    sanitizedRosterObj[sanitizedKey] = { ...value, name: sanitizedName };
+  });
+  return sanitizedRosterObj;
+}
+
 async function runIndex() {
   console.log("Scraping Roster");
   scrapeRoster();
   console.log("Updating Roster");
   const rosterObj = await playerData;
-  await sanitizeNames(rosterObj);
-  await getPlayerIdsAndStats(rosterObj);
-  updateRoster(rosterObj);
-}
-
-async function sanitizeNames(rosterObj) {
-  Object.entries(rosterObj).forEach(([key, value]) => {
-    const sanitizedName = value?.name.replace(/\s/g, "%20").toLowerCase();
-    rosterObj[key].name = sanitizedName;
-  });
+  const sanitizedRosterObj = await sanitizeNames(rosterObj);
+  await getPlayerIdsAndStats(sanitizedRosterObj);
+  updateRoster(sanitizedRosterObj);
 }
 
 async function getPlayerIdsAndStats(rosterObj) {
@@ -59,6 +66,7 @@ async function getPlayerInfo(playerName) {
     `https://www.balldontlie.io/api/v1/players?search=${playerName}`
   );
   const data = await response.json();
+
   const playerId = data.data[0]?.id;
   const position = data.data[0]?.position;
   const weight = data.data[0]?.weight_pounds;
@@ -83,5 +91,3 @@ async function getPlayerStats(rosterObj, playerIds) {
     });
   }
 }
-
-runIndex();
