@@ -32,14 +32,19 @@ function scrapeRoster() {
         headshots.push(headshotUrl);
       });
 
+      function sanitizeKey(key) {
+        return key.replace(/[.#$\/\[\]]/g, "");
+      }
+
       const getObjKeyedByPlayerName = (playerNames, headshots) => {
         const obj = {};
         playerNames.forEach((name, i) => {
+          const sanitizedKey = sanitizeKey(name);
           const subObj = {
             name,
             headshot: headshots[i],
           };
-          obj[name] = subObj;
+          obj[sanitizedKey] = subObj;
         });
         updateRoster(obj);
       };
