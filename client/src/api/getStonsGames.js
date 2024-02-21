@@ -13,11 +13,19 @@ const currentSeason = () => {
 };
 
 const getStonsGames = async () => {
-  const response = await fetch(
-    `https://www.balldontlie.io/api/v1/games?seasons[]=${currentSeason()}&team_ids[]=9&per_page=82`
-  );
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(
+      `https://www.balldontlie.io/api/v1/games?seasons[]=${currentSeason()}&team_ids[]=9&per_page=82`
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+    return null;
+  }
 };
 
 export default getStonsGames;

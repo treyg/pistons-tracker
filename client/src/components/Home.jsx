@@ -25,7 +25,11 @@ const Home = () => {
     return <Loader />;
   }
 
-  const gameData = stonsGames.data ?? [];
+  if (stonsGamesError || nextFiveError) {
+    return <div>There was an error fetching the data.</div>;
+  }
+
+  const gameData = stonsGames?.data ?? [];
   const prevFive = () => {
     const finishedGames = gameData.filter((game) => game.status === "Final");
     const sortedGames = finishedGames.sort((a, b) => {
@@ -34,64 +38,6 @@ const Home = () => {
     return sortedGames.slice(0, 5);
   };
 
-  //   if (stonsGames && nextFiveError) {
-  //     let gameData = stonsGames.data;
-  //     let prevFive = gameData
-  //       .sort((a, b) => new Date(b.date) - new Date(a.date))
-  //       .slice(0, 5);
-
-  //     return (
-  //       <div className="flex flex-col md:flex-row">
-  //         <div className="left-cont md:w-1/2">
-  //           <NextStonsGame />
-  //           <LastFive lastFive={prevFive} />
-  //           {/* <NextFive nextFive={nextFive} /> */}
-  //         </div>
-  //         <div className="right-cont md:w-1/2">
-  //           <StonsNews />
-  //         </div>
-  //       </div>
-  //     );
-  //   }
-
-  //   if (nextFive && stonsGamesError) {
-  //     return (
-  //       <>
-  //         <div className="flex flex-col md:flex-row">
-  //           <div className="left-cont md:w-1/2">
-  //             <NextStonsGame />
-  //             {/* <LastFive lastFive={prevFive} /> */}
-  //             <NextFive nextFive={nextFive} />
-  //           </div>
-  //           <div className="right-cont md:w-1/2">
-  //             <StonsNews />
-  //           </div>
-  //         </div>
-  //       </>
-  //     );
-  //   }
-
-  //   if (stonsGames && nextFive) {
-  //     let gameData = stonsGames.data;
-  //     let prevFive = gameData
-  //       .sort((a, b) => new Date(b.date) - new Date(a.date))
-  //       .slice(0, 5);
-
-  //     return (
-  //       <div className="flex flex-col md:flex-row">
-  //         <div className="left-cont md:w-1/2">
-  //           <NextStonsGame />
-  //           <LastFive lastFive={prevFive} />
-  //           <NextFive nextFive={nextFive} />
-  //         </div>
-  //         <div className="right-cont md:w-1/2">
-  //           <StonsNews />
-  //         </div>
-  //       </div>
-  //     );
-  //   }
-
-  //refactor return statements to be more DRY
   return (
     <div className="flex flex-col dark:text-gray-300 md:flex-row">
       <div className="left-cont md:w-1/2">
