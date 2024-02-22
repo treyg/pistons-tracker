@@ -2,9 +2,11 @@ import fetch from "node-fetch";
 import { scrapeRoster } from "./scrape.js";
 import { updateRoster, playerData, getNews } from "./firebase.js";
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
 
 const app = express();
-const fakeport = process.env.PORT || 3000;
+const fakeport = process.env.PORT || 4000;
 
 app.get("/runIndex", async (req, res) => {
   try {
@@ -63,8 +65,18 @@ async function getPlayerIdsAndStats(rosterObj) {
 
 async function getPlayerInfo(playerName) {
   const response = await fetch(
-    `https://www.balldontlie.io/api/v1/players?search=${playerName}`
+    `https://api.balldontlie.io/v1/players?search=${playerName}`,
+    {
+      headers: {
+        Authorization: `${process.env.BALL_DONT_LIE_KEY}`,
+      },
+    }
   );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
   const data = await response.json();
 
   const playerId = data.data[0]?.id;
@@ -77,9 +89,14 @@ async function getPlayerInfo(playerName) {
 async function getPlayerStats(rosterObj, playerIds) {
   const idString = playerIds.join("&player_ids[]=", "");
   const response = await fetch(
-    `https://www.balldontlie.io/api/v1/season_averages?season=${
+    `https://api.balldontlie.io/v1/season_averages?season=${
       new Date().getFullYear() - 1
-    }&player_ids[]=${idString}`
+    }&player_ids[]=${idString}`,
+    {
+      headers: {
+        Authorization: `${process.env.BALL_DONT_LIE_KEY}`,
+      },
+    }
   );
   const data = await response.json();
   const playerStats = data.data;
@@ -91,3 +108,5 @@ async function getPlayerStats(rosterObj, playerIds) {
     });
   }
 }
+
+runIndex();
