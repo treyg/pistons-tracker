@@ -19,6 +19,10 @@ const getStonsGames = async () => {
       {
         headers: {
           Authorization: `${import.meta.env.VITE_BALL_DONT_LIE_KEY}`,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers":
+            "Content-Type, Authorization, Content-Length, Accept, X-Requested-With, Accept-Encoding, X-CSRF-Token, Authorization, X-Requested-With",
         },
       }
     );
