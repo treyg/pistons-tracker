@@ -1,58 +1,71 @@
-import got from "got";
-import jsdom from "jsdom";
-import { updateRoster } from "./firebase.js";
+import got from 'got'
+import jsdom from 'jsdom'
+import { updateRoster } from './firebase.js'
 
-const { JSDOM } = jsdom;
+const { JSDOM } = jsdom
 
 const ROSTER_URL =
-  "https://www.espn.com/nba/team/roster/_/name/det/detroit-pistons";
+  'https://www.espn.com/nba/team/roster/_/name/det/detroit-pistons'
 
-function scrapeRoster() {
-  got(ROSTER_URL)
-    .then((response) => {
-      const dom = new JSDOM(response.body);
-      const elm = (selector) => dom.window.document.querySelector(selector);
-      const rosterTableBody = elm(".Table__TBODY").children;
-      const players = [];
-
-      for (let i = 0; i < rosterTableBody.length; i++) {
-        players.push(rosterTableBody[i].innerHTML);
+async function scrapeRoster() {
+  try {
+    const response = await got(ROSTER_URL, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate, br',
+        Connection: 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'Cache-Control': 'max-age=0'
       }
-      const playerNames = [];
-      const headshots = [];
-
-      players.forEach((player) => {
-        //find player names
-        const firstLink = player.match(/<a.*?>(.*?)<\/a>/)[0];
-        const name = firstLink.match(/title="(.*?)"/)[1];
-        playerNames.push(name);
-        //find headshots
-        const headshot = player.match(/<img.*?>/)[0];
-        const headshotUrl = headshot.match(/alt="(.*?)"/)[1];
-        headshots.push(headshotUrl);
-      });
-
-      function sanitizeKey(key) {
-        return key.replace(/[.#$\/\[\]]/g, "");
-      }
-
-      const getObjKeyedByPlayerName = (playerNames, headshots) => {
-        const obj = {};
-        playerNames.forEach((name, i) => {
-          const sanitizedKey = sanitizeKey(name);
-          const subObj = {
-            name,
-            headshot: headshots[i],
-          };
-          obj[sanitizedKey] = subObj;
-        });
-        updateRoster(obj);
-      };
-      getObjKeyedByPlayerName(playerNames, headshots);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+
+    const dom = new JSDOM(response.body)
+    const doc = dom.window.document
+
+    const playerData = {}
+    const rows = Array.from(doc.querySelectorAll('.Table__TBODY .Table__TR'))
+
+    console.log(`Found ${rows.length} player rows`)
+
+    rows.forEach((row, index) => {
+      // Get the name from the title attribute of the img element
+      const imgElement = row.querySelector('img')
+      if (!imgElement) {
+        console.log(`No image element found for row ${index}`)
+        return
+      }
+
+      const name = imgElement.getAttribute('title')
+      const headshotUrl = imgElement.getAttribute('alt') // The actual image URL is in the alt attribute
+
+      if (name && headshotUrl) {
+        console.log(`Processing player: ${name}`)
+        const sanitizedKey = name.replace(/[.#$\/\[\]]/g, '')
+        playerData[sanitizedKey] = {
+          name,
+          headshot: headshotUrl
+        }
+      } else {
+        console.log(`Missing name or headshot for row ${index}`)
+      }
+    })
+
+    const playerCount = Object.keys(playerData).length
+    if (playerCount === 0) {
+      console.log('No players found in the roster')
+      return null
+    }
+
+    console.log(`Successfully scraped ${playerCount} players`)
+    return playerData
+  } catch (err) {
+    console.error('Error scraping roster:', err)
+    return null
+  }
 }
 
-export { scrapeRoster };
+export { scrapeRoster }

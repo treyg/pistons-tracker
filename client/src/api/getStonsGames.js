@@ -1,6 +1,3 @@
-//require dotenv
-require("dotenv").config({ path: "../../.env" });
-
 const currentSeason = () => {
   const currentDate = new Date();
   let currentYear = currentDate.getFullYear();
@@ -17,13 +14,11 @@ const currentSeason = () => {
 
 const getStonsGames = async () => {
   try {
-    console.log(process.env.BALL_DONT_LIE_KEY);
-    console.log(currentSeason());
     const response = await fetch(
       `https://api.balldontlie.io/v1/games?seasons[]=${currentSeason()}&team_ids[]=9&per_page=82`,
       {
         headers: {
-          Authorization: `${process.env.BALL_DONT_LIE_KEY}`,
+          Authorization: `${import.meta.env.VITE_BALL_DONT_LIE_KEY}`,
         },
       }
     );

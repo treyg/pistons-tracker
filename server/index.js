@@ -1,112 +1,129 @@
-import fetch from "node-fetch";
-import { scrapeRoster } from "./scrape.js";
-import { updateRoster, playerData, getNews } from "./firebase.js";
-import express from "express";
-import dotenv from "dotenv";
-dotenv.config({ path: "./.env" });
+import axios from 'axios'
+import { scrapeRoster } from './scrape.js'
+import { updateRoster, playerData, getNews } from './firebase.js'
+import express from 'express'
+import dotenv from 'dotenv'
 
-const app = express();
-const fakeport = process.env.PORT || 4000;
+try {
+  dotenv.config({ path: './.env' })
+  console.log('Environment loaded')
+  console.log('API Key:', process.env.BALL_DONT_LIE_KEY ? 'Present' : 'Missing')
 
-app.get("/runIndex", async (req, res) => {
-  try {
-    await runIndex();
-    getNews();
-    res.status(200).send("Roster updated successfully");
-  } catch (error) {
-    res.status(500).send("An error occurred while updating the roster");
-  }
-});
+  const app = express()
+  const fakeport = process.env.PORT || 4000
 
-// Start the Express server
-app.listen(fakeport, () => {
-  console.log(`Server running on port ${fakeport}`);
-});
-
-function sanitizeKey(key) {
-  return key.replace(/[.#$\/\[\]]/g, "");
-}
-
-async function sanitizeNames(rosterObj) {
-  const sanitizedRosterObj = {};
-  Object.entries(rosterObj).forEach(([key, value]) => {
-    const sanitizedName = value?.name.replace(/\s/g, "%20").toLowerCase();
-    const sanitizedKey = sanitizeKey(key);
-    sanitizedRosterObj[sanitizedKey] = { ...value, name: sanitizedName };
-  });
-  return sanitizedRosterObj;
-}
-
-async function runIndex() {
-  console.log("Scraping Roster");
-  scrapeRoster();
-  console.log("Updating Roster");
-  const rosterObj = await playerData;
-  const sanitizedRosterObj = await sanitizeNames(rosterObj);
-  await getPlayerIdsAndStats(sanitizedRosterObj);
-  updateRoster(sanitizedRosterObj);
-}
-
-async function getPlayerIdsAndStats(rosterObj) {
-  const playerNames = Object.keys(rosterObj);
-  const playerIds = [];
-  for (let i = 0; i < playerNames.length; i++) {
-    const { playerId, position, weight, height } = await getPlayerInfo(
-      playerNames[i]
-    );
-    rosterObj[playerNames[i]].id = playerId || 0;
-    rosterObj[playerNames[i]].position = position || "N/A";
-    rosterObj[playerNames[i]].weight = weight || "N/A";
-    rosterObj[playerNames[i]].height = height || "N/A";
-    playerId ? playerIds.push(playerId) : null;
-  }
-  await getPlayerStats(rosterObj, playerIds);
-}
-
-async function getPlayerInfo(playerName) {
-  const response = await fetch(
-    `https://api.balldontlie.io/v1/players?search=${playerName}`,
-    {
-      headers: {
-        Authorization: `${process.env.BALL_DONT_LIE_KEY}`,
-      },
+  app.get('/runIndex', async (req, res) => {
+    try {
+      await runIndex()
+      getNews()
+      res.status(200).send('Roster updated successfully')
+    } catch (error) {
+      console.error('Error in /runIndex:', error)
+      res.status(500).send('An error occurred while updating the roster')
     }
-  );
+  })
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  // Start the Express server
+  app.listen(fakeport, () => {
+    console.log(`Server running on port ${fakeport}`)
+  })
+
+  function sanitizeKey(key) {
+    return key.replace(/[.#$\/\[\]]/g, '')
   }
 
-  const data = await response.json();
-
-  const playerId = data.data[0]?.id;
-  const position = data.data[0]?.position;
-  const weight = data.data[0]?.weight_pounds;
-  const height = `${data.data[0]?.height_feet}'${data.data[0]?.height_inches}`;
-  return { playerId, position, weight, height };
-}
-
-async function getPlayerStats(rosterObj, playerIds) {
-  const idString = playerIds.join("&player_ids[]=", "");
-  const response = await fetch(
-    `https://api.balldontlie.io/v1/season_averages?season=${
-      new Date().getFullYear() - 1
-    }&player_ids[]=${idString}`,
-    {
-      headers: {
-        Authorization: `${process.env.BALL_DONT_LIE_KEY}`,
-      },
-    }
-  );
-  const data = await response.json();
-  const playerStats = data.data;
-  for (let i = 0; i < playerStats.length; i++) {
+  async function sanitizeNames(rosterObj) {
+    const sanitizedRosterObj = {}
     Object.entries(rosterObj).forEach(([key, value]) => {
-      if (value.id === playerStats[i].player_id) {
-        rosterObj[key].stats = playerStats[i];
-      }
-    });
+      const sanitizedName = value?.name.replace(/\s/g, '%20')
+      const sanitizedKey = sanitizeKey(key)
+      sanitizedRosterObj[sanitizedKey] = { ...value, name: sanitizedName }
+    })
+    return sanitizedRosterObj
   }
-}
 
-runIndex();
+  async function runIndex() {
+    try {
+      console.log('Starting runIndex')
+      console.log('Scraping Roster')
+      const scrapedRoster = await scrapeRoster()
+
+      if (!scrapedRoster) {
+        console.log('Failed to scrape roster')
+        return
+      }
+
+      console.log('Updating Roster')
+      const sanitizedRosterObj = await sanitizeNames(scrapedRoster)
+      await getPlayerInfo(sanitizedRosterObj)
+      await updateRoster(sanitizedRosterObj)
+    } catch (error) {
+      console.error('Error in runIndex:', error)
+      throw error
+    }
+  }
+
+  async function getPlayerInfo(rosterObj) {
+    const playerNames = Object.keys(rosterObj)
+
+    console.log('Fetching player information...')
+
+    for (let i = 0; i < playerNames.length; i++) {
+      const playerName = rosterObj[playerNames[i]].name
+      console.log(`Fetching info for player: ${playerName}`)
+
+      try {
+        const searchName = playerName.replace(/%20/g, ' ').split(' ').pop()
+        console.log(`Searching for player with name: ${searchName}`)
+
+        const response = await axios.get(
+          `https://api.balldontlie.io/v1/players?search=${searchName}`,
+          {
+            headers: {
+              Authorization: process.env.BALL_DONT_LIE_KEY
+            }
+          }
+        )
+
+        const data = response.data
+        console.log(
+          `API Response for ${searchName}:`,
+          data.data.length ? 'Found matches' : 'No matches'
+        )
+
+        if (data.data.length > 0) {
+          const playerData = data.data[0]
+          rosterObj[playerNames[i]].id = playerData.id
+          rosterObj[playerNames[i]].position = playerData.position || 'N/A'
+          rosterObj[playerNames[i]].weight = playerData.weight_pounds || 'N/A'
+          rosterObj[playerNames[i]].height = `${playerData.height_feet || ''}${
+            playerData.height_inches ? `'${playerData.height_inches}"` : 'N/A'
+          }`
+          console.log(`Updated info for ${playerName}`)
+        } else {
+          console.log(`No data found for ${playerName}`)
+        }
+
+        // Add a small delay between requests
+        await new Promise(resolve => setTimeout(resolve, 1000))
+      } catch (error) {
+        console.error(
+          `Error fetching player info for ${playerName}:`,
+          error.message
+        )
+        // Set default values if the API call fails
+        rosterObj[playerNames[i]].id = 0
+        rosterObj[playerNames[i]].position = 'N/A'
+        rosterObj[playerNames[i]].weight = 'N/A'
+        rosterObj[playerNames[i]].height = 'N/A'
+      }
+    }
+
+    console.log('Finished updating player information')
+  }
+
+  console.log('Starting initial run')
+  runIndex()
+} catch (error) {
+  console.error('Top level error:', error)
+}
