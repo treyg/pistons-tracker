@@ -1,6 +1,6 @@
 [build]
-  # Build command for React client
-  command = "cd client && npm run build"
+  # Build command for React client - install deps first
+  command = "cd client && npm install && npm run build"
   # Vite builds to 'dist' by default
   publish = "client/dist"
 
