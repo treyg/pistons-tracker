@@ -1,0 +1,27 @@
+name: Scheduled Pistons Data Update
+
+on:
+  schedule:
+    # Run every hour at the top of the hour (UTC)
+    - cron: '0 * * * *'
+  # Allow manual triggering for testing
+  workflow_dispatch:
+
+jobs:
+  update-pistons-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger Netlify Background Function
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"source": "github-actions", "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"}' \
+            "${{ secrets.NETLIFY_FUNCTION_URL }}/pistons-update-background"
+        env:
+          # You'll need to add this secret in your GitHub repository settings
+          NETLIFY_FUNCTION_URL: ${{ secrets.NETLIFY_FUNCTION_URL }}
+      
+      - name: Log completion
+        run: |
+          echo "Background function triggered at $(date -u +"%Y-%m-%d %H:%M:%S UTC")"

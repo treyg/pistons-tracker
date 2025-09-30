@@ -1,0 +1,21 @@
+[build]
+  # Build command for React client
+  command = "cd client && npm run build"
+  # Vite builds to 'dist' by default
+  publish = "client/dist"
+
+# Redirect all routes to index.html for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Plugin to install function dependencies automatically
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
+# Background function configuration
+[functions]
+  # Functions directory
+  directory = "netlify/functions"
+  # Background functions get 15 minutes (no timeout needed)
