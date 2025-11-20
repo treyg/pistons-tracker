@@ -1,33 +1,81 @@
-const axios = require('axios');
-const { JSDOM } = require('jsdom');
-const admin = require('firebase-admin');
+const axios = require('axios')
+const { JSDOM } = require('jsdom')
+const admin = require('firebase-admin')
+const Firecrawl = require('@mendable/firecrawl-js')
 
 // Initialize Firebase Admin (only once)
 if (!admin.apps.length) {
   try {
-    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       databaseURL: process.env.FIREBASE_DATABASE_URL
-    });
+    })
   } catch (error) {
-    console.error('Firebase Admin initialization failed:', error);
+    console.error('Firebase Admin initialization failed:', error)
   }
 }
 
-const ROSTER_URL = 'https://www.espn.com/nba/team/roster/_/name/det/detroit-pistons';
+const NBA_ROSTER_URL = 'https://www.nba.com/pistons/roster';
 
-async function scrapeRoster() {
+async function getDetailedStats() {
   try {
-    const response = await axios.get(ROSTER_URL, {
+    console.log('Fetching detailed stats from ESPN...');
+    const url = 'https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/statistics/byathlete?region=us&lang=en&contentorigin=espn&isqualified=true&page=1&limit=400&sort=offensive.avgPoints:desc&season=2025&seasontype=2';
+    
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      },
+      timeout: 10000
+    });
+    
+    const athletes = response.data?.athletes || [];
+    
+    // Create a map of player name to stats
+    const statsMap = {};
+    athletes.forEach(athlete => {
+      const name = athlete.athlete?.displayName;
+      const categories = athlete.categories || [];
+      
+      // Find offensive and defensive categories
+      const offensive = categories.find(cat => cat.name === 'offensive');
+      const defensive = categories.find(cat => cat.name === 'defensive');
+      
+      if (name && offensive) {
+        const offStats = offensive.totals || [];
+        const defStats = defensive?.totals || [];
+        
+        statsMap[name] = {
+          pts: parseFloat(offStats[0]) || 0,     // Points per game
+          reb: parseFloat(offStats[10]) || 0,    // Rebounds per game
+          ast: parseFloat(offStats[11]) || 0,    // Assists per game
+          stl: parseFloat(defStats[0]) || 0,     // Steals per game
+          blk: parseFloat(defStats[1]) || 0,     // Blocks per game
+          fg_pct: parseFloat(offStats[3]) / 100 || 0,   // FG% (convert to decimal)
+          fg3_pct: parseFloat(offStats[6]) / 100 || 0,  // 3P% (convert to decimal)
+          ft_pct: parseFloat(offStats[9]) / 100 || 0,   // FT% (convert to decimal)
+          fg3m: parseFloat(offStats[4]) || 0     // 3-pointers made per game
+        };
+      }
+    });
+    
+    console.log(`Fetched detailed stats for ${athletes.length} players`);
+    return statsMap;
+  } catch (error) {
+    console.error('Error fetching detailed stats:', error.message);
+    return null;
+  }
+}
+
+async function scrapeNBARoster() {
+  try {
+    console.log('Fetching roster from NBA.com...');
+    const response = await axios.get(NBA_ROSTER_URL, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Cache-Control': 'max-age=0'
+        'Accept-Language': 'en-US,en;q=0.5'
       },
       timeout: 10000
     });
@@ -35,119 +83,74 @@ async function scrapeRoster() {
     const dom = new JSDOM(response.data);
     const doc = dom.window.document;
 
-    const playerData = {};
-    const rows = Array.from(doc.querySelectorAll('.Table__TBODY .Table__TR'));
-
-    console.log(`Found ${rows.length} player rows`);
-
-    rows.forEach((row, index) => {
-      const imgElement = row.querySelector('img');
-      if (!imgElement) {
-        console.log(`No image element found for row ${index}`);
-        return;
-      }
-
-      const name = imgElement.getAttribute('title');
-      const headshotUrl = imgElement.getAttribute('alt');
-
-      if (name && headshotUrl) {
-        console.log(`Processing player: ${name}`);
-        const sanitizedKey = name.replace(/[.#$\/\[\]]/g, '');
-        playerData[sanitizedKey] = {
-          name,
-          headshot: headshotUrl
-        };
-      } else {
-        console.log(`Missing name or headshot for row ${index}`);
-      }
-    });
-
-    const playerCount = Object.keys(playerData).length;
-    if (playerCount === 0) {
-      console.log('No players found in the roster');
+    // Find the __NEXT_DATA__ script tag
+    const nextDataScript = doc.querySelector('script#__NEXT_DATA__');
+    if (!nextDataScript) {
+      console.error('Could not find __NEXT_DATA__ script tag');
       return null;
     }
 
-    console.log(`Successfully scraped ${playerCount} players`);
+    // Parse the JSON data
+    const nextData = JSON.parse(nextDataScript.textContent);
+    const rosterData = nextData?.props?.pageProps?.rosterData?.roster;
+
+    if (!rosterData || !Array.isArray(rosterData)) {
+      console.error('Could not find roster data in __NEXT_DATA__');
+      return null;
+    }
+
+    console.log(`Found ${rosterData.length} players in roster data`);
+
+    // Get detailed stats from NBA Stats API
+    const detailedStats = await getDetailedStats();
+
+    // Transform the data to our format
+    const playerData = {};
+    
+    rosterData.forEach((player) => {
+      const sanitizedKey = player.name.replace(/[.#$\/\[\]]/g, '');
+      
+      // Build headshot URL from NBA CDN (standard pattern)
+      const headshot = `https://cdn.nba.com/headshots/nba/latest/1040x760/${player.id}.png`;
+      
+      // Get detailed stats if available, otherwise use basic stats
+      const stats = detailedStats?.[player.name] || {
+        pts: player.stats?.season?.ppg || 0,
+        reb: player.stats?.season?.rpg || 0,
+        ast: player.stats?.season?.apg || 0,
+        stl: player.stats?.season?.spg || 0,
+        blk: 0,
+        ft_pct: 0,
+        fg_pct: 0,
+        fg3_pct: 0,
+        fg3m: 0
+      };
+      
+      playerData[sanitizedKey] = {
+        name: player.name,
+        number: player.number,
+        position: player.position,
+        height: player.height,
+        weight: player.weight,
+        age: player.age,
+        experience: player.experience,
+        country: player.country,
+        headshot: headshot,
+        stats: stats
+      };
+      
+      console.log(`Processed: ${player.name} - #${player.number} - ${player.position}`);
+    });
+
+    console.log(`Successfully processed ${Object.keys(playerData).length} players`);
     return playerData;
   } catch (error) {
-    console.error('Error scraping roster:', error);
+    console.error('Error scraping NBA roster:', error.message);
     return null;
   }
 }
 
-function sanitizeKey(key) {
-  return key.replace(/[.#$\/\[\]]/g, '');
-}
-
-async function sanitizeNames(rosterObj) {
-  const sanitizedRosterObj = {};
-  Object.entries(rosterObj).forEach(([key, value]) => {
-    const sanitizedName = value?.name.replace(/\s/g, '%20');
-    const sanitizedKey = sanitizeKey(key);
-    sanitizedRosterObj[sanitizedKey] = { ...value, name: sanitizedName };
-  });
-  return sanitizedRosterObj;
-}
-
-async function getPlayerInfo(rosterObj) {
-  const playerNames = Object.keys(rosterObj);
-  console.log('Fetching player information...');
-
-  for (let i = 0; i < playerNames.length; i++) {
-    const playerName = rosterObj[playerNames[i]].name;
-    console.log(`Fetching info for player: ${playerName}`);
-
-    try {
-      const searchName = playerName.replace(/%20/g, ' ').split(' ').pop();
-      console.log(`Searching for player with name: ${searchName}`);
-
-      const response = await axios.get(
-        `https://api.balldontlie.io/v1/players?search=${searchName}`,
-        {
-          headers: {
-            Authorization: process.env.BALL_DONT_LIE_KEY
-          },
-          timeout: 5000
-        }
-      );
-
-      const data = response.data;
-      console.log(
-        `API Response for ${searchName}:`,
-        data.data.length ? 'Found matches' : 'No matches'
-      );
-
-      if (data.data.length > 0) {
-        const playerData = data.data[0];
-        rosterObj[playerNames[i]].id = playerData.id;
-        rosterObj[playerNames[i]].position = playerData.position || 'N/A';
-        rosterObj[playerNames[i]].weight = playerData.weight_pounds || 'N/A';
-        rosterObj[playerNames[i]].height = `${playerData.height_feet || ''}${
-          playerData.height_inches ? `'${playerData.height_inches}"` : 'N/A'
-        }`;
-        console.log(`Updated info for ${playerName}`);
-      } else {
-        console.log(`No data found for ${playerName}`);
-      }
-
-      // Add delay between requests to avoid rate limiting
-      await new Promise(resolve => setTimeout(resolve, 1000));
-    } catch (error) {
-      console.error(
-        `Error fetching player info for ${playerName}:`,
-        error.message
-      );
-      // Set default values if the API call fails
-      rosterObj[playerNames[i]].id = 0;
-      rosterObj[playerNames[i]].position = 'N/A';
-      rosterObj[playerNames[i]].weight = 'N/A';
-      rosterObj[playerNames[i]].height = 'N/A';
-    }
-  }
-
-  console.log('Finished updating player information');
-}
+// No longer needed - all data comes from NBA.com __NEXT_DATA__
 
 async function updateRoster(rosterData) {
   try {
@@ -164,35 +167,47 @@ async function updateRoster(rosterData) {
 
 async function getNews() {
   try {
-    const endpoint = process.env.BING_SEARCH_V7_ENDPOINT;
-    const query = 'Detroit Pistons';
-    const apiKey = process.env.BING_SEARCH_V7_API_KEY;
-
-    if (!endpoint || !apiKey) {
-      console.log('Missing Bing Search API configuration');
-      return;
+    if (!process.env.FIRECRAWL_API_KEY) {
+      console.error('Missing Firecrawl API key')
+      return
     }
 
-    const url = `${endpoint}?q=${encodeURIComponent(
-      query
-    )}&count=10&freshness=Day&textFormat=Raw`;
-    
-    console.log('Fetching news...');
+    console.log('Fetching news from DuckDuckGo via Firecrawl...')
+    const result = await firecrawl.scrape('https://duckduckgo.com/?origin=funnel_home_website&t=h_&q=detroit%20pistons&ia=news&iar=news', {
+      formats: [
+        {
+          type: 'json',
+          prompt:
+            'Return an array "articles" with objects {title, url, source, publishedAt, description, image} for each Detroit Pistons news card on the page.'
+        }
+      ],
+      onlyMainContent: false,
+      timeout: 20000,
+      maxAge: 0
+    })
 
-    const response = await axios.get(url, {
-      headers: {
-        'Ocp-Apim-Subscription-Key': apiKey
-      },
-      timeout: 10000
-    });
+    if (!result?.data?.json?.articles) {
+      console.error('Firecrawl response missing structured data')
+      return
+    }
 
-    console.log('Got news from Bing Search API');
-    
-    const db = admin.database();
-    await db.ref('news').set({ articles: response.data });
-    console.log('News updated successfully in Firebase');
-  } catch (error) {
-    console.error('Error fetching/updating news:', error);
+    const articles = Array.isArray(result.data.json.articles) ? result.data.json.articles : []
+    const parsedArticles = articles
+      .map(article => ({
+        id: article.id || article.url || article.title,
+        title: article.title || article.headline || 'Untitled',
+        description: article.description || article.summary || '',
+        source: article.source || article.publisher || 'Unknown',
+        publishedAt: article.publishedAt || article.time || null,
+        url: article.url || article.link || null,
+        image: article.image || article.imageUrl || null
+      }))
+      .filter(article => Boolean(article.url))
+
+    const db = admin.database()
+    await db.ref('news').set({ articles: parsedArticles, fetchedAt: new Date().toISOString() })
+    console.log(`News updated successfully in Firebase (${parsedArticles.length} articles)`)  } catch (error) {
+    console.error('Error fetching/updating news:', error)
   }
 }
 
@@ -216,23 +231,18 @@ async function runUpdate() {
     console.log('Starting scheduled pistons data update');
     await logSystemUpdate('running', 'Starting data update process');
     
-    // Scrape roster data
-    console.log('Scraping Roster');
-    const scrapedRoster = await scrapeRoster();
+    // Fetch roster data from NBA.com
+    console.log('Fetching roster from NBA.com');
+    const rosterData = await scrapeNBARoster();
 
-    if (!scrapedRoster) {
-      console.log('Failed to scrape roster');
-      return { success: false, message: 'Failed to scrape roster' };
+    if (!rosterData) {
+      console.log('Failed to fetch roster from NBA.com');
+      return { success: false, message: 'Failed to fetch roster from NBA.com' };
     }
-
-    // Process player information
-    console.log('Processing player data');
-    const sanitizedRosterObj = await sanitizeNames(scrapedRoster);
-    await getPlayerInfo(sanitizedRosterObj);
     
     // Update Firebase
     console.log('Updating roster in Firebase');
-    await updateRoster(sanitizedRosterObj);
+    await updateRoster(rosterData);
     
     // Get latest news
     console.log('Fetching and updating news');
@@ -240,7 +250,7 @@ async function runUpdate() {
 
     console.log('Scheduled update completed successfully');
     await logSystemUpdate('completed', 'Update completed successfully', {
-      roster_players: sanitizedRosterObj ? Object.keys(sanitizedRosterObj).length : 0,
+      roster_players: rosterData ? Object.keys(rosterData).length : 0,
       execution_time_ms: Date.now() - startTime
     });
     return { success: true, message: 'Update completed successfully' };

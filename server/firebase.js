@@ -4,9 +4,12 @@ import 'firebase/compat/firestore'
 import { getDatabase, ref, set, get } from 'firebase/database'
 // import { getAnalytics } from "firebase/analytics";
 import fetch from 'node-fetch'
+import schedule from 'node-schedule'
+import Firecrawl from '@mendable/firecrawl-js'
 
 import * as dotenv from 'dotenv'
 dotenv.config()
+
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -36,36 +39,61 @@ const playerData = get(ref(database, 'roster')).then(snapshot => {
   return data.players
 })
 
-//Function to fetch news from azure and save to firebase
-const endpoint = process.env.BING_SEARCH_V7_ENDPOINT
-const query = 'Detroit Pistons'
-const api_key = process.env.BING_SEARCH_V7_API_KEY
+const firecrawlClient = new Firecrawl({
+  apiKey: process.env.FIRECRAWL_API_KEY,
+  baseUrl: process.env.FIRECRAWL_BASE_URL || undefined
+})
+const NEWS_URL =
+  'https://duckduckgo.com/?origin=funnel_home_website&t=h_&q=detroit%20pistons&ia=news&iar=news'
 
-const requestOptions = {
-  headers: {
-    'Ocp-Apim-Subscription-Key': api_key
+const getNews = async () => {
+  try {
+    console.log('Fetching Pistons news via Firecrawl')
+    const response = await firecrawlClient.scrape(NEWS_URL, {
+      formats: [
+        {
+          type: 'json',
+          prompt:
+            'Return an array "articles" with objects {title, url, source, publishedAt, description, image} for each Detroit Pistons news card on the page.'
+        }
+      ],
+      maxAge: 0,
+      timeout: 20000
+    })
+
+    const articles = response?.data?.json?.articles
+    if (!Array.isArray(articles)) {
+      console.error('Firecrawl returned no articles')
+      return
+    }
+
+    const parsed = articles
+      .map(article => ({
+        id: article.id || article.url || article.title,
+        title: article.title || 'Untitled',
+        url: article.url,
+        source: article.source || article.provider || 'Unknown',
+        publishedAt: article.publishedAt || article.time || null,
+        description: article.description || article.summary || '',
+        image: article.image || article.imageUrl || null
+      }))
+      .filter(article => Boolean(article.url))
+
+    await set(ref(database, 'news'), {
+      articles: parsed,
+      fetchedAt: new Date().toISOString()
+    })
+    console.log(`Stored ${parsed.length} Pistons news articles`)
+  } catch (error) {
+    console.error('Error fetching Pistons news:', error)
   }
 }
 
-const getNews = () => {
-  const url = `${endpoint}?q=${encodeURIComponent(
-    query
-  )}&count=10&freshness=Day&textFormat=Raw`
-  console.log(`Requesting: ${url}`)
-
-  fetch(url, requestOptions)
-    .then(res => {
-      console.log(`Response status: ${res.status}`)
-      console.log(`Response headers: ${JSON.stringify([...res.headers])}`)
-      return res.json()
-    })
-    .then(data => {
-      console.log('Got news from Azure')
-      set(ref(database, 'news'), { articles: data })
-    })
-    .catch(err => {
-      console.log(err)
-    })
+const scheduleNewsRefresh = () => {
+  schedule.scheduleJob('0 * * * *', () => {
+    console.log('Cron: refreshing Pistons news feed')
+    getNews()
+  })
 }
 
-export { updateRoster, playerData, getNews }
+export { updateRoster, playerData, getNews, scheduleNewsRefresh }

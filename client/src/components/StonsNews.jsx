@@ -3,6 +3,7 @@ import Loader from "./Loader";
 import { ref, onValue } from "firebase/database";
 import db from "../api/firebase";
 import StonsNewsItem from "./StonsNewsItem";
+import dayjs from "dayjs";
 
 const StonsNews = () => {
   const [news, setFullNews] = useState([]);
@@ -11,11 +12,11 @@ const StonsNews = () => {
   useEffect(() => {
     const fetchNews = () => {
       setLoading(true);
-      const newsRef = ref(db, "news/articles");
+      const newsRef = ref(db, "news");
       onValue(newsRef, (snapshot) => {
         const data = snapshot.val();
-        if (data && data.value) {
-          setFullNews(data.value);
+        if (data && data.articles) {
+          setFullNews(data.articles);
         } else {
           setFullNews([]);
         }
@@ -37,10 +38,11 @@ const StonsNews = () => {
               <StonsNewsItem
                 key={article.url}
                 link={article.url}
-                title={article.name}
-                author={article.provider[0]?.name || "Unknown"}
-                datePublished={article.datePublished}
-                image={article.image?.thumbnail?.contentUrl || ""}
+                title={article.title}
+                author={article.source || "Unknown"}
+                datePublished={article.publishedAt || null}
+                image={article.image || ""}
+                description={article.description || ""}
               />
             ))
           ) : (

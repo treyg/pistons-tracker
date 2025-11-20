@@ -6,6 +6,7 @@ import NbaToday from "./NbaToday";
 //import Podcasts from "./Podcasts";
 import Stats from "./Stats";
 import Home from "./Home";
+import RosterPage from "./RosterPage";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/nba" element={<NbaToday />} />
+          <Route path="/roster" element={<RosterPage />} />
           <Route path="/stats" element={<Stats />} />
           {/* <Route path="/podcasts" element={<Podcasts />} /> */}
         </Routes>

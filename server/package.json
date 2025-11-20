@@ -18,7 +18,8 @@
     "got": "^12.3.0",
     "jsdom": "^20.0.0",
     "node-fetch": "^3.2.10",
-    "node-schedule": "^2.1.0"
+    "node-schedule": "^2.1.0",
+    "@mendable/firecrawl-js": "^4.6.1"
   },
   "type": "module"
 }

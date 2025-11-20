@@ -11,6 +11,7 @@ const Navbar = () => {
   const navigation = [
     { name: "Home", href: "/", current: null },
     { name: "NBA Today", href: "/nba", current: null },
+    { name: "Roster", href: "/roster", current: null },
     { name: "Stats", href: "/stats", current: null },
     // { name: "Podcasts", href: "/podcasts", current: null },
   ];
