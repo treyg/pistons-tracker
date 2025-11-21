@@ -1,7 +1,8 @@
 const getStonsGames = async () => {
   try {
-    // Fetch from our local server proxy to avoid CORS issues
-    const response = await fetch('http://localhost:4000/api/games');
+    // Use Railway API URL in production, localhost in development
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+    const response = await fetch(`${API_URL}/api/games`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

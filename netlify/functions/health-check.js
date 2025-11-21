@@ -34,9 +34,7 @@ exports.handler = async (event, context) => {
     const requiredEnvVars = [
       'FIREBASE_SERVICE_ACCOUNT',
       'FIREBASE_DATABASE_URL',
-      'BALL_DONT_LIE_KEY',
-      'BING_SEARCH_V7_ENDPOINT',
-      'BING_SEARCH_V7_API_KEY'
+      'FIRECRAWL_API_KEY'
     ];
 
     const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);

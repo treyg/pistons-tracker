@@ -7,10 +7,17 @@ import dotenv from 'dotenv'
 try {
   dotenv.config({ path: './.env' })
   console.log('Environment loaded')
-  console.log('API Key:', process.env.BALL_DONT_LIE_KEY ? 'Present' : 'Missing')
 
   const app = express()
-  app.use(cors()) // Enable CORS for all routes
+  
+  // Configure CORS for production
+  const corsOptions = {
+    origin: process.env.CLIENT_URL || '*',
+    credentials: true,
+    optionsSuccessStatus: 200
+  }
+  app.use(cors(corsOptions))
+  
   const fakeport = process.env.PORT || 4000
 
   app.get('/runIndex', async (req, res) => {
