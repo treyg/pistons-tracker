@@ -23,7 +23,7 @@ try {
   app.get('/runIndex', async (req, res) => {
     try {
       await runIndex()
-      getNews()
+      await getNews()
       res.status(200).send('Roster updated successfully')
     } catch (error) {
       console.error('Error in /runIndex:', error)
@@ -114,7 +114,9 @@ try {
   }
 
   console.log('Starting initial run')
-  runIndex()
+  // Run initialization in background, don't block server startup
+  runIndex().catch(err => console.error('Initial runIndex failed:', err))
+  getNews().catch(err => console.error('Initial getNews failed:', err))
   scheduleNewsRefresh()
 } catch (error) {
   console.error('Top level error:', error)
