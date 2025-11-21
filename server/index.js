@@ -10,15 +10,23 @@ try {
 
   const app = express()
   
-  // Configure CORS for production
-  const corsOptions = {
-    origin: process.env.CLIENT_URL || '*',
-    credentials: true,
+  // Configure CORS - allow all origins for now to debug
+  app.use(cors({
+    origin: '*',
+    credentials: false,
     optionsSuccessStatus: 200
-  }
-  app.use(cors(corsOptions))
+  }))
   
   const fakeport = process.env.PORT || 4000
+
+  // Health check endpoint
+  app.get('/', (req, res) => {
+    res.json({ status: 'ok', message: 'Pistons Tracker API is running' })
+  })
+
+  app.get('/health', (req, res) => {
+    res.json({ status: 'healthy', timestamp: new Date().toISOString() })
+  })
 
   app.get('/runIndex', async (req, res) => {
     try {
