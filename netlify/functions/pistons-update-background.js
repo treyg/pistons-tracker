@@ -1,7 +1,12 @@
 const axios = require('axios')
 const { JSDOM } = require('jsdom')
 const admin = require('firebase-admin')
-const Firecrawl = require('@mendable/firecrawl-js')
+const Firecrawl = require('@mendable/firecrawl-js').default
+
+// Initialize Firecrawl client
+const firecrawl = new Firecrawl({
+  apiKey: process.env.FIRECRAWL_API_KEY
+})
 
 // Initialize Firebase Admin (only once)
 if (!admin.apps.length) {
