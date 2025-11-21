@@ -1,6 +1,7 @@
 import { scrapeNBARoster } from './scrape.js'
 import { updateRoster, playerData, getNews, scheduleNewsRefresh } from './firebase.js'
 import express from 'express'
+import cors from 'cors'
 import dotenv from 'dotenv'
 
 try {
@@ -9,6 +10,7 @@ try {
   console.log('API Key:', process.env.BALL_DONT_LIE_KEY ? 'Present' : 'Missing')
 
   const app = express()
+  app.use(cors()) // Enable CORS for all routes
   const fakeport = process.env.PORT || 4000
 
   app.get('/runIndex', async (req, res) => {
@@ -19,6 +21,51 @@ try {
     } catch (error) {
       console.error('Error in /runIndex:', error)
       res.status(500).send('An error occurred while updating the roster')
+    }
+  })
+
+  // API endpoint to get Pistons games (proxy to avoid CORS)
+  app.get('/api/games', async (req, res) => {
+    try {
+      const axios = (await import('axios')).default
+      const response = await axios.get(
+        'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/det/schedule',
+        {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+          }
+        }
+      )
+      
+      const espnData = response.data
+      
+      // Transform ESPN data to match the old Ball Don't Lie format
+      const games = espnData.events.map(event => {
+        const competition = event.competitions[0]
+        const homeTeam = competition.competitors.find(c => c.homeAway === 'home')
+        const awayTeam = competition.competitors.find(c => c.homeAway === 'away')
+        
+        return {
+          id: event.id,
+          date: event.date,
+          status: competition.status.type.description,
+          home_team: {
+            id: homeTeam.id,
+            name: homeTeam.team.displayName.replace('Detroit Pistons', 'Pistons'),
+          },
+          visitor_team: {
+            id: awayTeam.id,
+            name: awayTeam.team.displayName.replace('Detroit Pistons', 'Pistons'),
+          },
+          home_team_score: parseInt(homeTeam.score?.value || 0),
+          visitor_team_score: parseInt(awayTeam.score?.value || 0),
+        }
+      })
+      
+      res.json({ data: games })
+    } catch (error) {
+      console.error('Error fetching games:', error.message)
+      res.status(500).json({ error: 'Failed to fetch games' })
     }
   })
 
