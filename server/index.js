@@ -88,11 +88,6 @@ try {
     }
   })
 
-  // Start the Express server
-  app.listen(fakeport, () => {
-    console.log(`Server running on port ${fakeport}`)
-  })
-
   async function runIndex() {
     try {
       console.log('Starting runIndex')
@@ -113,11 +108,17 @@ try {
     }
   }
 
-  console.log('Starting initial run')
-  // Run initialization in background, don't block server startup
-  runIndex().catch(err => console.error('Initial runIndex failed:', err))
-  getNews().catch(err => console.error('Initial getNews failed:', err))
-  scheduleNewsRefresh()
+  // Start the Express server FIRST
+  app.listen(fakeport, () => {
+    console.log(`Server running on port ${fakeport}`)
+    console.log('Server is ready to accept requests')
+    
+    // THEN run initialization in background after server is listening
+    console.log('Starting background initialization tasks...')
+    runIndex().catch(err => console.error('Initial runIndex failed:', err))
+    getNews().catch(err => console.error('Initial getNews failed:', err))
+    scheduleNewsRefresh()
+  })
 } catch (error) {
   console.error('Top level error:', error)
 }
