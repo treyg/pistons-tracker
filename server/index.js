@@ -34,17 +34,27 @@ try {
   // API endpoint to get Pistons games (proxy to avoid CORS)
   app.get('/api/games', async (req, res) => {
     try {
+      console.log('GET /api/games - Request received')
       const axios = (await import('axios')).default
+      console.log('Fetching from ESPN API...')
+      
       const response = await axios.get(
         'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/det/schedule',
         {
           headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-          }
+          },
+          timeout: 10000
         }
       )
       
+      console.log('ESPN API response received')
       const espnData = response.data
+      
+      if (!espnData || !espnData.events) {
+        console.error('Invalid ESPN data structure:', espnData)
+        return res.status(500).json({ error: 'Invalid data from ESPN' })
+      }
       
       // Transform ESPN data to match the old Ball Don't Lie format
       const games = espnData.events.map(event => {
@@ -69,10 +79,12 @@ try {
         }
       })
       
+      console.log(`Returning ${games.length} games`)
       res.json({ data: games })
     } catch (error) {
       console.error('Error fetching games:', error.message)
-      res.status(500).json({ error: 'Failed to fetch games' })
+      console.error('Full error:', error)
+      res.status(500).json({ error: 'Failed to fetch games', details: error.message })
     }
   })
 
