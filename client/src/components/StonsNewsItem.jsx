@@ -30,7 +30,7 @@ const StonsNewsItem = (props) => {
           {props.title}
         </h3>
         {props.description ? (
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="line-clamp-2 text-sm text-gray-600 dark:text-gray-300">
             {props.description}
           </p>
         ) : null}
