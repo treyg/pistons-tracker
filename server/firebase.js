@@ -5,7 +5,10 @@ import { getDatabase, ref, set, get } from 'firebase/database'
 // import { getAnalytics } from "firebase/analytics";
 import fetch from 'node-fetch'
 import schedule from 'node-schedule'
-import Firecrawl from '@mendable/firecrawl-js'
+import axios from 'axios'
+import jsdom from 'jsdom'
+
+const { JSDOM } = jsdom
 
 import * as dotenv from 'dotenv'
 dotenv.config()
@@ -39,45 +42,60 @@ const playerData = get(ref(database, 'roster')).then(snapshot => {
   return data.players
 })
 
-const firecrawlClient = new Firecrawl({
-  apiKey: process.env.FIRECRAWL_API_KEY,
-  baseUrl: process.env.FIRECRAWL_BASE_URL || undefined
-})
-const NEWS_URL =
-  'https://duckduckgo.com/?origin=funnel_home_website&t=h_&q=detroit%20pistons&ia=news&iar=news'
+const NEWS_RSS_URL =
+  'https://news.google.com/rss/search?q=detroit+pistons&hl=en-US&gl=US&ceid=US:en'
 
 const getNews = async () => {
   try {
-    console.log('Fetching Pistons news via Firecrawl')
-    const response = await firecrawlClient.scrape(NEWS_URL, {
-      formats: [
-        {
-          type: 'json',
-          prompt:
-            'Return an array "articles" with objects {title, url, source, publishedAt, description, image} for each Detroit Pistons news card on the page.'
-        }
-      ],
-      maxAge: 0,
-      timeout: 20000
+    console.log('Fetching Pistons news via Google News RSS')
+    const response = await axios.get(NEWS_RSS_URL, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      },
+      timeout: 15000
     })
 
-    const articles = response?.data?.json?.articles
-    if (!Array.isArray(articles)) {
-      console.error('Firecrawl returned no articles')
+    const dom = new JSDOM(response.data, { contentType: 'text/xml' })
+    const items = dom.window.document.querySelectorAll('item')
+
+    if (!items || items.length === 0) {
+      console.error('Google News RSS returned no items')
       return
     }
 
-    const parsed = articles
-      .map(article => ({
-        id: article.id || article.url || article.title,
-        title: article.title || 'Untitled',
-        url: article.url,
-        source: article.source || article.provider || 'Unknown',
-        publishedAt: article.publishedAt || article.time || null,
-        description: article.description || article.summary || '',
-        image: article.image || article.imageUrl || null
-      }))
+    const parsed = Array.from(items)
+      .map(item => {
+        const title = item.querySelector('title')?.textContent || 'Untitled'
+        const url = item.querySelector('link')?.textContent || ''
+        const pubDate = item.querySelector('pubDate')?.textContent || null
+        const source = item.querySelector('source')?.textContent || 'Unknown'
+        const description = item.querySelector('description')?.textContent || ''
+
+        // Extract image from description HTML (Google News often embeds an <img>)
+        const imgMatch = description.match(/<img[^>]+src=["']([^"']+)["']/)
+        const image = imgMatch ? imgMatch[1] : null
+
+        // Strip HTML tags from description
+        const cleanDesc = description.replace(/<[^>]*>/g, '').trim()
+
+        return {
+          id: url || title,
+          title,
+          url,
+          source,
+          publishedAt: pubDate,
+          description: cleanDesc,
+          image
+        }
+      })
       .filter(article => Boolean(article.url))
+      .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+      .slice(0, 10)
+
+    if (parsed.length === 0) {
+      console.error('No valid articles after parsing')
+      return
+    }
 
     await set(ref(database, 'news'), {
       articles: parsed,
@@ -85,7 +103,7 @@ const getNews = async () => {
     })
     console.log(`Stored ${parsed.length} Pistons news articles`)
   } catch (error) {
-    console.error('Error fetching Pistons news:', error)
+    console.error('Error fetching Pistons news:', error.message || error)
   }
 }
 

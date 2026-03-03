@@ -125,7 +125,7 @@ try {
     console.log('Starting background initialization tasks...')
     runIndex().catch(err => console.error('Initial runIndex failed:', err))
     getNews().catch(err => console.error('Initial getNews failed:', err))
-    scheduleNewsRefresh()
+    try { scheduleNewsRefresh() } catch (err) { console.error('Failed to schedule news refresh:', err) }
   })
 } catch (error) {
   console.error('Top level error:', error)
