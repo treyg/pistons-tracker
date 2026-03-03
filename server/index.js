@@ -17,7 +17,7 @@ try {
     optionsSuccessStatus: 200
   }))
   
-  const fakeport = process.env.PORT || 4000
+  const port = process.env.PORT || 8080
 
   // Health check endpoint
   app.get('/', (req, res) => {
@@ -117,8 +117,8 @@ try {
   }
 
   // Start the Express server FIRST
-  app.listen(fakeport, () => {
-    console.log(`Server running on port ${fakeport}`)
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`)
     console.log('Server is ready to accept requests')
     
     // THEN run initialization in background after server is listening
