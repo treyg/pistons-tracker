@@ -5,6 +5,14 @@ import getStonsData from "../api/getStonsData";
 import getLeagueGames from "../api/getLeagueGames";
 import StonsGame from "./StonsGame";
 
+const fetchTeamRecord = async (teamId) => {
+  const response = await fetch(
+    `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/${teamId}`
+  );
+  const data = await response.json();
+  return data.team?.record?.items?.find((r) => r.type === "total")?.summary ?? null;
+};
+
 const NextStonsGame = () => {
   const { data, isLoading, error } = useQuery(["stonsData"], getStonsData);
   const {
@@ -13,24 +21,54 @@ const NextStonsGame = () => {
     error: leagueError,
   } = useQuery(["leagueGames"], getLeagueGames);
 
+  // Get opponent team ID from nextEvent to fetch their record
+  const opponentId = data?.team?.nextEvent?.[0]?.competitions?.[0]?.competitors
+    ?.find((c) => c.team.abbreviation !== "DET")?.id;
+
+  const { data: opponentRecord } = useQuery(
+    ["opponentRecord", opponentId],
+    () => fetchTeamRecord(opponentId),
+    { enabled: !!opponentId }
+  );
+
   if (isLoading || leagueLoading) return <Loader />;
   if (error || leagueError)
     return <p>`An error has occurred: ${error.message}`</p>;
   if (data && leagueData) {
-    const liveStonsGame = leagueData.events.filter((game) =>
+    const liveStonsGame = leagueData.events?.filter((game) =>
       game.shortName.includes("DET")
-    );
+    ) ?? [];
 
     const event = data.team;
-    const date = event.nextEvent[0].date;
-    const game = event.nextEvent[0];
-    const homeTeam = event.nextEvent[0].competitions[0].competitors[0].team;
-    const awayTeam = event.nextEvent[0].competitions[0].competitors[1].team;
-    const broadcast =
-      event.nextEvent[0].competitions[0]?.broadcasts[0]?.media.shortName;
-    const liveStatus = game.competitions[0].status.type.state;
-    //const ticketLink =
-    // event.nextEvent[0].competitions[0]?.tickets[0].links[0].href;
+    const nextEvent = event?.nextEvent?.[0];
+    if (!nextEvent) {
+      return (
+        <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
+          <p className="text-gray-500">No upcoming games scheduled.</p>
+        </section>
+      );
+    }
+    const competition = nextEvent.competitions[0];
+    const date = nextEvent.date;
+    const homeTeam = competition.competitors[0].team;
+    const awayTeam = competition.competitors[1].team;
+    const broadcast = competition?.broadcasts?.[0]?.media?.shortName;
+    const liveStatus = competition.status.type.state;
+
+    // Use live scoreboard data if available, otherwise fall back to team API data
+    const liveGame = liveStonsGame[0];
+    const homeScore = liveGame?.competitions[0]?.competitors[0]?.score
+      ?? competition.competitors[0]?.score?.value
+      ?? null;
+    const awayScore = liveGame?.competitions[0]?.competitors[1]?.score
+      ?? competition.competitors[1]?.score?.value
+      ?? null;
+
+    const pistonsRecord = data.team?.record?.items?.find(r => r.type === "total")?.summary ?? null;
+    const isPistonsHome = homeTeam.abbreviation === "DET";
+    const homeRecord = isPistonsHome ? pistonsRecord : (opponentRecord ?? null);
+    const awayRecord = isPistonsHome ? (opponentRecord ?? null) : pistonsRecord;
+
     return (
       <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
         <StonsGame
@@ -40,15 +78,16 @@ const NextStonsGame = () => {
           awayName={awayTeam.name}
           homeShortName={homeTeam.shortDisplayName}
           awayShortname={awayTeam.shortDisplayName}
-          homeScore={liveStonsGame[0]?.competitions[0].competitors[0].score}
-          awayScore={liveStonsGame[0]?.competitions[0].competitors[1].score}
-          venue={game.competitions[0].venue.fullName}
-          status={game.competitions[0].status.displayClock}
-          period={game.competitions[0].status.period}
-          shortDetail={game.competitions[0].status.type.shortDetail}
+          homeScore={homeScore}
+          awayScore={awayScore}
+          homeRecord={homeRecord}
+          awayRecord={awayRecord}
+          venue={competition.venue.fullName}
+          status={competition.status.displayClock}
+          period={competition.status.period}
+          shortDetail={competition.status.type.shortDetail}
           liveStatus={liveStatus}
           broadcast={broadcast}
-          //ticketLink={ticketLink ? ticketLink : null}
           date={date}
         />
       </section>

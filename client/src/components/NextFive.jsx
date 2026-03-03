@@ -2,7 +2,8 @@ import React from "react";
 import dayjs from "dayjs";
 
 const NextFive = (props) => {
-  const futureFive = props.nextFive.events
+  const events = props.nextFive?.events ?? [];
+  const futureFive = events
     .filter((event) => {
       return dayjs(event.date).isAfter(dayjs());
     })
@@ -12,7 +13,7 @@ const NextFive = (props) => {
     <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
       <h2 className="mb-5 text-xl font-semibold">
         Upcoming Games
-        <span className="font-normal">{`- ${props.nextFive.season?.name}`}</span>
+        <span className="font-normal">{props.nextFive?.season?.name ? `- ${props.nextFive.season.name}` : ""}</span>
       </h2>
       <div className="flex flex-col gap-3">
         {futureFive.map((game) => (
@@ -42,7 +43,7 @@ const NextFive = (props) => {
             </div>
             <div className="flex flex-col justify-center">
               <div className="w-16 border-l pl-2 text-center text-xs">
-                {dayjs(game.date).format("ddd M/D @ h:mm")}
+                {dayjs(game.date).format("ddd M/D @ h:mm A")}
               </div>
             </div>
           </div>
