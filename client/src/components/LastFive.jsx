@@ -22,9 +22,27 @@ const LastFive = (props) => {
     }
   };
 
+  const record = lastFive.reduce(
+    (acc, game) => {
+      const isPistonsHome = game.home_team.name === "Pistons";
+      const pistonsWon = isPistonsHome
+        ? game.home_team_score > game.visitor_team_score
+        : game.visitor_team_score > game.home_team_score;
+      return pistonsWon ? { ...acc, w: acc.w + 1 } : { ...acc, l: acc.l + 1 };
+    },
+    { w: 0, l: 0 }
+  );
+
   return (
     <section className="mx-3 my-4 flex flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
-      <h2 className="text-xl font-semibold">Last Five Games</h2>
+      <div className="flex items-baseline justify-between">
+        <h2 className="text-xl font-semibold">Last Five Games</h2>
+        {lastFive.length > 0 && (
+          <span className="text-sm text-gray-500">
+            {record.w}-{record.l}
+          </span>
+        )}
+      </div>
 
       <div className="mt-5">
         {lastFive.length === 0 ? (

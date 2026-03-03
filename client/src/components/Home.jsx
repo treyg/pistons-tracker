@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useQuery } from "react-query";
 import Loader from "./Loader";
 import NextStonsGame from "./NextStonsGame";
@@ -21,6 +21,15 @@ const Home = () => {
     isError: stonsGamesError,
   } = useQuery(["stonsGames"], () => getStonsGames());
 
+  const prevFive = useMemo(() => {
+    const gameData = stonsGames?.data ?? [];
+    const finishedGames = gameData.filter((game) => game.status === "Final");
+    const sortedGames = [...finishedGames].sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    return sortedGames.slice(0, 5);
+  }, [stonsGames]);
+
   if (stonsGamesLoading || nextFiveLoading) {
     return <Loader />;
   }
@@ -29,20 +38,11 @@ const Home = () => {
     return <div>There was an error fetching the data.</div>;
   }
 
-  const gameData = stonsGames?.data ?? [];
-  const prevFive = () => {
-    const finishedGames = gameData.filter((game) => game.status === "Final");
-    const sortedGames = finishedGames.sort((a, b) => {
-      return new Date(b.date) - new Date(a.date);
-    });
-    return sortedGames.slice(0, 5);
-  };
-
   return (
     <div className="flex flex-col dark:text-gray-300 md:flex-row">
       <div className="left-cont md:w-1/2">
         <NextStonsGame />
-        <LastFive lastFive={prevFive()} />
+        <LastFive lastFive={prevFive} />
         <NextFive nextFive={nextFive} />
       </div>
       <div className="right-cont md:w-1/2">
