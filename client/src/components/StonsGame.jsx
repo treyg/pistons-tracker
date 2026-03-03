@@ -34,10 +34,13 @@ const StonsGame = (props) => {
             alt={props.homeName}
           />
           <p>{props.homeShortName}</p>
+          {props.homeRecord && (
+            <p className="text-xs text-gray-500">{props.homeRecord}</p>
+          )}
         </div>
         <div className="col-span-2 flex flex-col items-center gap-1 self-center text-center">
           <p>{props.broadcast ? props.broadcast : ""}</p>
-          {props.liveStatus !== "in" && props.liveStatus !== "final" ? (
+          {props.liveStatus !== "in" && props.liveStatus !== "post" ? (
             <>
               <p className="text-sm">{props.venue}</p>
               <div className="status-center mt-4">
@@ -68,6 +71,9 @@ const StonsGame = (props) => {
             alt={props.awayTeam}
           />
           <p>{props.awayShortname}</p>
+          {props.awayRecord && (
+            <p className="text-xs text-gray-500">{props.awayRecord}</p>
+          )}
         </div>
       </div>
     </section>
