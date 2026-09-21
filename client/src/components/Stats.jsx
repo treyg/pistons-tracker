@@ -1,26 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { ref, onValue } from "firebase/database";
-import db from "../api/firebase";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
+import { getStonsRoster } from "../api/stonsApi";
 
 const Stats = () => {
-  const [roster, setRoster] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading: loading } = useQuery(["stonsRoster"], getStonsRoster, {
+    staleTime: 5 * 60 * 1000,
+  });
+  const roster = data?.players ?? [];
   const [sortConfig, setSortConfig] = useState({ key: 'pts', direction: 'desc' });
-
-  useEffect(() => {
-    const fetchRoster = () => {
-      setLoading(true);
-      const playerRef = ref(db, "roster/players");
-      onValue(playerRef, (snapshot) => {
-        const fullRoster = snapshot.val();
-        // Convert object to array for easier sorting
-        const playersArray = Object.values(fullRoster || {});
-        setRoster(playersArray);
-        setLoading(false);
-      });
-    };
-    fetchRoster();
-  }, []);
 
   const handleSort = (key) => {
     let direction = 'desc';

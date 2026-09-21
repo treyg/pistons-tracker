@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "stons-center",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-21",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // The Vite build of client/. Static files are served without invoking the
+  // Worker. Only /api/* runs Worker code. Every other unmatched path gets
+  // index.html so React Router can handle it.
+  "assets": {
+    "directory": "./client/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    // /__scheduled is what `wrangler dev --test-scheduled` uses to fire the
+    // cron by hand. In production the Worker answers it with a 404.
+    "run_worker_first": ["/api/*", "/__scheduled"]
+  },
+
+  // Holds the cached news and roster blobs the cron writes.
+  "kv_namespaces": [{ "binding": "PISTONS_KV", "id": "1540aea72e814fa0a039865a686f4a3c" }],
+
+  // Refresh news and roster at the top of every hour (UTC).
+  "triggers": { "crons": ["0 * * * *"] },
+
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+
+  // Cutover: uncomment and deploy. Wrangler replaces the Netlify CNAME on
+  // stonscenter.com with a record that points at this Worker.
+  // "routes": [{ "pattern": "stonscenter.com", "custom_domain": true }]
+}

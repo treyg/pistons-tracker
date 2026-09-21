@@ -3,6 +3,11 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  // `npm run dev` at the repo root starts the Worker on 8787. This forwards
+  // /api/* there so the Vite dev server can use it.
+  server: {
+    proxy: { "/api": "http://localhost:8787" },
+  },
   plugins: [
     react(),
     VitePWA({

@@ -1,0 +1,16 @@
+{
+  "name": "stons-center",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm --prefix client ci && npm --prefix client run build",
+    "dev": "wrangler dev --test-scheduled",
+    "deploy": "npm run build && wrangler deploy",
+    "types": "wrangler types",
+    "check": "wrangler types && tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "wrangler": "^4.136.1"
+  }
+}

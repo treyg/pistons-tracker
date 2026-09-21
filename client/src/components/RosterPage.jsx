@@ -1,26 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import Roster from "./Roster";
-import { ref, onValue } from "firebase/database";
-import db from "../api/firebase";
+import { getStonsRoster } from "../api/stonsApi";
 
 const RosterPage = () => {
-  const [roster, setRoster] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading } = useQuery(["stonsRoster"], getStonsRoster, {
+    staleTime: 5 * 60 * 1000,
+  });
+  const roster = data?.players ?? [];
 
-  useEffect(() => {
-    const fetchRoster = () => {
-      setLoading(true);
-      const playerRef = ref(db, "roster/players");
-      onValue(playerRef, (snapshot) => {
-        const fullRoster = snapshot.val();
-        setRoster(fullRoster);
-        setLoading(false);
-      });
-    };
-    fetchRoster();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="text-xl dark:text-gray-300">Loading roster...</div>

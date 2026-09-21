@@ -1,38 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import Loader from "./Loader";
-import { ref, onValue } from "firebase/database";
-import db from "../api/firebase";
+import { getStonsNews } from "../api/stonsApi";
 import StonsNewsItem from "./StonsNewsItem";
 import dayjs from "dayjs";
 import RelativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(RelativeTime);
 
 const StonsNews = () => {
-  const [news, setFullNews] = useState([]);
-  const [fetchedAt, setFetchedAt] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchNews = () => {
-      setLoading(true);
-      const newsRef = ref(db, "news");
-      onValue(newsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data && data.articles) {
-          setFullNews(data.articles);
-          setFetchedAt(data.fetchedAt || null);
-        } else {
-          setFullNews([]);
-        }
-        setLoading(false);
-      });
-    };
-    fetchNews();
-  }, []);
+  const { data, isLoading } = useQuery(["stonsNews"], getStonsNews, {
+    staleTime: 5 * 60 * 1000,
+  });
+  const news = data?.articles ?? [];
+  const fetchedAt = data?.fetchedAt ?? null;
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div className="mx-3 my-4 flex flex-col gap-3 rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black">
