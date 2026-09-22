@@ -7,8 +7,9 @@ One Cloudflare Worker serves the whole thing:
 
 - `client/` — Vite + React + Tailwind SPA, served as static assets.
 - `worker/` — the API and an hourly cron. The cron pulls Pistons news from
-  Google News RSS and the roster from nba.com (ESPN as fallback), attaches
-  per-game stats from ESPN, and stores two JSON blobs in KV.
+  Google News RSS and ESPN's team feed (merged; Google throttles Cloudflare
+  some hours), the roster from nba.com (ESPN as fallback), attaches per-game
+  stats from ESPN, and stores two JSON blobs in KV.
   `/api/news` and `/api/roster` read them back. Schedules and live scores
   come from ESPN straight from the browser.
 
@@ -50,3 +51,12 @@ curl https://stonscenter.com/api/status
 ```
 
 Shows the last cron run and whether each job succeeded.
+
+### Run the cron by hand
+
+```
+curl -X POST -H "Authorization: Bearer $REFRESH_TOKEN" https://stonscenter.com/api/refresh
+```
+
+`REFRESH_TOKEN` is a Worker secret (`wrangler secret put REFRESH_TOKEN`).
+For local dev put it in `.dev.vars`.
