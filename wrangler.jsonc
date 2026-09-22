@@ -25,7 +25,9 @@
 
   "observability": { "enabled": true, "head_sampling_rate": 1 },
 
-  // Cutover: uncomment and deploy. Wrangler replaces the Netlify CNAME on
-  // stonscenter.com with a record that points at this Worker.
-  // "routes": [{ "pattern": "stonscenter.com", "custom_domain": true }]
+  // Custom domain. Wrangler manages the DNS record and certificate.
+  "routes": [
+    { "pattern": "stonscenter.com", "custom_domain": true },
+    { "pattern": "www.stonscenter.com", "custom_domain": true }
+  ]
 }
