@@ -9,7 +9,7 @@ const NbaGames = () => {
   const { data, isLoading, error } = useQuery(["nbaGames"], getLeagueGames);
 
   if (isLoading) return <Loader />;
-  if (error) return <p>`An error has occurred: ${error.message}`</p>;
+  if (error) return <p>An error has occurred: {error.message}</p>;
   if (data) {
     return (
       <section className="mx-3 my-4 flex h-max flex-col rounded bg-white py-4 px-4 shadow-md dark:bg-stons-black dark:text-gray-300">

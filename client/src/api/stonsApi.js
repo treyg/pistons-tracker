@@ -13,3 +13,6 @@ export const getStonsNews = () => getJson("/api/news");
 
 /** { players: [...], source, season, fetchedAt } */
 export const getStonsRoster = () => getJson("/api/roster");
+
+/** ESPN team payload, proxied by the Worker because ESPN sends no CORS header. */
+export const getTeam = (id) => getJson(`/api/team/${Number(id)}`);

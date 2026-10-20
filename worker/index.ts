@@ -48,6 +48,11 @@ export default {
       return json({ error: "Method not allowed" }, 405, { ...JSON_HEADERS, Allow: "GET" });
     }
 
+    // GET /api/team/:id proxies ESPN's single-team endpoint. ESPN sends no
+    // CORS header on that one, so the browser cannot call it directly.
+    const team = url.pathname.match(/^\/api\/team\/(\d{1,3})$/);
+    if (team) return proxyEspnTeam(team[1]);
+
     switch (url.pathname) {
       case "/api/news":
       case "/api/roster": {
@@ -71,6 +76,22 @@ export default {
     ctx.waitUntil(refreshAll(env, controller.cron));
   },
 } satisfies ExportedHandler<Env>;
+
+const ESPN_TEAM_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/";
+const TEAM_TTL = 60;
+
+async function proxyEspnTeam(id: string): Promise<Response> {
+  const upstream = await fetch(ESPN_TEAM_URL + id, {
+    cf: { cacheTtl: TEAM_TTL, cacheEverything: true },
+  });
+  if (!upstream.ok) {
+    log("team.failed", { id, status: upstream.status });
+    return json({ error: `ESPN returned ${upstream.status}` }, 502, { ...JSON_HEADERS, "Cache-Control": "no-store" });
+  }
+  return new Response(upstream.body, {
+    headers: { ...JSON_HEADERS, "Cache-Control": `public, max-age=${TEAM_TTL}` },
+  });
+}
 
 async function isAuthorized(request: Request, env: Env): Promise<boolean> {
   const expected = env.REFRESH_TOKEN;

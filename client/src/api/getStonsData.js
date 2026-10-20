@@ -1,8 +1,7 @@
+import { getTeam } from "./stonsApi";
 
-const getStonsData = async () => {
-    const response = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/8`);
-    const data = await response.json();
-    return data;
-}
+const PISTONS_ID = 8;
+
+const getStonsData = () => getTeam(PISTONS_ID);
 
 export default getStonsData;

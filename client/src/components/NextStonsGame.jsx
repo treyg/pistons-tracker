@@ -4,12 +4,10 @@ import Loader from "./Loader";
 import getStonsData from "../api/getStonsData";
 import getLeagueGames from "../api/getLeagueGames";
 import StonsGame from "./StonsGame";
+import { getTeam } from "../api/stonsApi";
 
 const fetchTeamRecord = async (teamId) => {
-  const response = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/${teamId}`
-  );
-  const data = await response.json();
+  const data = await getTeam(teamId);
   return data.team?.record?.items?.find((r) => r.type === "total")?.summary ?? null;
 };
 
@@ -33,7 +31,7 @@ const NextStonsGame = () => {
 
   if (isLoading || leagueLoading) return <Loader />;
   if (error || leagueError)
-    return <p>`An error has occurred: ${error.message}`</p>;
+    return <p>An error has occurred: {(error ?? leagueError).message}</p>;
   if (data && leagueData) {
     const liveStonsGame = leagueData.events?.filter((game) =>
       game.shortName.includes("DET")
